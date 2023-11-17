@@ -40,7 +40,8 @@
     "next.config.js",
     "jest.setup.ts",
     "jest.config.js",
-    "postcss.config.js"
+    "postcss.config.js",
+    "src/pages/_error.tsx"
   ],
   "exclude": ["node_modules"]
 }

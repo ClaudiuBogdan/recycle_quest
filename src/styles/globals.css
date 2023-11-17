@@ -16,12 +16,38 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes scrollBelt {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+@keyframes moveDown {
+  from {
+    top: 0;
+  }
+  to {
+    top: 100%;
+  }
+}
+
+.conveyor-belt {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background-image: url("/images/conveyor.png");
+  background-repeat: repeat-y;
+  animation: scrollBelt linear infinite; /* Adjust 10s to control speed */
+}
+
+.trash-item {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  left: 0;
 }
