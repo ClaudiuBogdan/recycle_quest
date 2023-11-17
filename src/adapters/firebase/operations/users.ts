@@ -18,9 +18,12 @@ export const getUserByToken = async (userId: string) => {
 };
 
 export const getAll = async (): Promise<User[]> => {
+  const users: User[] = [];
   const snapshot = await database.ref(`${userRef}`).get();
-  if (snapshot) {
-    return snapshot.val() as [];
+  if (snapshot.exists()) {
+    snapshot.forEach((element) => {
+      users.push(element.val());
+    });
   }
-  return [];
+  return users;
 };
