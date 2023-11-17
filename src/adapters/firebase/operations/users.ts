@@ -17,6 +17,25 @@ export const getUserByToken = async (userId: string) => {
   }
 };
 
+export const getUserbyUsername = async (username: string) => {
+  let user: string | null = null;
+  await database
+    .ref(`${userRef}`)
+    .orderByKey()
+    .on("value", (snap) => {
+      if (snap.exists()) {
+        snap.forEach((item) => {
+          console.log(item.val().username == "test22");
+          if (item.val().username == username) {
+            user = item.val();
+          }
+        });
+      }
+    });
+
+  return user;
+};
+
 export const getAll = async (): Promise<User[]> => {
   const users: User[] = [];
   const snapshot = await database.ref(`${userRef}`).get();
@@ -26,4 +45,11 @@ export const getAll = async (): Promise<User[]> => {
     });
   }
   return users;
+};
+
+export const updateUser = async (user: User) => {
+  const userRefHook = database.ref(`${userRef}`).child(`${user.id}`);
+  await userRefHook.update({
+    highscore: user.highscore,
+  });
 };

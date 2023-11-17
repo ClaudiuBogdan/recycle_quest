@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getUserbyUsername } from "@/adapters/firebase";
 import { createUser, getAllUsers } from "@/dsl/users";
 import { User } from "@/dsl/users/types";
 
@@ -28,18 +29,23 @@ export default async function handler(
       return res.status(400).json({ error: "Username is not valid" });
     }
 
+    const existingUser = await getUserbyUsername(usernameInput);
+    if (existingUser) {
+      return res.status(400).json({ error: "Username already taken" });
+    }
+
     const user = await createUser({ username: usernameInput });
 
-    res
+    return res
       .status(200)
       .json({ access_token: user.access_token, username: user.username });
   }
 
   if (req.method == "GET") {
     const users = await getAllUsers();
-
     res.status(200).json(users);
+    return;
   }
 
-  res.status(400).json({ error: "Method not found" });
+  return res.status(400).json({ error: "Method not found" });
 }
