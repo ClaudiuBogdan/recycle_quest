@@ -2,7 +2,9 @@
 import admin from "firebase-admin";
 import { config } from "@/config";
 
+console.log("Firebase credentials: ", config.firebase.credential);
 const firebaseCredential = JSON.parse(config.firebase.credential);
+console.log({ firebaseCredential });
 
 const firebaseConfig = {
   credential: admin.credential.cert(firebaseCredential),
