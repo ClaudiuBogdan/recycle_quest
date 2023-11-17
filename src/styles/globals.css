@@ -16,25 +16,21 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-}
-
 @keyframes scrollBelt {
   0% {
-      background-position: 0 0;
+    background-position: 0 0;
   }
   100% {
-      background-position: 0 100%;
+    background-position: 0 100%;
   }
 }
 
 @keyframes moveDown {
   from {
-      top: 0;
+    top: 0;
   }
   to {
-      top: 100%;
+    top: 100%;
   }
 }
 
@@ -42,10 +38,9 @@ body {
   position: relative;
   overflow: hidden;
   height: 100%;
-  background-image: url('/images/conveyor.png');
+  background-image: url("/images/conveyor.png");
   background-repeat: repeat-y;
   animation: scrollBelt linear infinite; /* Adjust 10s to control speed */
-
 }
 
 .trash-item {
