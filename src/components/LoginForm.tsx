@@ -29,7 +29,7 @@ const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
   const loadingText = "Loading";
 
   return (
-    <>
+    <div className={"space-y-4"}>
       <TextInput
         value={username}
         placeholder={placeholder}
@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
       />
       {loading && <Loading text={loadingText} />}
       {error && <ErrorMessage message={error} />}
-    </>
+    </div>
   );
 };
 
