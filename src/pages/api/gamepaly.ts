@@ -5,13 +5,18 @@ import { filterAssets } from "@/adapters/firebase";
 import { createAsset } from "@/dsl/assets";
 import { Asset } from "@/dsl/assets/types";
 
+type UserReqisterResponse = {
+  username: string;
+  access_token: string;
+};
+
 type HttpError = {
   error: string;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Asset | Asset[] | HttpError>,
+  res: NextApiResponse<UserReqisterResponse | Asset | Asset[] | HttpError>,
 ) {
   if (req.method == "POST") {
     if (!req.body) {
