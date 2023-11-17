@@ -1,28 +1,50 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRegisterUser } from "@/adapters/api";
+import { useToken } from "@/adapters/storage";
+import ErrorMessage from "./ErrorMessage";
+import Loading from "./Loading";
 import SubmitButton from "./SubmitButton";
 import TextInput from "./TextInput";
 
 interface LoginInputProps {
-  onChange: (value: string) => void;
+  onSuccess: (username: string) => void;
 }
 
-const LoginForm: React.FC<LoginInputProps> = ({ onChange }) => {
-  const [value, setValue] = useState("");
-  useEffect(() => {
-    onChange(value);
-  }, [onChange, value]);
+const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
+  const [username, setUsername] = useState("");
+  const { register, loading, error } = useRegisterUser();
+  const { setToken } = useToken();
 
   const handleSubmitClick = () => {
-    console.log("Submit click");
+    register({ username })
+      .then((res) => {
+        if (!res) {
+          throw new Error("Response is undefined");
+        }
+        setToken(res.access_token);
+        onSuccess(username);
+      })
+      .catch((err) => console.error(err));
   };
 
   const placeholder = "Insert nickname";
   const submitText = "Enter";
+  const loadingText = "Loading";
 
   return (
     <>
-      <TextInput value={value} placeholder={placeholder} onChange={setValue} />
-      <SubmitButton label={submitText} onClick={handleSubmitClick} />
+      <TextInput
+        value={username}
+        placeholder={placeholder}
+        onChange={setUsername}
+      />
+      <SubmitButton
+        label={submitText}
+        disabled={loading}
+        onClick={handleSubmitClick}
+      />
+      {loading && <Loading text={loadingText} />}
+      {error && <ErrorMessage message={error} />}
     </>
   );
 };
