@@ -30,7 +30,7 @@ export default async function handler(
 
     const user = await createUser({ username: usernameInput });
 
-    res
+    return res
       .status(200)
       .json({ access_token: user.access_token, username: user.username });
   }
