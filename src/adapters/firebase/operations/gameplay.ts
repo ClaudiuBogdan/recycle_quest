@@ -5,5 +5,8 @@ const gameplayRef = "gameplay";
 
 export const insertGameplay = async (gameplayData: Gameplay) => {
   const { id } = gameplayData;
-  return database.ref(`${gameplayRef}/${id}`).set(gameplayData);
+
+  await database.ref(`${gameplayRef}/${id}`).set(gameplayData);
+
+  return gameplayData;
 };

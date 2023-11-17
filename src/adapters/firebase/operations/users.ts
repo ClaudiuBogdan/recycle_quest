@@ -8,13 +8,17 @@ export const insertUser = async (userData: User) => {
   return database.ref(`${userRef}/${id}`).set(userData);
 };
 
-export const getUserByToken = async (userId: string) => {
-  const snapshot = await database.ref(`${userRef}/${userId}`).once("value");
+export const getUserByToken = async (access_token: string) => {
+  let user: User | null = null;
+  const snapshot = await database.ref(`${userRef}`).once("value");
   if (snapshot.exists()) {
-    return snapshot.val() as User;
-  } else {
-    return null;
+    snapshot.forEach((item) => {
+      const token = item.val().access_token;
+
+      if (token == access_token) user = item.val();
+    });
   }
+  return user;
 };
 
 export const getUserbyUsername = async (username: string) => {
@@ -25,7 +29,6 @@ export const getUserbyUsername = async (username: string) => {
     .on("value", (snap) => {
       if (snap.exists()) {
         snap.forEach((item) => {
-          console.log(item.val().username == "test22");
           if (item.val().username == username) {
             user = item.val();
           }
@@ -49,6 +52,7 @@ export const getAll = async (): Promise<User[]> => {
 
 export const updateUser = async (user: User) => {
   const userRefHook = database.ref(`${userRef}`).child(`${user.id}`);
+  console.debug("ref", userRefHook);
   await userRefHook.update({
     highscore: user.highscore,
   });
