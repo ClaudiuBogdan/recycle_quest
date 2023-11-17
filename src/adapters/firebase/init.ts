@@ -5,7 +5,7 @@ import { config } from "@/config";
 console.log("Firebase credentials: ", config.firebase.credential);
 const firebaseCredential = JSON.parse(config.firebase.credential);
 console.log({ firebaseCredential });
-
+console.error("CREDENTIALS PRINTED");
 const firebaseConfig = {
   credential: admin.credential.cert(firebaseCredential),
   databaseURL: config.firebase.databaseURL,
