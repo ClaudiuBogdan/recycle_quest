@@ -23,7 +23,8 @@ export const filterAssets = async (assets: string[]) => {
   return filteredAssets;
 };
 
-export const insertAsset = async (assetData: Asset) => {
-  const { id } = assetData;
-  return database.ref(`${assetsRef}/${id}`).set(assetData);
+export const insertAsset = async (assetData: Asset[]) => {
+  assetData.forEach(async (asset) => {
+    await database.ref(`${assetsRef}/${asset.id}`).set(asset);
+  });
 };

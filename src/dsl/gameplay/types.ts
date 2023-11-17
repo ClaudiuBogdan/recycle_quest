@@ -1,4 +1,4 @@
-import { ContainerColor } from "../assets/types";
+import { TTrashItemType } from "@/types";
 
 export type Gameplay = {
   id: string;
@@ -13,5 +13,5 @@ export type GameplayRequest = {
 
 export type GamePlayData = {
   asset_name: string;
-  container: ContainerColor;
+  container: TTrashItemType;
 };
