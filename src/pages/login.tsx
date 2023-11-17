@@ -1,4 +1,6 @@
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
 import LoginForm from "@/components/LoginForm";
 
 export default function Login() {
@@ -17,3 +19,19 @@ export default function Login() {
     </main>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = parseCookies(context);
+  const userToken = cookies.token;
+
+  if (userToken) {
+    return {
+      redirect: {
+        destination: "/home",
+        permanent: false,
+      },
+    };
+  }
+
+  return { props: {} };
+};
