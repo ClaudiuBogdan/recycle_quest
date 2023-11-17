@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Bins from "@/components/Bins";
 import ConveyerBelt from "@/components/ConveyerBelt";
 import GameHeader from "@/components/GameHeader";
@@ -20,6 +20,15 @@ export default function Game() {
     );
     setCurrentLevel((lvl) => lvl + 1);
   }
+
+  const decreaseLife = useCallback(() => {
+    if (lifes <= 0) {
+      //TODO show end game
+      return;
+    }
+
+    setLifes((life) => life - 1);
+  }, [lifes, setLifes]);
 
   useEffect(() => {
     const targetWaveSize = currentLevel * config.game.WAVE_ITEMS_NUMBER;
@@ -69,6 +78,7 @@ export default function Game() {
     animationDuration,
     setAnimationDuration,
     setItems,
+    decreaseLife,
   ]);
 
   const handleBinClick = (bin: TTrashItemType) => {
@@ -82,15 +92,6 @@ export default function Game() {
       }
       setItems([...items]);
     }
-  };
-
-  const decreaseLife = () => {
-    if (lifes <= 0) {
-      //TODO show end game
-      return;
-    }
-
-    setLifes((life) => life - 1);
   };
 
   return (
