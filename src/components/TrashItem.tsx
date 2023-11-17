@@ -8,8 +8,7 @@ export default function TrashItem(props: ITrashItem) {
   const delay = -animationDuration * position; // Negative delay for starting position
 
   const positionStyle = {
-    animation: `moveDown ${animationDuration}s linear`,
-    animationDelay: `${delay}s`,
+    animation: `moveDown ${animationDuration}s linear ${delay}s 1 normal forwards`,
     top: `${startPosition}%`,
   };
 

@@ -19,6 +19,7 @@ import yellow3 from "@/assets/yellow3.png";
 import yellow4 from "@/assets/yellow4.png";
 import yellow5 from "@/assets/yellow5.png";
 import yellow6 from "@/assets/yellow6.png";
+import { ITrashItemBase } from "@/types";
 
 export interface ITrashItemImage {
   id: string;
@@ -29,6 +30,81 @@ export default function TrashItemImage(props: ITrashItemImage) {
   const imageSrc = imageMapping[id] ?? placeholderImage;
   return <Image src={imageSrc} width={100} alt={id} />;
 }
+
+export const trashItems: ITrashItemBase[] = [
+  {
+    image: "black1",
+    type: "black",
+  },
+  {
+    image: "black2",
+    type: "black",
+  },
+  {
+    image: "black3",
+    type: "black",
+  },
+  {
+    image: "blue1",
+    type: "blue",
+  },
+  {
+    image: "blue2",
+    type: "blue",
+  },
+  {
+    image: "blue3",
+    type: "blue",
+  },
+  {
+    image: "blue4",
+    type: "blue",
+  },
+  {
+    image: "brown1",
+    type: "brown",
+  },
+  {
+    image: "brown2",
+    type: "brown",
+  },
+  {
+    image: "green1",
+    type: "green",
+  },
+  {
+    image: "green2",
+    type: "green",
+  },
+  {
+    image: "green3",
+    type: "green",
+  },
+  {
+    image: "yellow1",
+    type: "yellow",
+  },
+  {
+    image: "yellow2",
+    type: "yellow",
+  },
+  {
+    image: "yellow3",
+    type: "yellow",
+  },
+  {
+    image: "yellow4",
+    type: "yellow",
+  },
+  {
+    image: "yellow5",
+    type: "yellow",
+  },
+  {
+    image: "yellow6",
+    type: "yellow",
+  },
+];
 
 const imageMapping: Record<string, StaticImageData> = {
   black1,

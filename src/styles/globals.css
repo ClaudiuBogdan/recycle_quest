@@ -17,11 +17,11 @@
 }
 
 @keyframes scrollBelt {
-  0% {
-    background-position: 0 0;
+  from {
+    background-position: 50% 0;
   }
-  100% {
-    background-position: 0 100%;
+  to {
+    background-position: 50% 100%;
   }
 }
 
@@ -34,11 +34,17 @@
   }
 }
 
+.main-section {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .conveyor-belt {
   position: relative;
   overflow: hidden;
   height: 100%;
   background-image: url("/images/conveyor.png");
+  background-size: 100% auto;
   background-repeat: repeat-y;
   animation: scrollBelt linear infinite; /* Adjust 10s to control speed */
 }
@@ -50,4 +56,5 @@
   align-items: center;
   width: 100%;
   left: 0;
+  transform: translateY(-50%)
 }
