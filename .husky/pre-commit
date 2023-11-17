@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+# https://typicode.github.io/husky/troubleshooting.html
+. "$(dirname -- "$0")/_/husky.sh"
+
+yarn lint
