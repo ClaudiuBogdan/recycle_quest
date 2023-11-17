@@ -11,16 +11,18 @@ export default function ConveyerBelt(props: IConveyerBelt) {
 
   return (
     <div
-      className="conveyor-belt"
+      className="conveyor-belt w-1/3"
       style={{ animationDuration: `${animationDuration}s` }}
     >
-      {items.map((item) => (
-        <TrashItem
-          {...item}
-          animationDuration={animationDuration}
-          key={item.id}
-        />
-      ))}
+      {items
+        .filter((item) => !item.selectedBin)
+        .map((item) => (
+          <TrashItem
+            {...item}
+            animationDuration={animationDuration}
+            key={item.id}
+          />
+        ))}
     </div>
   );
 }

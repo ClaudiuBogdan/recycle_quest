@@ -1,9 +1,18 @@
-export interface ITrashItem {
-  image: string;
-  type: TTrashItemType;
+export interface ITrashItem extends ITrashItemBase {
   id: string;
   position: number;
   animationDuration: number;
+  selectedBin: TTrashItemType | null;
 }
 
-export type TTrashItemType = "green" | "yellow" | "blue" | "brown" | "black";
+export interface ITrashItemBase {
+  image: string;
+  type: TTrashItemType;
+}
+export type TTrashItemType =
+  | "green"
+  | "yellow"
+  | "blue"
+  | "brown"
+  | "black"
+  | "none";
