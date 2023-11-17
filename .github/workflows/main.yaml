@@ -12,7 +12,12 @@ concurrency:
 
 env:
   NEXT_PUBLIC_SITE_URL: http://localhost:3000
-  
+  FIREBASE_CREDENTIAL: ""
+  FIREBASE_DATABASE_URL: ""
+  APP_NAME: ""
+  APP_VERSION: ""
+  APP_BASE_URL: ""
+
 jobs:
   build-and-test-unit:
     timeout-minutes: 10

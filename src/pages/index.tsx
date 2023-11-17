@@ -8,7 +8,7 @@ export default function Home() {
   const buttonStartText = "Let's play";
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-between main-section ${inter.className}`}
     >
       Landing page
       <NavigationButton path={"/login"} buttonName={buttonStartText} />
