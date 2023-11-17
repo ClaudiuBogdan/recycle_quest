@@ -53,16 +53,3 @@ export const updateUser = async (user: User) => {
     highscore: user.highscore,
   });
 };
-
-export const getLeaderBoard = async (): Promise<User[]> => {
-  const snapshot = await database
-    .ref(`${userRef}`)
-    .orderByKey()
-    .equalTo("highscore")
-    .get();
-
-  if (snapshot) {
-    return snapshot.val() as [];
-  }
-  return [];
-};

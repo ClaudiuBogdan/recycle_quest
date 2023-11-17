@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 import type { NextApiRequest, NextApiResponse } from "next";
+import { setCookie } from "nookies";
 import { getUserbyUsername } from "@/adapters/firebase";
 import { createUser, getAllUsers } from "@/dsl/users";
 import { User } from "@/dsl/users/types";
@@ -35,6 +36,15 @@ export default async function handler(
     }
 
     const user = await createUser({ username: usernameInput });
+
+    // Set the token in a cookie using
+    setCookie({ res }, "token", user.access_token, {
+      httpOnly: true, // Secure cookie, not accessible via JavaScript
+      secure: process.env.NODE_ENV !== "development", // Use secure in production
+      maxAge: 60 * 60 * 24 * 7 * 4, // 4 week
+      sameSite: "strict", // CSRF protection
+      path: "/",
+    });
 
     return res
       .status(200)
