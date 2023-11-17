@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import { useCallback, useState } from "react";
-import LoginInput from "@/components/LoginInput";
+import LoginForm from "@/components/LoginForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +15,7 @@ export default function Login() {
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
       Login page
-      <LoginInput onChange={handleOnChange} />
+      <LoginForm onChange={handleOnChange} />
       {username}
     </main>
   );
