@@ -3,7 +3,7 @@ import Bins from "@/components/Bins";
 import ConveyerBelt from "@/components/ConveyerBelt";
 import GameHeader from "@/components/GameHeader";
 import { trashItems } from "@/components/TrashItemImage";
-import config from "@/config";
+import { config } from "@/config";
 import { ITrashItem, TTrashItemType } from "@/types";
 import { assignBinToItem, calculateSpawnRate, generateItem } from "@/utils";
 
@@ -16,13 +16,13 @@ export default function Game() {
 
   function increaseDifficulty() {
     setAnimationDuration(
-      (duration) => duration - duration * config.DIFFICULTY_INCREASE,
+      (duration) => duration - duration * config.game.DIFFICULTY_INCREASE,
     );
     setCurrentLevel((lvl) => lvl + 1);
   }
 
   useEffect(() => {
-    const targetWaveSize = currentLevel * config.WAVE_ITEMS_NUMBER;
+    const targetWaveSize = currentLevel * config.game.WAVE_ITEMS_NUMBER;
 
     const levelCleared =
       items.every((item) => item.selectedBin) &&
@@ -36,11 +36,11 @@ export default function Game() {
   useEffect(() => {
     const spawnRate = calculateSpawnRate(
       animationDuration,
-      config.WAVE_ITEMS_SPREAD,
+      config.game.WAVE_ITEMS_SPREAD,
     );
     const interval = setInterval(() => {
       setItems((items) => {
-        const targetWaveSize = currentLevel * config.WAVE_ITEMS_NUMBER;
+        const targetWaveSize = currentLevel * config.game.WAVE_ITEMS_NUMBER;
         // Generate items until we reached our target size
         if (items.length < targetWaveSize) {
           const item = generateItem(trashItems, animationDuration);

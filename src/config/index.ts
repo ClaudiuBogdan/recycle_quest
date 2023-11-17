@@ -13,4 +13,10 @@ export const config = {
     version: loadEnv("APP_VERSION"),
     baseUrl: loadEnv("APP_BASE_URL"),
   },
+
+  game: {
+    DIFFICULTY_INCREASE: 0.05,
+    WAVE_ITEMS_NUMBER: 10,
+    WAVE_ITEMS_SPREAD: 0.2,
+  },
 };
