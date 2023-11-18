@@ -97,7 +97,15 @@ export default function Game() {
   return (
     <div
       className="h-screen flex flex-col justify-center items-center"
-      style={{ minWidth: "185px" }}
+      style={{
+        minWidth: "185px",
+        maxWidth: "50vh",
+        margin: 0,
+        padding: 0,
+        backgroundImage: `url('/images/tail.png')`,
+        backgroundRepeat: "repeat",
+        backgroundSize: "auto",
+      }}
     >
       <GameHeader score={score} lifes={lifes} />
       <ConveyerBelt items={items} animationDuration={animationDuration} />
