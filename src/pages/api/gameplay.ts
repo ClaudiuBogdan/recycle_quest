@@ -33,7 +33,7 @@ export default async function handler(
   if (req.method == "POST") {
     if (req.body && user) {
       const gameData = await addUserscore(user, req.body);
-      res.status(200).json({ id: gameData.id });
+      return res.status(200).json({ id: gameData.id });
     }
   } else if (req.method == "GET") {
     console.debug("get method");
@@ -42,7 +42,7 @@ export default async function handler(
   if (req.method == "GET") {
     if (req.query.id) {
       const gamePlay = await getGamePlayData(req.query.id.toString());
-      res.status(200).json(gamePlay);
+      return res.status(200).json(gamePlay);
     }
   }
 
