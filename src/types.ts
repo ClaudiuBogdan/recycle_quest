@@ -8,6 +8,7 @@ export interface ITrashItem extends ITrashItemBase {
 export interface ITrashItemBase {
   image: string;
   type: TTrashItemType;
+  label: string;
 }
 export type TTrashItemType =
   | "green"
