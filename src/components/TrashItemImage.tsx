@@ -23,86 +23,110 @@ import { ITrashItemBase } from "@/types";
 
 export interface ITrashItemImage {
   id: string;
+  label: string;
 }
 
 export default function TrashItemImage(props: ITrashItemImage) {
-  const { id } = props;
+  const { id, label } = props;
   const imageSrc = imageMapping[id] ?? placeholderImage;
-  return <Image src={imageSrc} width={100} alt={id} />;
+  return (
+    <div>
+      <Image src={imageSrc} width={100} alt={id} />
+      <span className="text-white">{label}</span>
+    </div>
+  );
 }
 
 export const trashItems: ITrashItemBase[] = [
   {
     image: "black1",
     type: "black",
+    label: "rezidual",
   },
   {
     image: "black2",
     type: "black",
+    label: "organic",
   },
   {
     image: "black3",
     type: "black",
+    label: "organic",
   },
   {
     image: "blue1",
     type: "blue",
+    label: "hartie",
   },
   {
     image: "blue2",
     type: "blue",
+    label: "hartie",
   },
   {
     image: "blue3",
     type: "blue",
+    label: "hartie",
   },
   {
     image: "blue4",
     type: "blue",
+    label: "hartie",
   },
   {
     image: "brown1",
     type: "brown",
+    label: "organic",
   },
   {
     image: "brown2",
     type: "brown",
+    label: "organic",
   },
   {
     image: "green1",
     type: "green",
+    label: "sticla",
   },
   {
     image: "green2",
     type: "green",
+    label: "sticla",
   },
   {
     image: "green3",
     type: "green",
+    label: "sticla",
   },
   {
     image: "yellow1",
     type: "yellow",
+    label: "plastic",
   },
   {
     image: "yellow2",
     type: "yellow",
+    label: "plastic",
   },
   {
     image: "yellow3",
     type: "yellow",
+    label: "plastic",
   },
   {
     image: "yellow4",
     type: "yellow",
+    label: "plastic",
   },
   {
     image: "yellow5",
     type: "yellow",
+    label: "plastic",
   },
   {
     image: "yellow6",
     type: "yellow",
+    label: "plastic",
   },
 ];
 

@@ -2,7 +2,7 @@ import { ITrashItem } from "@/types";
 import TrashItemImage from "./TrashItemImage";
 
 export default function TrashItem(props: ITrashItem) {
-  const { image, position, animationDuration } = props;
+  const { image, position, animationDuration, label } = props;
 
   const startPosition = position * 100; // Convert to percentage
   const delay = -animationDuration * position; // Negative delay for starting position
@@ -14,7 +14,7 @@ export default function TrashItem(props: ITrashItem) {
 
   return (
     <div className="trash-item" style={positionStyle}>
-      <TrashItemImage id={image} />
+      <TrashItemImage id={image} label={label} />
     </div>
   );
 }
