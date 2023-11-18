@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import { parseCookies } from "nookies";
-import Game from "./_game";
+import Game from "../_game";
 
 const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
