@@ -3,7 +3,7 @@ import Bins from "@/components/Bins";
 import ConveyerBelt from "@/components/ConveyerBelt";
 import GameHeader from "@/components/GameHeader";
 import { trashItems } from "@/components/TrashItemImage";
-import { config } from "@/config";
+import { config } from "@/config/game";
 import { ITrashItem, TTrashItemType } from "@/types";
 import { assignBinToItem, calculateSpawnRate, generateItem } from "@/utils";
 

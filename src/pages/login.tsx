@@ -11,12 +11,32 @@ export default function Login() {
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24`}
-    >
-      Login page
-      <LoginForm onSuccess={handleRegisterSuccess} />
-    </main>
+    <>
+      <main
+        className={`flex min-h-screen flex-col items-center justify-center p-20 bg-white`}
+      >
+        <h1 className="text-4xl md:text-6xl font-bold text-green-600 pb-10">
+          Login page
+        </h1>
+
+        <LoginForm onSuccess={handleRegisterSuccess} />
+      </main>
+
+      <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-white">
+        <div className="space-y-4">
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md"
+          />
+          <button
+            className={`w-full px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700`}
+          >
+            Log In
+          </button>
+        </div>
+      </main>
+    </>
   );
 }
 

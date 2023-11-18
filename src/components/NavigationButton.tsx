@@ -13,10 +13,10 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
   disabled = false,
 }) => {
   return (
-    <Link href={path} passHref>
+    <Link href={path} passHref className="w-full">
       <button
         disabled={disabled}
-        className={`text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${
+        className={`w-full px-6 py-2 mt-4 bg-yellow-500 text-white font-bold rounded-lg shadow-lg hover:bg-yellow-600 transition duration-300 ${
           disabled ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
