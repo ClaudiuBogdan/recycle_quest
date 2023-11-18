@@ -22,13 +22,20 @@ export default function YellowInformation() {
         rezultate de la lucrările de construcții, polistirenul destinat
         izolației clădirilor sau produse combinate din plastic și metal."
     >
-      <ul>
-        <li>Le clătim/curățăm cu apă, dacă sunt murdare;</li>
-        <li>Le scoatem dopul (în cazul sticlelor din plastic);</li>
-        <li>
-          Le presăm cât mai bine posibil, pentru a ocupa cât mai puțin spațiu.
+      <ul className="list-disc ml-6 space-y-2">
+        <li className="flex items-center">
+          ✅ Le clătim/curățăm cu apă, dacă sunt murdare;
         </li>
-        <li>Nu arucăm recipientele cu resturi de lichid în ele sau murdare!</li>
+        <li className="flex items-center">
+          ✅ Le scoatem dopul (în cazul sticlelor din plastic);
+        </li>
+        <li className="flex items-center">
+          ✅ Le presăm cât mai bine posibil, pentru a ocupa cât mai puțin
+          spațiu.
+        </li>
+        <li className="flex items-center">
+          ❌ Nu arucăm recipientele cu resturi de lichid în ele sau murdare!
+        </li>
       </ul>
     </SectionInformation>
   );

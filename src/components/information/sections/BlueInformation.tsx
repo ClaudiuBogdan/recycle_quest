@@ -11,24 +11,26 @@ export default function BlueInformation() {
       ambalaje din hârtie/carton (de ex. cutii de la electronice, de la
       alimente, cartoane de ouă, cutii de pizza, de pantofi, pungi din hartie
       etc), maculatură (de ex. ziare, cărți, reviste, caiete, etc)."
-      importantSection="Important! Cum aruncăm ambajele din hârtie/carton:"
+      importantSection={
+        "<b>Important!</b> Cum aruncăm ambajele din hârtie/carton:"
+      }
       listSection=""
       dontSection="NU depunem în recipientele de culoare albastră ambalaje de hartie și
       carton contaminate, cum ar fi: hârtie și carton ce conțin reziduuri de
       mâncare sau îmbibate cu ulei, șervețele și hârtie de bucătărie folosite,
       hârtie de ambalat lucioasă."
     >
-      <ul>
-        <li>
-          Ne asigurăm că sunt curate și că nu sunt contaminate cu uleiuri,
+      <ul className="list-disc ml-6 space-y-2">
+        <li className="flex items-center">
+          ✅ Ne asigurăm că sunt curate și că nu sunt contaminate cu uleiuri,
           resturi alimentare etc;
         </li>
-        <li>
-          Le pliem/comprimăm pentru a economisi spațiu în interiorul
+        <li className="flex items-center">
+          ✅ Le pliem/comprimăm pentru a economisi spațiu în interiorul
           pubelei/containerului;
         </li>
-        <li>
-          Nu aruncăm cartoane îmbibate cu ulei (cum sunt, uneori, cutiile de
+        <li className="flex items-center">
+          ❌ Nu aruncăm cartoane îmbibate cu ulei (cum sunt, uneori, cutiile de
           pizza) în recipientele albastre!
         </li>
       </ul>

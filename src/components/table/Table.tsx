@@ -18,8 +18,8 @@ const TableComponent: React.FC = () => {
   }
 
   return (
-    <table className="min-w-full bg-black text-white divide-y divide-gray-200">
-      <thead className="bg-gray-800">
+    <table className="min-w-full bg-white text-black divide-y divide-gray-900">
+      <thead className="bg-gray-200">
         <tr>
           <th
             scope="col"
@@ -46,7 +46,7 @@ const TableComponent: React.FC = () => {
           data.map((row, index) => (
             <tr
               key={index}
-              className={index % 2 === 0 ? "bg-gray-900" : "bg-gray-800"}
+              className={index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
             >
               <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
               <td className="px-6 py-4 whitespace-nowrap">{row.username}</td>
