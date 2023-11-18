@@ -28,18 +28,18 @@ export const addUserscore = async (user: User, gameResult: GameplayRequest) => {
 
 async function calculateScore(result: GamePlayData[]): Promise<number> {
   const assets = await filterAssets(result.map((x) => x.asset_name));
-  const maximumScore = assets.reduce((sum, current) => sum + current.points, 0);
+  //const maximumScore = assets.reduce((sum, current) => sum + current.points, 0);
 
-  const wrongAnsewers = assets
+  const correctAnswers = assets
     .map((asset) => {
       return result.find(
-        (el) => el.asset_name == asset.name && el.container != asset.container,
+        (el) => el.asset_name == asset.name && el.container == asset.container,
       )
         ? 0
         : asset.points;
     })
     .reduce((sum, current) => sum + current, 0);
-  return maximumScore - wrongAnsewers;
+  return correctAnswers;
 }
 
 async function updateUserhighscore(user: User, score: number) {
