@@ -20,7 +20,7 @@ export default function Home() {
       <div className={"max-w-2xl"}>
         <NavigationButton path={"/game"} buttonName={newGameText} />
         <NavigationButton path={"/leaderboard"} buttonName={leaderboardText} />
-        <NavigationButton path={"/info"} buttonName={infoText} />
+        <NavigationButton path={"/information"} buttonName={infoText} />
       </div>
     </main>
   );
