@@ -8,6 +8,7 @@ export const createUser = async (userInput: UserRegisterRequest) => {
   const userData = {
     ...userInput,
     id: userId,
+    highscore: 0,
     access_token: uuid.v4(),
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
