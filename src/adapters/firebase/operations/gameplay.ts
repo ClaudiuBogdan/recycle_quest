@@ -10,3 +10,18 @@ export const insertGameplay = async (gameplayData: Gameplay) => {
 
   return gameplayData;
 };
+
+export const getGamePlay = async (
+  gameplayId: string,
+): Promise<Gameplay | null> => {
+  let gameplay: Gameplay | null = null;
+  const snapshot = await database.ref(`${gameplayRef}`).once("value");
+  if (snapshot.exists()) {
+    snapshot.forEach((item) => {
+      const id = item.val().id;
+
+      if (id == gameplayId) gameplay = item.val();
+    });
+  }
+  return gameplay;
+};

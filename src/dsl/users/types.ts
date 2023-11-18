@@ -3,7 +3,7 @@ export type User = {
   username: string;
   access_token: string;
   createdAt: string;
-  highscore?: number;
+  highscore: number;
 };
 
 export type UserRegisterRequest = {

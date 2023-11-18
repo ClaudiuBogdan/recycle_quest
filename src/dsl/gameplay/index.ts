@@ -1,7 +1,10 @@
 import * as uuid from "uuid";
 import { filterAssets } from "@/adapters/firebase";
-import { insertGameplay } from "@/adapters/firebase/operations/gameplay";
-import { updateUser } from "@/adapters/firebase/operations/users";
+import {
+  getGamePlay,
+  insertGameplay,
+} from "@/adapters/firebase/operations/gameplay";
+import { getUserById, updateUser } from "@/adapters/firebase/operations/users";
 import { GamePlayData, GameplayRequest } from "./types";
 import { User } from "../users/types";
 
@@ -45,4 +48,20 @@ async function calculateScore(result: GamePlayData[]): Promise<number> {
 async function updateUserhighscore(user: User, score: number) {
   if (user && Number(user.highscore) < score)
     await updateUser({ ...user, highscore: score });
+}
+
+export async function getGamePlayData(gameplayId: string) {
+  const gameplay = await getGamePlay(gameplayId);
+  if (!gameplay) return null;
+
+  const user = (await getUserById(gameplay.user_id!)) as User;
+
+  if (!user) return null;
+
+  const data = {
+    ...gameplay,
+    username: user.username,
+    highscore: user.highscore,
+  };
+  return data;
 }
