@@ -1,6 +1,7 @@
 import useSWRMutation from "swr/mutation";
 
 type ResponseData = {
+  id: string;
   error?: string;
 };
 
@@ -18,7 +19,7 @@ async function endGameRequest(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username: options.arg.result }),
+    body: JSON.stringify({ result: options.arg.result }),
   })
     .then((res) => {
       console.log("Error: ", res);

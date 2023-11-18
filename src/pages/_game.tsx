@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 import { useEndGame } from "@/adapters/api/game";
 import Bins from "@/components/Bins";
@@ -14,7 +15,8 @@ export default function Game() {
   const [animationDuration, setAnimationDuration] = useState(10);
   const [lifes, setLifes] = useState(3);
   const [score, setScore] = useState(0);
-  const { endGame } = useEndGame();
+  const { endGame, data, loading } = useEndGame();
+  const router = useRouter();
 
   function increaseDifficulty() {
     setAnimationDuration(
@@ -25,19 +27,35 @@ export default function Game() {
 
   const decreaseLife = useCallback(() => {
     if (lifes <= 0) {
-      const result: Array<{ asset_name: string; container: string }> =
-        items.map((item) => ({
-          asset_name: item.id,
-          container: item.selectedBin || "",
-        }));
-      endGame({ result })
-        .then(() => void 0)
-        .catch(() => void 0);
       return;
     }
 
-    setLifes((life) => life - 1);
-  }, [lifes, setLifes, endGame, items]);
+    setLifes((life) => (life > 0 ? life - 1 : 0));
+  }, [lifes]);
+
+  useEffect(() => {
+    if (lifes > 0 || data || loading) {
+      return;
+    }
+    const result: Array<{ asset_name: string; container: string }> = items.map(
+      (item) => ({
+        asset_name: item.image,
+        container: item.selectedBin || "",
+      }),
+    );
+    console.log("End game");
+    endGame({ result })
+      .then((res) => {
+        if (!res) {
+          return;
+        }
+        router
+          .push(`/game/${res.id}`)
+          .then(() => void 0)
+          .catch((err) => console.error(err));
+      })
+      .catch(() => void 0);
+  }, [lifes, endGame, items, data, loading]);
 
   useEffect(() => {
     const targetWaveSize = currentLevel * config.game.WAVE_ITEMS_NUMBER;
