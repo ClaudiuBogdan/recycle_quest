@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useEndGame } from "@/adapters/api/game";
 import Bins from "@/components/Bins";
 import ConveyerBelt from "@/components/ConveyerBelt";
 import GameHeader from "@/components/GameHeader";
@@ -13,6 +14,7 @@ export default function Game() {
   const [animationDuration, setAnimationDuration] = useState(10);
   const [lifes, setLifes] = useState(3);
   const [score, setScore] = useState(0);
+  const { endGame } = useEndGame();
 
   function increaseDifficulty() {
     setAnimationDuration(
@@ -23,12 +25,19 @@ export default function Game() {
 
   const decreaseLife = useCallback(() => {
     if (lifes <= 0) {
-      //TODO show end game
+      const result: Array<{ asset_name: string; container: string }> =
+        items.map((item) => ({
+          asset_name: item.id,
+          container: item.selectedBin || "",
+        }));
+      endGame({ result })
+        .then(() => void 0)
+        .catch(() => void 0);
       return;
     }
 
     setLifes((life) => life - 1);
-  }, [lifes, setLifes]);
+  }, [lifes, setLifes, endGame, items]);
 
   useEffect(() => {
     const targetWaveSize = currentLevel * config.game.WAVE_ITEMS_NUMBER;
