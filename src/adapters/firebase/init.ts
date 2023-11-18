@@ -11,4 +11,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = admin.apps[0] ?? admin.initializeApp(firebaseConfig);
 
+export const adminFB = admin;
 export const database = admin.database(firebaseApp);

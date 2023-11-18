@@ -1,6 +1,8 @@
 import { filterAssets, insertAsset } from "./operations/assets";
+import { getGamePlay } from "./operations/gameplay";
 import {
   getAll,
+  getUserById,
   getUserByToken,
   getUserbyUsername,
   insertUser,
@@ -11,6 +13,8 @@ export {
   filterAssets,
   insertAsset,
   insertUser,
+  getGamePlay,
+  getUserById,
   getUserByToken,
   getUserbyUsername,
   getAll,

@@ -3,14 +3,12 @@ import { filterAssets, insertAsset } from "@/adapters/firebase";
 import { Asset, AssetCreateRequest } from "./types";
 
 export const createAsset = async (assetInput: AssetCreateRequest[]) => {
-  const assetId = uuid.v4();
-
   const assets: Asset[] = [];
 
   assetInput.forEach((asset) => {
     const assetData = {
       ...asset,
-      id: assetId,
+      id: uuid.v4(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

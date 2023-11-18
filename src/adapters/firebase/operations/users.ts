@@ -5,6 +5,7 @@ const userRef = "users";
 
 export const insertUser = async (userData: User) => {
   const { id } = userData;
+  userData.highscore = 0;
   return database.ref(`${userRef}/${id}`).set(userData);
 };
 
@@ -30,6 +31,24 @@ export const getUserbyUsername = async (username: string) => {
       if (snap.exists()) {
         snap.forEach((item) => {
           if (item.val().username == username) {
+            user = item.val();
+          }
+        });
+      }
+    });
+
+  return user;
+};
+
+export const getUserById = async (id: string): Promise<User | null> => {
+  let user: User | null = null;
+  await database
+    .ref(`${userRef}`)
+    .orderByKey()
+    .on("value", (snap) => {
+      if (snap.exists()) {
+        snap.forEach((item) => {
+          if (item.val().id == id) {
             user = item.val();
           }
         });
