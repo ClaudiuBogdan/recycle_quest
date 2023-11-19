@@ -14,20 +14,43 @@ export function useItems() {
   }, []);
 
   const removeItem = useCallback((itemId: number) => {
+    console.log("Remove item");
+    const newItem: ITrashItem = {
+      id: lastIdRef.current + 1,
+      position: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
+      ...getRandomItem(trashItems),
+    };
+    lastIdRef.current++;
+
     setItems((items) => {
-      const newItem = {
-        id: lastIdRef.current + 1,
-        initialPosition: startingPosition,
-        ...getRandomItem(trashItems),
-      };
-      lastIdRef.current++;
-      const newItems = items.filter((item) => item.id !== itemId);
+      console.log("Set item");
+      const newItems = items.filter(
+        (item) => item.id !== itemId && item.id !== newItem.id,
+      );
+
+      const lastItemPosition =
+        newItems[newItems.length - 1]?.position ?? newItem.position;
+      newItem.position = Math.min(lastItemPosition, newItem.position);
+
       newItems.push(newItem);
+      console.log("New items:", newItems);
       return newItems;
     });
   }, []);
 
-  return { items, removeItem };
+  const verifyBinSelection = useCallback(
+    (binType: string): ITrashItem | null => {
+      const firstItem = items[0];
+      console.log({ firstItem, binType, items });
+      if (!firstItem || firstItem.type !== binType) {
+        return null;
+      }
+      return firstItem;
+    },
+    [items],
+  );
+
+  return { items, removeItem, verifyBinSelection };
 }
 
 export function getInitialItems(
@@ -39,7 +62,7 @@ export function getInitialItems(
     const baseItem = getRandomItem(trashItems);
     const item: ITrashItem = {
       id: i + 1,
-      initialPosition: initialPosition * i,
+      position: initialPosition * i,
       ...baseItem,
     };
     items.push(item);
