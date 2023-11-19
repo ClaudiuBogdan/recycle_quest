@@ -1,32 +1,37 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import TrashItem from "./TrashItem";
+import { ITrashItem } from "./types";
 import usePosition from "./usePosition";
 
 type ConveyorBeltProps = {
+  items: ITrashItem[];
   speed: number; // pixels per second
+  onOverflow: (itemId: number) => void;
 };
 
-const ConveyorBelt: React.FC<ConveyorBeltProps> = ({ speed }) => {
+const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
+  items,
+  speed,
+  onOverflow,
+}) => {
   const containerRef = useRef(null);
   const position = usePosition(containerRef);
 
-  const handleItemOverflow = useCallback((id: number) => {
-    console.log("Handled overflow: ", id);
-  }, []);
-
-  const item = {
-    id: 1,
-    initialPosition: 500,
-  };
-
   return (
-    <div ref={containerRef} className="w-20 h-full bg-gray-600">
-      <TrashItem
-        item={item}
-        speed={speed}
-        containerPosition={position}
-        onOverflow={handleItemOverflow}
-      />
+    <div
+      ref={containerRef}
+      className="w-20 bg-gray-600"
+      style={{ height: "70%" }}
+    >
+      {items.map((item) => (
+        <TrashItem
+          key={item.id}
+          item={item}
+          speed={speed}
+          containerPosition={position}
+          onOverflow={onOverflow}
+        />
+      ))}
     </div>
   );
 };
