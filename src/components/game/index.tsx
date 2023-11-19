@@ -11,7 +11,7 @@ const Game: React.FC<GameProps> = () => {
   // Remove the last item when the item reaches the end of the conveyor belt
   const speed = useSpeed();
   return (
-    <div className="w-40 h-screen bg-yellow-200 relative">
+    <div className="w-40 h-screen bg-yellow-200 relative overflow-hidden">
       <ConveyorBelt speed={speed} />
     </div>
   );
