@@ -46,12 +46,12 @@ export const trashItems: ITrashItemBase[] = [
   {
     image: "black2",
     type: "black",
-    label: "organic",
+    label: "rezidual",
   },
   {
     image: "black3",
     type: "black",
-    label: "organic",
+    label: "rezidual",
   },
   {
     image: "blue1",
