@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 
 const useSpeed = () => {
   const [speed, setSpeed] = useState(0);
-  const [factor, setFactor] = useState(0.1);
+  const [factor, setFactor] = useState(10);
+
   useEffect(() => {
-    const newSpeed =
-      typeof window !== "undefined" ? window.innerHeight * factor : 0;
+    const devicePixelDensity =
+      typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
+    const newSpeed = devicePixelDensity * factor;
     setSpeed(newSpeed);
 
     const timeoutId = setTimeout(
-      () => setFactor((factor) => (factor += 0.01)),
+      () => setFactor((factor) => (factor += 1)),
       1000,
     );
     return () => clearTimeout(timeoutId);
