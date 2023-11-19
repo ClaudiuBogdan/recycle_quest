@@ -30,6 +30,16 @@ const TrashItem: React.FC<TrashItemProps> = ({
   }, [overflowed, onOverflow]);
 
   useEffect(() => {
+    const setInitialTimestamp = (timestamp: number) => {
+      if (lastTime.current === 0) {
+        lastTime.current = timestamp;
+      }
+    };
+    const frameId = requestAnimationFrame(setInitialTimestamp);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
+  useEffect(() => {
     let animationId: number;
     const item = itemRef.current;
     const animate = (timestamp: number) => {
