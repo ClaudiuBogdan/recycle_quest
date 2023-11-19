@@ -53,13 +53,9 @@ const TrashItem: React.FC<TrashItemProps> = ({
         return;
       }
       lastTime.current = currentTime;
-      const currentY =
-        parseFloat(
-          divRef.current.style.transform
-            .replace("translateY(", "")
-            .replace("px)", ""),
-        ) || item.initialPosition;
+      const currentY = item.position;
       const newY = currentY + speed * deltaTime;
+      item.position = newY;
       divRef.current.style.transform = `translateY(${newY}px)`;
       divRef.current.style.visibility = "visible";
 
