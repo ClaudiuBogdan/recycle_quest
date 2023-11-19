@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ITrashItem, ITrashItemBase } from "./types";
 
-const startingPosition = -300;
+const startingPosition = -120; // pixels
 
 export function useItems() {
   const lastIdRef = useRef(0);
@@ -14,7 +14,6 @@ export function useItems() {
   }, []);
 
   const removeItem = useCallback((itemId: number) => {
-    console.log("Remove item");
     const newItem: ITrashItem = {
       id: lastIdRef.current + 1,
       position: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
@@ -23,17 +22,18 @@ export function useItems() {
     lastIdRef.current++;
 
     setItems((items) => {
-      console.log("Set item");
       const newItems = items.filter(
         (item) => item.id !== itemId && item.id !== newItem.id,
       );
 
       const lastItemPosition =
         newItems[newItems.length - 1]?.position ?? newItem.position;
-      newItem.position = Math.min(lastItemPosition, newItem.position);
+      newItem.position = Math.min(
+        lastItemPosition + startingPosition,
+        newItem.position,
+      );
 
       newItems.push(newItem);
-      console.log("New items:", newItems);
       return newItems;
     });
   }, []);
@@ -41,7 +41,6 @@ export function useItems() {
   const verifyBinSelection = useCallback(
     (binType: string): ITrashItem | null => {
       const firstItem = items[0];
-      console.log({ firstItem, binType, items });
       if (!firstItem || firstItem.type !== binType) {
         return null;
       }
