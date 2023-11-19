@@ -1,6 +1,6 @@
 export type ITrashItem = ITrashItemBase & {
   id: number;
-  initialPosition: number;
+  position: number;
 };
 
 export type ITrashItemBase = {
@@ -8,3 +8,5 @@ export type ITrashItemBase = {
   type: string;
   label: string;
 };
+
+export type RecycleBinType = "green" | "yellow" | "blue" | "brown" | "black";
