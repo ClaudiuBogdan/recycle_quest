@@ -24,7 +24,7 @@ export default async function handler(
       })
       .slice(0, 10);
 
-    res.status(200).json(firstTenUsers);
+    return res.status(200).json(firstTenUsers);
   }
 
   res.status(400).json({ error: "Method not found" });
