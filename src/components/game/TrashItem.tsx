@@ -81,7 +81,8 @@ const TrashItem: React.FC<TrashItemProps> = ({
   }, [speed, containerPosition]);
   return (
     <div className="w-20 h-20 bg-white absolute top-0 invisible" ref={divRef}>
-      Trash
+      Trash {itemRef.current.id}
+      <div>{item.label}</div>
     </div>
   );
 };
