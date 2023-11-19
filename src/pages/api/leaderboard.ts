@@ -16,12 +16,8 @@ export default async function handler(
     const users = await getAllUsers();
 
     const firstTenUsers = users
-      .sort((a, b) => {
-        if (a.highscore && b.highscore) {
-          return a.highscore - b.highscore;
-        }
-        return 0;
-      })
+      .filter((user) => !!user.highscore)
+      .sort((a, b) => b.highscore - a.highscore)
       .slice(0, 10);
 
     return res.status(200).json(firstTenUsers);
