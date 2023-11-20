@@ -5,20 +5,17 @@ import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
 import { useItems } from "./hooks/useItems";
 import { useLives } from "./hooks/useLives";
+import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 
 interface GameProps {}
 
 const Game: React.FC<GameProps> = () => {
-  // Create a queue with items
-  // Make the items to move in the conveyor belt
-  // Remove the last item when the user click a container
-  // Remove the last item when the item reaches the end of the conveyor belt
-  // Add feedback when losing a life
   const [gameEnded, setGameEnded] = useState(false);
   const { items, removeItem, verifyBinSelection } = useItems();
   const { lives, removeLife } = useLives();
   const speed = useSpeed(gameEnded);
+  const { conveyorBeltWidth, conveyorBeltHeight } = useSize();
 
   useEffect(() => {
     if (lives <= 0) {
@@ -47,8 +44,14 @@ const Game: React.FC<GameProps> = () => {
   };
 
   return (
-    <div className="w-50 h-screen bg-yellow-200 relative overflow-hidden">
-      <ConveyorBelt speed={speed} onOverflow={handleOverflow} items={items} />
+    <div className="h-screen bg-yellow-200 relative overflow-hidden">
+      <ConveyorBelt
+        speed={speed}
+        onOverflow={handleOverflow}
+        items={items}
+        width={conveyorBeltWidth}
+        height={conveyorBeltHeight}
+      />
       <Bins onBinClick={handleBinClick} />
       <Lives count={lives} />
     </div>

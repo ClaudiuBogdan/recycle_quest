@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { ITrashItem } from "./types";
-import { getPosition } from "./hooks/usePosition";
 
 interface TrashItemProps {
-  // width: string;
   item: ITrashItem;
   speed: number;
+  size: number;
   containerPosition: {
+    height: number;
     bottom: number;
-  } | null;
+  };
   onOverflow: (id: number) => void;
 }
 
 const TrashItem: React.FC<TrashItemProps> = ({
   speed,
   item,
+  size,
   containerPosition,
   onOverflow,
 }) => {
@@ -43,29 +44,28 @@ const TrashItem: React.FC<TrashItemProps> = ({
     let animationId: number;
     const item = itemRef.current;
     const animate = (timestamp: number) => {
-      if (!divRef.current) {
-        return;
-      }
       const currentTime = timestamp;
       const deltaTime = (currentTime - lastTime.current) / 1000;
       const minMilSecPerFrame = 0.000016;
       if (deltaTime < minMilSecPerFrame) {
+        animationId = requestAnimationFrame(animate);
         return;
       }
       lastTime.current = currentTime;
-      const currentY = item.position;
-      const newY = currentY + speed * deltaTime;
-      item.position = newY;
-      divRef.current.style.transform = `translateY(${newY}px)`;
-      divRef.current.style.visibility = "visible";
+
+      const currentProgress = item.positionProgress;
+      const newProgress = currentProgress + speed * deltaTime;
+      const newPosition = newProgress * containerPosition.height;
+      item.positionProgress = newProgress;
+
+      // Update UI position
+      if (divRef.current) {
+        divRef.current.style.transform = `translateY(${newPosition}px)`;
+        divRef.current.style.visibility = "visible";
+      }
 
       // Check if the item has reached the end of the conveyor belt
-      const position = getPosition(divRef.current);
-      if (
-        position &&
-        containerPosition &&
-        position.bottom > containerPosition.bottom
-      ) {
+      if (newPosition + size > containerPosition.bottom) {
         setOverflowed(true);
       }
 
@@ -74,9 +74,16 @@ const TrashItem: React.FC<TrashItemProps> = ({
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [speed, containerPosition]);
+  }, [speed, size, containerPosition]);
   return (
-    <div className="w-20 h-20 bg-white absolute top-0 invisible" ref={divRef}>
+    <div
+      className="bg-white absolute top-0 invisible"
+      ref={divRef}
+      style={{
+        width: `${size}px`,
+        height: `${size}px`,
+      }}
+    >
       Trash {itemRef.current.id}
       <div>{item.label}</div>
     </div>
