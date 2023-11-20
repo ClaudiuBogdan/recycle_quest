@@ -10,7 +10,7 @@ export type ITrashItemApi = ITrashItem & {
 
 export type ITrashItemBase = {
   image: string;
-  type: string;
+  type: RecycleBinType;
   label: string;
 };
 
