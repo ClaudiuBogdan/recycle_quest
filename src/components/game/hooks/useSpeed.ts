@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const useSpeed = (gameEnded: boolean) => {
   const [speed, setSpeed] = useState(0);
-  const [factor, setFactor] = useState(20);
+  const [factor, setFactor] = useState(0.1);
 
   useEffect(() => {
     if (gameEnded) {
@@ -13,9 +13,8 @@ const useSpeed = (gameEnded: boolean) => {
       typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
     const newSpeed = factor / devicePixelDensity;
     setSpeed(newSpeed);
-    console.log(devicePixelDensity);
     const timeoutId = setTimeout(
-      () => setFactor((factor) => (factor += 1)),
+      () => setFactor((factor) => (factor += 0.001)),
       1000,
     );
     return () => clearTimeout(timeoutId);

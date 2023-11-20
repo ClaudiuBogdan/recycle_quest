@@ -1,6 +1,6 @@
 export type ITrashItem = ITrashItemBase & {
   id: number;
-  position: number;
+  positionProgress: number; // can have negative value, as the items are generated before entering the belt.
 };
 
 export type ITrashItemBase = {
@@ -10,3 +10,8 @@ export type ITrashItemBase = {
 };
 
 export type RecycleBinType = "green" | "yellow" | "blue" | "brown" | "black";
+
+export type Position = {
+  height: number;
+  bottom: number;
+};

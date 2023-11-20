@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ITrashItem, ITrashItemBase } from "../types";
 
-const startingPosition = -120; // pixels
+const startingPosition = -0.3; // In percentage with respect to the conveyor belt height
 
 export function useItems() {
   const lastIdRef = useRef(0);
@@ -16,7 +16,7 @@ export function useItems() {
   const removeItem = useCallback((itemId: number) => {
     const newItem: ITrashItem = {
       id: lastIdRef.current + 1,
-      position: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
+      positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
       ...getRandomItem(trashItems),
     };
     lastIdRef.current++;
@@ -27,10 +27,11 @@ export function useItems() {
       );
 
       const lastItemPosition =
-        newItems[newItems.length - 1]?.position ?? newItem.position;
-      newItem.position = Math.min(
+        newItems[newItems.length - 1]?.positionProgress ??
+        newItem.positionProgress;
+      newItem.positionProgress = Math.min(
         lastItemPosition + startingPosition,
-        newItem.position,
+        newItem.positionProgress,
       );
 
       newItems.push(newItem);
@@ -61,7 +62,7 @@ export function getInitialItems(
     const baseItem = getRandomItem(trashItems);
     const item: ITrashItem = {
       id: i + 1,
-      position: initialPosition * i,
+      positionProgress: initialPosition * i,
       ...baseItem,
     };
     items.push(item);
