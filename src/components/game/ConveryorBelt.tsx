@@ -16,8 +16,12 @@ const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
 }) => {
   return (
     <div
-      className="bg-gray-600"
-      style={{ width: `${size.width}px`, height: `${size.height}px` }}
+      className="bg-gray-600 conveyor-belt"
+      style={{
+        width: `${size.width}px`,
+        height: `${size.height}px`,
+        animationDuration: `${speed ? Math.floor(850 / speed) : 0}ms`, // lag due to speed change
+      }}
     >
       {items.map((item) => (
         <TrashItem
