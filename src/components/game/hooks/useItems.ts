@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ITrashItem, ITrashItemBase } from "./types";
+import { ITrashItem, ITrashItemBase } from "../types";
 
 const startingPosition = -120; // pixels
 
