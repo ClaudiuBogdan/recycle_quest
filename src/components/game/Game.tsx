@@ -3,8 +3,10 @@ import { useCallback, useEffect, useState } from "react";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
+import Score from "./Score";
 import { useItems } from "./hooks/useItems";
 import { useLives } from "./hooks/useLives";
+import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
@@ -16,6 +18,7 @@ const Game: React.FC<GameProps> = () => {
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, verifyBinSelection } = useItems();
   const { lives, removeLife } = useLives();
+  const { score, incrementScore } = useScore();
   const speed = useSpeed(gameEnded);
   const { conveyorBeltSize, binsSize } = useSize();
 
@@ -42,6 +45,7 @@ const Game: React.FC<GameProps> = () => {
     if (item) {
       removeItem(item.id);
       setValidationState("valid");
+      incrementScore();
     } else {
       removeLife();
       setValidationState("missed");
@@ -60,6 +64,7 @@ const Game: React.FC<GameProps> = () => {
       />
       <Bins onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
+      <Score count={score} />
     </div>
   );
 };
