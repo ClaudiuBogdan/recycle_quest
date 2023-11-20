@@ -10,13 +10,16 @@ import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
+import { ITrashItemApi, RecycleBinType } from "./types";
 
-interface GameProps {}
+interface GameProps {
+  onGameEnded: (items: ITrashItemApi[]) => void;
+}
 
-const Game: React.FC<GameProps> = () => {
+const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const [gameEnded, setGameEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
-  const { items, removeItem, verifyBinSelection } = useItems();
+  const { items, itemsRemovedRef, removeItem, verifyBinSelection } = useItems();
   const { lives, removeLife } = useLives();
   const { score, incrementScore } = useScore();
   const speed = useSpeed(gameEnded);
@@ -25,25 +28,26 @@ const Game: React.FC<GameProps> = () => {
   useEffect(() => {
     if (lives <= 0) {
       setGameEnded(true);
+      onGameEnded([...itemsRemovedRef.current.values()]);
     }
-  }, [lives]);
+  }, [lives, onGameEnded, itemsRemovedRef]);
 
   const handleOverflow = useCallback(
     (itemId: number) => {
-      removeItem(itemId);
+      removeItem(itemId, "missed", "none");
       removeLife();
       setValidationState("missed");
     },
     [removeItem, removeLife, setValidationState],
   );
 
-  const handleBinClick = (binType: string) => {
+  const handleBinClick = (binType: RecycleBinType) => {
     if (gameEnded) {
       return;
     }
     const item = verifyBinSelection(binType);
     if (item) {
-      removeItem(item.id);
+      removeItem(item.id, "valid", binType);
       setValidationState("valid");
       incrementScore();
     } else {

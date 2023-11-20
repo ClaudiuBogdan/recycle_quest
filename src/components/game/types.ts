@@ -3,13 +3,24 @@ export type ITrashItem = ITrashItemBase & {
   positionProgress: number; // can have negative value, as the items are generated before entering the belt.
 };
 
+export type ITrashItemApi = ITrashItem & {
+  state: "valid" | "invalid" | "missed";
+  selectedBin: RecycleBinType;
+};
+
 export type ITrashItemBase = {
   image: string;
   type: string;
   label: string;
 };
 
-export type RecycleBinType = "green" | "yellow" | "blue" | "brown" | "black";
+export type RecycleBinType =
+  | "green"
+  | "yellow"
+  | "blue"
+  | "brown"
+  | "black"
+  | "none";
 
 export type Position = {
   height: number;
