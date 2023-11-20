@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import TrashItemImage from "./TrashItemImage";
 import { ITrashItem, Size } from "./types";
 
 type TrashItemProps = Size & {
@@ -77,15 +78,20 @@ const TrashItem: React.FC<TrashItemProps> = ({
   }, [speed, height, containerPosition]);
   return (
     <div
-      className="bg-white absolute top-0 invisible"
+      className="absolute top-0 invisible text-center"
       ref={divRef}
       style={{
         width: `${width}px`,
         height: `${height}px`,
       }}
     >
-      Trash {itemRef.current.id}
-      <div>{item.label}</div>
+      <TrashItemImage
+        imageId={item.image}
+        label={item.label}
+        width={width}
+        height={height}
+      />
+      <span className="text-white">{item.label}</span>
     </div>
   );
 };
