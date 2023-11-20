@@ -7,11 +7,13 @@ import { useItems } from "./hooks/useItems";
 import { useLives } from "./hooks/useLives";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
+import { useValidationAnimation } from "./hooks/useValidationAnimation";
 
 interface GameProps {}
 
 const Game: React.FC<GameProps> = () => {
   const [gameEnded, setGameEnded] = useState(false);
+  const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, verifyBinSelection } = useItems();
   const { lives, removeLife } = useLives();
   const speed = useSpeed(gameEnded);
@@ -27,8 +29,9 @@ const Game: React.FC<GameProps> = () => {
     (itemId: number) => {
       removeItem(itemId);
       removeLife();
+      setValidationState("missed");
     },
-    [removeItem, removeLife],
+    [removeItem, removeLife, setValidationState],
   );
 
   const handleBinClick = (binType: string) => {
@@ -38,13 +41,17 @@ const Game: React.FC<GameProps> = () => {
     const item = verifyBinSelection(binType);
     if (item) {
       removeItem(item.id);
+      setValidationState("valid");
     } else {
       removeLife();
+      setValidationState("missed");
     }
   };
 
   return (
-    <div className="h-screen bg-yellow-200 relative overflow-hidden flex justify-center">
+    <div
+      className={`h-screen ${color} transition duration-300 relative overflow-hidden flex justify-center`}
+    >
       <ConveyorBelt
         speed={speed}
         onOverflow={handleOverflow}
