@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import RecyclingBinImage from "./RecyclingBinImage";
 import { RecycleBinType } from "./types";
 
 type RecyclingBinProps = {
@@ -11,10 +13,28 @@ const RecyclingBin: React.FC<RecyclingBinProps> = ({
   label,
   onClick,
 }) => {
+  const [clicked, setClicked] = useState(false);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => setClicked(false), 300);
+    return () => clearTimeout(timeoutId);
+  }, [clicked]);
+
+  const handleClick = () => {
+    onClick(type);
+    setClicked(true);
+  };
+
   return (
-    <div className="bg-green-400 w-full" onClick={() => onClick(type)}>
-      <div>{label}</div> <div>{type}</div>
-    </div>
+    <button
+      className={`w-full ${clicked ? "bin-clicked" : ""}`}
+      onClick={handleClick}
+    >
+      <RecyclingBinImage type={type} label={type} width={100} height={100} />
+      <span className="absolute -bottom-5 text-gray-800 invisible">
+        {label}
+      </span>
+    </button>
   );
 };
 
