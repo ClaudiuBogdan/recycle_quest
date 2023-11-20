@@ -1,12 +1,12 @@
 import RecyclingBin from "./RecyclingBin";
-import { Size } from "./types";
+import { RecycleBinType, Size } from "./types";
 interface BinsProps {
   size: Size;
-  onBinClick: (type: string) => void;
+  onBinClick: (type: RecycleBinType) => void;
 }
 
 const Bins: React.FC<BinsProps> = ({ size, onBinClick }) => {
-  const handleClick = (type: string) => {
+  const handleClick = (type: RecycleBinType) => {
     onBinClick(type);
   };
   return (

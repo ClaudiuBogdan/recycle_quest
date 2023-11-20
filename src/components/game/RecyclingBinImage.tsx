@@ -30,6 +30,7 @@ const imageMapping: Record<RecycleBinType, StaticImageData> = {
   brown,
   green,
   yellow,
+  none: placeholderImage,
 };
 
 export default RecyclingBinImage;

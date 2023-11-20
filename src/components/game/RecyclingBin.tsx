@@ -5,7 +5,7 @@ import { RecycleBinType } from "./types";
 type RecyclingBinProps = {
   type: RecycleBinType;
   label: string;
-  onClick: (type: string) => void;
+  onClick: (type: RecycleBinType) => void;
 };
 
 const RecyclingBin: React.FC<RecyclingBinProps> = ({
