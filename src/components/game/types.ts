@@ -15,3 +15,8 @@ export type Position = {
   height: number;
   bottom: number;
 };
+
+export type Size = {
+  width: number;
+  height: number;
+};

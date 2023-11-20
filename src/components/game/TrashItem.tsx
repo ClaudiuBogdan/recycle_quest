@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import { ITrashItem } from "./types";
+import { ITrashItem, Size } from "./types";
 
-interface TrashItemProps {
+type TrashItemProps = Size & {
   item: ITrashItem;
   speed: number;
-  size: number;
   containerPosition: {
     height: number;
     bottom: number;
   };
   onOverflow: (id: number) => void;
-}
+};
 
 const TrashItem: React.FC<TrashItemProps> = ({
   speed,
   item,
-  size,
+  width,
+  height,
   containerPosition,
   onOverflow,
 }) => {
@@ -65,7 +65,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
       }
 
       // Check if the item has reached the end of the conveyor belt
-      if (newPosition + size > containerPosition.bottom) {
+      if (newPosition + height > containerPosition.bottom) {
         setOverflowed(true);
       }
 
@@ -74,14 +74,14 @@ const TrashItem: React.FC<TrashItemProps> = ({
 
     animationId = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationId);
-  }, [speed, size, containerPosition]);
+  }, [speed, height, containerPosition]);
   return (
     <div
       className="bg-white absolute top-0 invisible"
       ref={divRef}
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
+        width: `${width}px`,
+        height: `${height}px`,
       }}
     >
       Trash {itemRef.current.id}

@@ -1,35 +1,34 @@
 import TrashItem from "./TrashItem";
-import { ITrashItem } from "./types";
+import { ITrashItem, Size } from "./types";
 
 type ConveyorBeltProps = {
   items: ITrashItem[];
+  size: Size;
   speed: number;
-  width: number;
-  height: number;
   onOverflow: (itemId: number) => void;
 };
 
 const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   items,
   speed,
-  width,
-  height,
+  size,
   onOverflow,
 }) => {
   return (
     <div
       className="bg-gray-600"
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: `${size.width}px`, height: `${size.height}px` }}
     >
       {items.map((item) => (
         <TrashItem
           key={item.id}
           item={item}
           speed={speed}
-          size={width}
+          width={size.width}
+          height={size.width}
           containerPosition={{
-            height,
-            bottom: height,
+            height: size.height,
+            bottom: size.height,
           }}
           onOverflow={onOverflow}
         />
