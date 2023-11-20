@@ -27,16 +27,16 @@ export default async function handler(
   }
   const user = await getUserByToken(token);
   if (!user) {
-    res.status(401);
-    //return;
+    return res.status(401);
   }
+
   if (req.method == "POST") {
-    if (req.body && user) {
-      const gameData = await addUserscore(user, req.body);
-      return res.status(200).json({ id: gameData.id });
+    if (!req.body) {
+      return res.status(400).json({ error: `gameplay - body is required` });
     }
-  } else if (req.method == "GET") {
-    console.debug("get method");
+
+    const gameData = await addUserscore(user, req.body);
+    return res.status(200).json({ id: gameData.id });
   }
 
   if (req.method == "GET") {
@@ -46,7 +46,7 @@ export default async function handler(
     }
   }
 
-  res.status(400).json({ error: `gameplay - Method not found` });
+  res.status(404).json({ error: `gameplay - Method not found` });
 }
 function getCookie(cookiename: string) {
   return cookiename?.toString().replace(/^[^=]+./, "");
