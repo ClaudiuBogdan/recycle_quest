@@ -15,7 +15,7 @@ const Game: React.FC<GameProps> = () => {
   const { items, removeItem, verifyBinSelection } = useItems();
   const { lives, removeLife } = useLives();
   const speed = useSpeed(gameEnded);
-  const { conveyorBeltWidth, conveyorBeltHeight } = useSize();
+  const { conveyorBeltSize, binsSize } = useSize();
 
   useEffect(() => {
     if (lives <= 0) {
@@ -44,15 +44,14 @@ const Game: React.FC<GameProps> = () => {
   };
 
   return (
-    <div className="h-screen bg-yellow-200 relative overflow-hidden">
+    <div className="h-screen bg-yellow-200 relative overflow-hidden flex justify-center">
       <ConveyorBelt
         speed={speed}
         onOverflow={handleOverflow}
         items={items}
-        width={conveyorBeltWidth}
-        height={conveyorBeltHeight}
+        size={conveyorBeltSize}
       />
-      <Bins onBinClick={handleBinClick} />
+      <Bins onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
     </div>
   );
