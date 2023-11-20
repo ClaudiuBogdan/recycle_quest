@@ -11,7 +11,7 @@ const Bins: React.FC<BinsProps> = ({ size, onBinClick }) => {
   };
   return (
     <div
-      className="w-full gap-3 justify-between cursor-pointer flex absolute bottom-0"
+      className="w-full gap-3 justify-between cursor-pointer flex absolute bottom-10 outline-none"
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
