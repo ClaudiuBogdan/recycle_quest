@@ -20,21 +20,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<EndgameResponse | EndGameData | null | HttpError>,
 ) {
+  console.log("gameplay - request started", new Date().toISOString());
   const token = getCookie(req.headers.cookie as string);
   if (!token) {
-    res.status(401);
-    //return;
+    return res.status(401).json({ error: `gameplay - no user token` });
   }
   const user = await getUserByToken(token);
   if (!user) {
-    return res.status(401);
+    return res.status(401).json({ error: `gameplay - no user found` });
   }
 
   if (req.method == "POST") {
     if (!req.body) {
       return res.status(400).json({ error: `gameplay - body is required` });
     }
-
+    console.log("gameplay - add score", new Date().toISOString());
     const gameData = await addUserscore(user, req.body);
     return res.status(200).json({ id: gameData.id });
   }
