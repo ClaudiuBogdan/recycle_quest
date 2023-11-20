@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ITrashItem } from "./types";
-import { getPosition } from "./usePosition";
+import { getPosition } from "./hooks/usePosition";
 
 interface TrashItemProps {
   // width: string;

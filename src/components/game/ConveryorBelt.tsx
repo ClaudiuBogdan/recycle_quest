@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import TrashItem from "./TrashItem";
 import { ITrashItem } from "./types";
-import usePosition from "./usePosition";
+import usePosition from "./hooks/usePosition";
 
 type ConveyorBeltProps = {
   items: ITrashItem[];

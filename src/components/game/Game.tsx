@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from "react";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
-import { useItems } from "./useItems";
-import { useLives } from "./useLives";
-import useSpeed from "./useSpeed";
+import { useItems } from "./hooks/useItems";
+import { useLives } from "./hooks/useLives";
+import useSpeed from "./hooks/useSpeed";
 
 interface GameProps {}
 
