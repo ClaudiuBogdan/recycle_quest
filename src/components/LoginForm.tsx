@@ -28,8 +28,6 @@ const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
   const submitText = "Enter";
   const loadingText = "Loading";
 
-  console.log("error: ", error);
-
   return (
     <div className={"space-y-4"}>
       <TextInput
