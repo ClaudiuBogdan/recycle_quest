@@ -1,6 +1,7 @@
 import useSWRMutation from "swr/mutation";
 
 type ResponseData = {
+  id: string;
   username: string;
   highscore: number;
 };

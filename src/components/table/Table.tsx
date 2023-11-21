@@ -45,7 +45,7 @@ const TableComponent: React.FC = () => {
         {data &&
           data.map((row, index) => (
             <tr
-              key={index}
+              key={row.id}
               className={index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
             >
               <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
