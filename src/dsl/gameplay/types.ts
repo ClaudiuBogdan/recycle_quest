@@ -7,7 +7,6 @@ export type Gameplay = {
 };
 
 export type GameplayRequest = {
-  access_token: string;
   result: GamePlayData[];
 };
 
