@@ -3,7 +3,7 @@ import useSWRMutation from "swr/mutation";
 type ResponseData = {
   username: string;
   access_token: string;
-  error?: string;
+  errors?: string[];
 };
 
 async function createUser(
@@ -18,7 +18,6 @@ async function createUser(
     body: JSON.stringify({ username: options.arg.username }),
   })
     .then((res) => {
-      console.log("Error: ", res);
       if (res.status > 400) {
         throw new Error("Network call failed");
       }
@@ -26,8 +25,8 @@ async function createUser(
     })
     .then((res) => res.json() as Promise<ResponseData>)
     .then((body) => {
-      if (body.error) {
-        throw new Error(body.error);
+      if (body.errors) {
+        throw new Error(body.errors.join(" "));
       }
       return body;
     });

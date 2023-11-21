@@ -1,8 +1,9 @@
+import { useRouter } from "next/router";
 import useSWRMutation from "swr/mutation";
 
 type ResponseData = {
   id: string;
-  error?: string;
+  errors?: string[];
 };
 
 type ResultsData = Array<{
@@ -11,7 +12,7 @@ type ResultsData = Array<{
 }>;
 
 type ScoreData = {
-  error: string;
+  errors?: string[];
   id: string;
   score: number;
   username: string;
@@ -29,7 +30,9 @@ async function endGameRequest(
     body: JSON.stringify({ result: options.arg.result }),
   })
     .then((res) => {
-      console.log("Error: ", res);
+      if (res.status === 401) {
+        throw new Error("Unauthorized");
+      }
       if (res.status > 400) {
         throw new Error("Network call failed");
       }
@@ -37,8 +40,8 @@ async function endGameRequest(
     })
     .then((res) => res.json() as Promise<ResponseData>)
     .then((body) => {
-      if (body.error) {
-        throw new Error(body.error);
+      if (body.errors) {
+        throw new Error(body.errors.join(" "));
       }
       return body;
     });
@@ -53,23 +56,25 @@ async function getScoreData(url: string) {
     },
   })
     .then((res) => {
-      console.log("Error: ", res);
+      if (res.status === 401) {
+        throw new Error("Unauthorized");
+      }
       if (res.status > 400) {
         throw new Error("Network call failed");
       }
-
       return res;
     })
     .then((res) => res.json() as Promise<ScoreData>)
     .then((body) => {
-      if (body.error) {
-        throw new Error(body.error);
+      if (body.errors) {
+        throw new Error(body.errors.join(" "));
       }
       return body;
     });
 }
 
 export const useEndGame = () => {
+  const router = useRouter();
   const {
     trigger: endGame,
     isMutating: loading,
@@ -78,6 +83,10 @@ export const useEndGame = () => {
   } = useSWRMutation("/api/gameplay", endGameRequest, {
     throwOnError: false,
   });
+
+  if (error && error.message === "Unauthorized") {
+    void router.push("/login");
+  }
 
   return {
     endGame,
