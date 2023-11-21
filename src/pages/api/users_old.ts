@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { setCookie } from "nookies";
-import { getUserbyUsername } from "@/adapters/firebase";
+import { getUserByUsername } from "@/adapters/firebase";
 import { createUser, getAllUsers } from "@/dsl/users";
 import { User } from "@/dsl/users/types";
 
@@ -30,7 +30,7 @@ export default async function handler(
       return res.status(400).json({ error: "Username is not valid" });
     }
 
-    const existingUser = await getUserbyUsername(usernameInput);
+    const existingUser = await getUserByUsername(usernameInput);
     if (existingUser) {
       return res.status(400).json({ error: "Username already taken" });
     }

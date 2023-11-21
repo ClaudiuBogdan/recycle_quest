@@ -4,7 +4,7 @@ import {
   getAll,
   getUserById,
   getUserByToken,
-  getUserbyUsername,
+  getUserByUsername,
   insertUser,
 } from "./operations/users";
 
@@ -16,6 +16,6 @@ export {
   getGamePlay,
   getUserById,
   getUserByToken,
-  getUserbyUsername,
+  getUserByUsername,
   getAll,
 };
