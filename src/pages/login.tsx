@@ -21,21 +21,6 @@ export default function Login() {
 
         <LoginForm onSuccess={handleRegisterSuccess} />
       </main>
-
-      <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-white">
-        <div className="space-y-4">
-          <input
-            type="text"
-            placeholder="Username"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md"
-          />
-          <button
-            className={`w-full px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700`}
-          >
-            Log In
-          </button>
-        </div>
-      </main>
     </>
   );
 }
