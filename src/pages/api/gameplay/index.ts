@@ -2,14 +2,16 @@ import type { NextApiRequest } from "next";
 import {
   Body,
   Catch,
+  Get,
   Post,
+  Query,
   Req,
   ValidationPipe,
   createHandler,
 } from "next-api-decorators";
 import { logExceptionHandler } from "@/adapters/sentry";
-import { addUserscore } from "@/dsl/gameplay";
-import { OldEndGameInput } from "./_types";
+import { addUserscore, getGamePlayData } from "@/dsl/gameplay";
+import { GameQueryDto, OldEndGameInput } from "./_types";
 import { UserTokenGuard } from "../_guard";
 
 @Catch(logExceptionHandler)
@@ -26,6 +28,14 @@ class UserHandler {
     return {
       id: game.id,
     };
+  }
+
+  @Get()
+  @UserTokenGuard()
+  async getGame(@Query(ValidationPipe()) query: GameQueryDto) {
+    const { id: gameId } = query;
+    const gamePlay = await getGamePlayData(gameId);
+    return gamePlay;
   }
 }
 

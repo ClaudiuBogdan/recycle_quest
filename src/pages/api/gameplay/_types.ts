@@ -1,5 +1,11 @@
 import { Type } from "class-transformer";
-import { IsArray, IsEnum, IsNotEmpty, ValidateNested } from "class-validator";
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsUUID,
+  ValidateNested,
+} from "class-validator";
 import type { TTrashItemType } from "@/types";
 import { TTrashItemTypeEnum } from "@/types";
 
@@ -19,6 +25,11 @@ class ItemsData {
   type!: TTrashItemType;
 }
 
+export class GameQueryDto {
+  @IsUUID()
+  id!: string;
+}
+
 /**
  * @deprecated
  */
@@ -27,9 +38,6 @@ export class OldEndGameInput {
   @ValidateNested({ each: true })
   @Type(() => OldItemsData)
   result!: OldItemsData[];
-
-  @IsNotEmpty()
-  access_token!: string;
 }
 
 class OldItemsData {
