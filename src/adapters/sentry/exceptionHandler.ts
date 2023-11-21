@@ -7,6 +7,7 @@ export function logExceptionHandler(
   _: NextApiRequest,
   res: NextApiResponse,
 ) {
+  console.error(error);
   Sentry.captureException(error);
   const statusCode = error instanceof HttpException ? error.statusCode : 500;
   const message =
