@@ -16,7 +16,7 @@ export default function EndGamePage() {
     getScore()
       .then(() => {})
       .catch(() => {});
-  }, []);
+  }, [getScore]);
 
   return (
     <main
