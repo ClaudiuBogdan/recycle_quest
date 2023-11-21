@@ -4677,6 +4677,13 @@ natural-compare@^1.4.0:
   resolved "https://registry.npmjs.org/natural-compare/-/natural-compare-1.4.0.tgz"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
+next-api-decorators@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/next-api-decorators/-/next-api-decorators-2.0.2.tgz#242e5f9d665628f116dce616199cbfeb6fdee024"
+  integrity sha512-Q6Fr9sMLZ9LcLUb9MzMWnyE4+qoEH+P+VLQ1W9bgk8Cl6qwbUr+pOOx6qzkpjD+LdRno3pCK6ph3Ryz8yOfLng==
+  dependencies:
+    reflect-metadata "^0.1.13"
+
 next@14.0.2:
   version "14.0.2"
   resolved "https://registry.npmjs.org/next/-/next-14.0.2.tgz"
@@ -5299,6 +5306,11 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+reflect-metadata@^0.1.13:
+  version "0.1.13"
+  resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
+  integrity sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==
 
 reflect.getprototypeof@^1.0.4:
   version "1.0.4"
