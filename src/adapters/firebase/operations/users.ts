@@ -22,7 +22,7 @@ export const getUserByToken = async (access_token: string) => {
   return user;
 };
 
-export const getUserbyUsername = async (username: string) => {
+export const getUserByUsername = async (username: string) => {
   let user: string | null = null;
   await database
     .ref(`${userRef}`)
