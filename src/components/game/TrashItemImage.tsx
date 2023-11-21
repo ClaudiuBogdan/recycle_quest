@@ -34,7 +34,15 @@ const TrashItemImage: React.FC<TrashItemImageProps> = ({
   height,
 }) => {
   const imageSrc = imageMapping[imageId] ?? placeholderImage;
-  return <Image src={imageSrc} width={width} height={height} alt={label} />;
+  return (
+    <Image
+      src={imageSrc}
+      width={width}
+      height={height}
+      alt={label}
+      priority={true}
+    />
+  );
 };
 
 const imageMapping: Record<string, StaticImageData> = {

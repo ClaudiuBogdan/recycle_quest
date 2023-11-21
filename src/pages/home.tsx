@@ -29,7 +29,7 @@ export default function Home() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
   const userToken = cookies.token;
-
+  // todo: check if token is valid and remove invalid token
   if (!userToken) {
     return {
       redirect: {

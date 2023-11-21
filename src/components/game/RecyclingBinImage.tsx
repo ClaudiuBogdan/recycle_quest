@@ -21,7 +21,15 @@ const RecyclingBinImage: React.FC<RecyclingBinImageProps> = ({
   height,
 }) => {
   const imageSrc = imageMapping[type] ?? placeholderImage;
-  return <Image src={imageSrc} width={width} height={height} alt={label} />;
+  return (
+    <Image
+      src={imageSrc}
+      width={width}
+      height={height}
+      alt={label}
+      priority={true}
+    />
+  );
 };
 
 const imageMapping: Record<RecycleBinType, StaticImageData> = {
