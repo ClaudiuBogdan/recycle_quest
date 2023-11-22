@@ -8,6 +8,8 @@ module.exports = nextConfig;
 // Injected content via Sentry wizard below
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { withSentryConfig } = require("@sentry/nextjs");
+const SENTRY_ORG = process.env.SENTRY_ORG;
+const SENTRY_PROJECT = process.env.SENTRY_ORG;
 
 module.exports = withSentryConfig(
   module.exports,
@@ -17,8 +19,8 @@ module.exports = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: "devostack",
-    project: "recycle-quest",
+    org: SENTRY_ORG,
+    project: SENTRY_PROJECT,
   },
   {
     // For all available options, see:
