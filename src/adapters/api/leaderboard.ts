@@ -6,7 +6,7 @@ type ResponseData = {
   highscore: number;
 };
 
-async function getLeaderboardUsers(url: string) {
+export async function getLeaderboardUsers(url: string) {
   return fetch(url, {
     method: "GET",
     headers: {
@@ -14,6 +14,9 @@ async function getLeaderboardUsers(url: string) {
     },
   })
     .then((res) => {
+      if (res.status === 401) {
+        throw new Error("Unauthorized");
+      }
       if (res.status >= 400) {
         throw new Error("Network call failed");
       }

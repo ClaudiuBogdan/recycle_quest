@@ -2,11 +2,17 @@ import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import { parseCookies } from "nookies";
 import NavigationButton from "@/components/NavigationButton";
-import TableComponent from "@/components/table/Table";
+import LeaderboardTable from "@/components/table/Table";
+import { getLeaderboard } from "@/dsl/leaderboard";
+import { LeaderboardEntry } from "@/types";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Leaderboard() {
+type LeaderboardProps = {
+  leaderboardData: LeaderboardEntry[];
+};
+
+export default function Leaderboard({ leaderboardData }: LeaderboardProps) {
   return (
     <div
       className={`flex flex-col items-center justify-center min-h-screen bg-white ${inter.className} px-16`}
@@ -14,7 +20,7 @@ export default function Leaderboard() {
       <h1 className="text-6xl font-bold mb-4 text-green-600">Leaderboard</h1>
       <p className="text-lg mb-8">Check out the top performers below!</p>
       <div className="w-full max-w-screen-x1">
-        <TableComponent />
+        <LeaderboardTable entries={leaderboardData} />
       </div>
 
       <div className="mt-16 w-full max-w-screen-x1">
@@ -37,5 +43,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  return { props: {} };
+  const leaderboard = await getLeaderboard();
+
+  try {
+    return { props: { leaderboardData: leaderboard } };
+  } catch (error) {
+    console.error(error);
+    return { props: { leaderboardData: [] } };
+  }
 };
