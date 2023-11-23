@@ -1,21 +1,5 @@
-import { filterAssets, insertAsset } from "./operations/assets";
-import { getGamePlay } from "./operations/gameplay";
-import {
-  getAll,
-  getUserById,
-  getUserByToken,
-  getUserByUsername,
-  insertUser,
-} from "./operations/users";
+import DbGameAdapter from "./GameAdapter";
+import DbLeaderboardAdapter from "./LeaderboardAdapter";
+import DbUserAdapter from "./UserAdapter";
 
-export {
-  // user ops
-  filterAssets,
-  insertAsset,
-  insertUser,
-  getGamePlay,
-  getUserById,
-  getUserByToken,
-  getUserByUsername,
-  getAll,
-};
+export { DbUserAdapter, DbGameAdapter, DbLeaderboardAdapter };
