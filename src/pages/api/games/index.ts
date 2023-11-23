@@ -40,18 +40,7 @@ class GamesHandler {
       userId: user.id,
       startTime: new Date("2023-01-01T12:00:00Z"),
       endTime: new Date("2023-01-01T12:30:00Z"),
-      itemsSelected: [
-        {
-          itemId: "item-1",
-          binId: "bin-1",
-          correct: true,
-        },
-        {
-          itemId: "item-2",
-          binId: "bin-2",
-          correct: false,
-        },
-      ],
+      events: [],
       score: 100,
     };
 
