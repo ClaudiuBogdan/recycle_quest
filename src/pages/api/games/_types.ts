@@ -26,6 +26,7 @@ class ItemsData {
 }
 
 export class GameQueryDto {
+  @IsNotEmpty()
   @IsUUID()
   id!: string;
 }

@@ -5,12 +5,16 @@ import {
   ValidatorConstraintInterface,
   registerDecorator,
 } from "class-validator";
-import { getUserByUsername } from "@/adapters/firebase";
+import { DbUserAdapter } from "@/adapters/firebase";
+import UserService from "@/services/UserService";
+
+const userAdapter = new DbUserAdapter();
+const userService = new UserService(userAdapter);
 
 @ValidatorConstraint({ async: true })
 class IsUsernameAlreadyExistConstraint implements ValidatorConstraintInterface {
   async validate(username: string) {
-    const userExists = await getUserByUsername(username);
+    const userExists = await userService.getUserByNickname(username);
     return !userExists; // Return true if the username does NOT exist
   }
 
