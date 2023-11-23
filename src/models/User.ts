@@ -4,4 +4,5 @@ export interface UserData {
   token: string;
   lastPlayed: Date | null;
   highScore: number;
+  createdAt: Date;
 }
