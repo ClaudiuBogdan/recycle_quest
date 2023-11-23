@@ -13,6 +13,7 @@ class UserService implements IUserService {
       token: uuid.v4(),
       lastPlayed: null,
       highScore: 0,
+      createdAt: new Date(),
     };
     return this.userAdapter.createUser(userData);
   }

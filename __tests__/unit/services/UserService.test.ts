@@ -20,6 +20,7 @@ const mockUserData: UserData = {
   token: uuid.v4(),
   lastPlayed: null,
   highScore: 0,
+  createdAt: new Date(),
 };
 
 describe("UserService", () => {
