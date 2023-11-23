@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { parseCookies } from "nookies";
 import NavigationButton from "@/components/NavigationButton";
 import LeaderboardTable from "@/components/table/Table";
-import { getLeaderboard } from "@/dsl/leaderboard";
 import { LeaderboardEntry } from "@/types";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -43,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const leaderboard = await getLeaderboard();
+  const leaderboard: unknown = []; // await getLeaderboard(); //FIXME
 
   try {
     return { props: { leaderboardData: leaderboard } };
