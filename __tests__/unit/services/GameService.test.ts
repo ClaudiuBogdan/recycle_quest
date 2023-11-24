@@ -47,6 +47,68 @@ describe("GameService", () => {
     expect(result).toEqual(mockGame);
   });
 
+  it("should calculate stats correctly for a game loaded by ID", async () => {
+    const gameId = "some-game-id";
+    const mockGameData: GameData = {
+      ...mockGame,
+      id: gameId,
+      events: [
+        {
+          type: "itemSelected",
+          itemId: "item1",
+          binId: "bin1",
+          isCorrect: true,
+          timestamp: new Date(),
+        },
+        {
+          type: "itemSelected",
+          itemId: "item1",
+          binId: "bin2",
+          isCorrect: true,
+          timestamp: new Date(),
+        },
+        {
+          type: "itemSelected",
+          itemId: "item2",
+          binId: "bin3",
+          isCorrect: false,
+          timestamp: new Date(),
+        },
+        {
+          type: "quizItem",
+          questionId: "q1",
+          answerId: "a1",
+          isCorrect: true,
+          timestamp: new Date(),
+        },
+        {
+          type: "quizItem",
+          questionId: "q2",
+          answerId: "a2",
+          isCorrect: false,
+          timestamp: new Date(),
+        },
+      ],
+    };
+
+    mockGameAdapter.getGameById.mockResolvedValue(mockGameData);
+
+    const result = await gameService.getGameById(gameId);
+
+    expect(mockGameAdapter.getGameById).toHaveBeenCalledWith(gameId);
+    expect(result).not.toBeNull();
+    expect(result).toHaveProperty("stats");
+    expect(result!.stats!.correct).toEqual([
+      { type: "bin_selection", binId: "bin1", count: 1 },
+      { type: "bin_selection", binId: "bin2", count: 1 },
+      { type: "quiz_answer", count: 1 },
+    ]);
+    expect(result!.stats!.incorrect).toEqual([
+      { type: "bin_selection", binId: "bin3", count: 1 },
+      { type: "quiz_answer", count: 1 },
+    ]);
+  });
+
   it("should return null if a game is not found", async () => {
     const gameId = "non-existing-game-id";
     mockGameAdapter.getGameById.mockResolvedValue(null);

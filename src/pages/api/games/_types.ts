@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsArray, IsNotEmpty, IsPositive, IsUUID } from "class-validator";
+import { IsArray, IsNotEmpty, IsUUID, Min } from "class-validator";
 import { GameEvent } from "@/models/Game";
 
 // Use this data structure after migration
@@ -15,7 +15,7 @@ export class EndGameInput {
   @IsArray()
   events!: GameEvent[];
 
-  @IsPositive()
+  @Min(0)
   score!: number;
 }
 
