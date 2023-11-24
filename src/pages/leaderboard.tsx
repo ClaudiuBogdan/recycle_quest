@@ -1,9 +1,11 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import { parseCookies } from "nookies";
+import { DbLeaderboardAdapter } from "@/adapters/firebase";
 import NavigationButton from "@/components/NavigationButton";
 import LeaderboardTable from "@/components/table/Table";
-import { LeaderboardEntry } from "@/types";
+import { LeaderboardEntry } from "@/models/Leaderboard";
+import LeaderboardService from "@/services/LeaderboardService";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,10 +44,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const leaderboard: unknown = []; // await getLeaderboard(); //FIXME
+  const leaderboardAdapter = new DbLeaderboardAdapter();
+  const leaderboardService = new LeaderboardService(leaderboardAdapter);
+
+  const leaderboardData = await leaderboardService.getTopScores(20);
 
   try {
-    return { props: { leaderboardData: leaderboard } };
+    return { props: { leaderboardData } };
   } catch (error) {
     console.error(error);
     return { props: { leaderboardData: [] } };

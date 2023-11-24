@@ -9,21 +9,26 @@ import {
   ValidationPipe,
   createHandler,
 } from "next-api-decorators";
-import { DbGameAdapter } from "@/adapters/firebase";
+import { DbGameAdapter, DbLeaderboardAdapter } from "@/adapters/firebase";
 import { logExceptionHandler } from "@/adapters/sentry";
 import { IGameService } from "@/interfaces/IGameService";
+import { ILeaderboardService } from "@/interfaces/ILeaderboardService";
 import { GameData } from "@/models/Game";
 import GameService from "@/services/GameService";
+import LeaderboardService from "@/services/LeaderboardService";
 import { EndGameInput, GameQueryDto } from "./_types";
 import { UserTokenGuard } from "../_guard";
 
 @Catch(logExceptionHandler)
 class GamesHandler {
   private gameService: IGameService;
+  private leaderboardService: ILeaderboardService;
 
   constructor() {
-    const gameAdapter = new DbGameAdapter();
-    this.gameService = new GameService(gameAdapter);
+    const gameDbAdapter = new DbGameAdapter();
+    const leaderboardDbAdapter = new DbLeaderboardAdapter();
+    this.gameService = new GameService(gameDbAdapter);
+    this.leaderboardService = new LeaderboardService(leaderboardDbAdapter);
   }
 
   @Post()
@@ -40,6 +45,15 @@ class GamesHandler {
     };
 
     const game = await this.gameService.createGame(gameData);
+
+    const leaderboardData = {
+      userId: user.id,
+      nickname: user.nickname,
+      gameId: game.id,
+      score: game.score,
+    };
+
+    await this.leaderboardService.updateHighScore(leaderboardData);
     return {
       id: game.id,
     };

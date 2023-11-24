@@ -21,10 +21,7 @@ class FirebaseLeaderboardAdapter implements ILeaderboardAdapter {
     const leaderboardEntries: LeaderboardEntry[] = [];
     snapshot.forEach((childSnapshot) => {
       const entry = childSnapshot.val() as LeaderboardEntry;
-      leaderboardEntries.push({
-        ...entry,
-        lastUpdated: new Date(entry.lastUpdated),
-      });
+      leaderboardEntries.push(entry);
     });
 
     return leaderboardEntries.reverse(); // Reverse to get descending order
@@ -34,10 +31,7 @@ class FirebaseLeaderboardAdapter implements ILeaderboardAdapter {
     const snapshot = await this.leaderboardRef.child(userId).once("value");
     if (snapshot.exists()) {
       const data = snapshot.val() as LeaderboardEntry;
-      return {
-        ...data,
-        lastUpdated: new Date(data.lastUpdated),
-      };
+      return data;
     } else {
       return null;
     }
