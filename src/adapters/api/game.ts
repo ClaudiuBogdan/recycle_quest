@@ -18,7 +18,7 @@ type ScoreData = {
   errors?: string[];
   id: string;
   score: number;
-  username: string;
+  nickname: string;
 };
 
 async function endGameRequest(
