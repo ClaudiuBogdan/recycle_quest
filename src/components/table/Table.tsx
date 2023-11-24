@@ -1,5 +1,5 @@
 import React from "react";
-import { LeaderboardEntry } from "@/types";
+import { LeaderboardEntry } from "@/models/Leaderboard";
 
 type LeaderboardTableProps = {
   entries: LeaderboardEntry[];
@@ -33,12 +33,12 @@ const LeaderboardTable: React.FC<LeaderboardTableProps> = ({ entries }) => {
       <tbody>
         {entries.map((row, index) => (
           <tr
-            key={row.id}
+            key={row.gameId}
             className={index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"}
           >
             <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{row.username}</td>
-            <td className="px-6 py-4 whitespace-nowrap">{row.highscore}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{row.nickname}</td>
+            <td className="px-6 py-4 whitespace-nowrap">{row.highScore}</td>
           </tr>
         ))}
       </tbody>

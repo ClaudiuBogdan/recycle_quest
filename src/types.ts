@@ -28,9 +28,3 @@ export enum TTrashItemTypeEnum {
   black = "black",
   none = "none",
 }
-
-export type LeaderboardEntry = {
-  id: string;
-  username: string;
-  highscore: number;
-};

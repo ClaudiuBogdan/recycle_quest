@@ -17,7 +17,7 @@ class LeaderBoardHandler {
   @Get()
   @UserTokenGuard()
   async getLeaderboardApi() {
-    return this.leaderboardService.getTopScores(10);
+    return this.leaderboardService.getTopScores(20);
   }
 }
 
