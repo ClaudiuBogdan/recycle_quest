@@ -2,7 +2,9 @@ import type { NextApiRequest } from "next";
 import {
   Body,
   Catch,
+  ForbiddenException,
   Get,
+  NotFoundException,
   Post,
   Query,
   Req,
@@ -66,12 +68,22 @@ class GamesHandler {
     @Req() req: NextApiRequest,
   ) {
     const { id: gameId } = query;
-    const gamePlay = this.gameService.getGameById(gameId);
+    const gameData = await this.gameService.getGameById(gameId);
     const user = req.ctx!.user!;
 
+    if (!gameData) {
+      throw new NotFoundException("Game not found");
+    }
+
+    if (gameData.userId !== user.id) {
+      throw new ForbiddenException("Game userId doesn't match user id");
+    }
+
     return {
-      ...gamePlay,
-      username: user.username,
+      id: gameData.id,
+      stats: gameData.stats,
+      score: gameData.score,
+      nickname: user.nickname,
       highscore: user.highscore,
     };
   }

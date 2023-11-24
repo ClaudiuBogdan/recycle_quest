@@ -4,6 +4,7 @@ export interface GameData {
   startedAt: Date; // Start time of the game
   endedAt: Date; // End time of the game
   events: Array<GameEvent>; // Array of game events
+  stats?: GameStats;
   score: number; // Total score of the game
 }
 
@@ -42,4 +43,22 @@ export interface ScoreMultiplierEvent {
   active: boolean;
   multiplier: number; // Multiplier value
   timestamp: Date;
+}
+
+export interface GameStats {
+  correct: Array<StatsItem>;
+  incorrect: Array<StatsItem>;
+}
+
+export type StatsItem = BinSelectionStats | QuizAnswerStats;
+
+export interface BinSelectionStats {
+  binId: string;
+  count: number;
+  type: "bin_selection";
+}
+
+export interface QuizAnswerStats {
+  count: number;
+  type: "quiz_answer";
 }
