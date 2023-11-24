@@ -2,27 +2,21 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useCallback } from "react";
-import { useEndGame } from "@/adapters/api/game";
+import { RequestGameData, useEndGame } from "@/adapters/api/game";
 import ErrorMessage from "@/components/ErrorMessage";
 import Game from "@/components/game/Game";
-import { ITrashItemApi } from "@/components/game/types";
 
 export default function GamePage() {
   const { endGame, data, loading, error } = useEndGame();
   const router = useRouter();
 
   const handleGameEnded = useCallback(
-    (items: ITrashItemApi[]) => {
+    (gameData: RequestGameData) => {
       if (data || loading || error) {
         return;
       }
 
-      const result: Array<{ asset_name: string; container: string }> =
-        items.map((item) => ({
-          asset_name: item.image,
-          container: item.selectedBin || "",
-        }));
-      endGame({ result })
+      endGame({ gameData })
         .then((res) => {
           if (!res) {
             return;
@@ -33,7 +27,6 @@ export default function GamePage() {
             .catch((err) => console.error(err));
         })
         .catch((err) => console.log(err));
-      console.log(items);
     },
     [endGame, data, loading, error, router],
   );

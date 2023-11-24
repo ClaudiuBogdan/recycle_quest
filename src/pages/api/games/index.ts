@@ -14,7 +14,7 @@ import { logExceptionHandler } from "@/adapters/sentry";
 import { IGameService } from "@/interfaces/IGameService";
 import { GameData } from "@/models/Game";
 import GameService from "@/services/GameService";
-import { GameQueryDto, OldEndGameInput } from "./_types";
+import { EndGameInput, GameQueryDto } from "./_types";
 import { UserTokenGuard } from "../_guard";
 
 @Catch(logExceptionHandler)
@@ -29,19 +29,14 @@ class GamesHandler {
   @Post()
   @UserTokenGuard()
   async endGame(
-    @Body(ValidationPipe({ whitelist: true })) body: OldEndGameInput,
+    @Body(ValidationPipe({ whitelist: true })) body: EndGameInput,
     @Req() req: NextApiRequest,
   ) {
     const user = req.ctx!.user!;
 
-    // FIXME
-    const gameData: GameData = {
-      id: "game-123",
+    const gameData: Omit<GameData, "id"> = {
       userId: user.id,
-      startTime: new Date("2023-01-01T12:00:00Z"),
-      endTime: new Date("2023-01-01T12:30:00Z"),
-      events: [],
-      score: 100,
+      ...body,
     };
 
     const game = await this.gameService.createGame(gameData);

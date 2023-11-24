@@ -13,13 +13,13 @@ class FirebaseGameAdapter implements IGameAdapter {
   }
 
   async createGame(gameData: GameData): Promise<GameData> {
-    const newGameRef = this.gamesRef.push();
+    const newGameRef = this.gamesRef.child(gameData.id);
     await newGameRef.set({
       ...gameData,
-      startTime: gameData.startTime.toISOString(),
-      endTime: gameData.endTime.toISOString(),
+      startTime: gameData.startedAt.toISOString(),
+      endTime: gameData.endedAt.toISOString(),
     });
-    return { ...gameData, id: newGameRef.key! };
+    return gameData;
   }
 
   async getGameById(gameId: string): Promise<GameData | null> {
@@ -29,8 +29,8 @@ class FirebaseGameAdapter implements IGameAdapter {
       const data = gameSnap.val();
       return {
         ...(data as GameData),
-        startTime: new Date(data.startTime),
-        endTime: new Date(data.endTime),
+        startedAt: new Date(data.startTime),
+        endedAt: new Date(data.endTime),
       };
     } else {
       return null;

@@ -1,8 +1,8 @@
 export interface GameData {
   id: string; // Unique identifier for the game session
   userId: string; // Reference to User
-  startTime: Date; // Start time of the game
-  endTime: Date; // End time of the game
+  startedAt: Date; // Start time of the game
+  endedAt: Date; // End time of the game
   events: Array<GameEvent>; // Array of game events
   score: number; // Total score of the game
 }
@@ -20,6 +20,7 @@ export interface ItemSelectedEvent {
   itemId: string; // ID of the item selected
   binId: string; // ID of the bin selected
   isCorrect: boolean; // Whether the selection was correct
+  timestamp: Date;
 }
 
 export interface ItemMissedEvent {
