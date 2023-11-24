@@ -1,55 +1,89 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { GameEvent } from "@/models/Game";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
 import Score from "./Score";
+import {
+  createItemSelectedEvent,
+  createMissItemEvent,
+  useEvents,
+} from "./hooks/useEvents";
 import { useItems } from "./hooks/useItems";
 import { useLives } from "./hooks/useLives";
 import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
-import { ITrashItemApi, RecycleBinType } from "./types";
+import { ITrashItem, RecycleBinType } from "./types";
 
 interface GameProps {
-  onGameEnded: (items: ITrashItemApi[]) => void;
+  onGameEnded: (args: {
+    startedAt: Date;
+    endedAt: Date;
+    events: GameEvent[];
+    score: number;
+  }) => void;
 }
 
 const Game: React.FC<GameProps> = ({ onGameEnded }) => {
+  const [startedAt] = useState(new Date());
   const [gameEnded, setGameEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
-  const { items, itemsRemovedRef, removeItem, verifyBinSelection } = useItems();
+  const { items, removeItem, getFirstItem, verifyBinSelection } = useItems();
+  const { events, addEvent } = useEvents();
   const { lives, removeLife } = useLives();
-  const { score, incrementScore } = useScore();
+  const { scoreState, updateScore } = useScore();
   const speed = useSpeed(gameEnded);
   const { conveyorBeltSize, binsSize } = useSize();
 
   useEffect(() => {
     if (lives <= 0) {
       setGameEnded(true);
-      onGameEnded([...itemsRemovedRef.current.values()]);
+      onGameEnded({
+        startedAt,
+        endedAt: new Date(),
+        events,
+        score: scoreState.score,
+      });
     }
-  }, [lives, onGameEnded, itemsRemovedRef]);
+  }, [lives, onGameEnded, startedAt, events, scoreState]);
+
+  const handleGameEvent = useCallback(
+    (event: GameEvent) => {
+      addEvent(event);
+      updateScore(event);
+    },
+    [updateScore, addEvent],
+  );
 
   const handleOverflow = useCallback(
-    (itemId: number) => {
-      removeItem(itemId, "missed", "none");
+    (item: ITrashItem) => {
+      const event = createMissItemEvent(item.image);
+      removeItem(item.id);
       removeLife();
       setValidationState("missed");
+      handleGameEvent(event);
     },
-    [removeItem, removeLife, setValidationState],
+    [removeItem, removeLife, setValidationState, handleGameEvent],
   );
 
   const handleBinClick = (binType: RecycleBinType) => {
     if (gameEnded) {
       return;
     }
-    const item = verifyBinSelection(binType);
-    if (item) {
-      removeItem(item.id, "valid", binType);
+    const item = getFirstItem();
+    if (!item) {
+      return;
+    }
+    const event = createItemSelectedEvent(item.image, item.type, binType);
+    handleGameEvent(event);
+    const isValid = verifyBinSelection(item, binType);
+
+    if (isValid) {
+      removeItem(item.id);
       setValidationState("valid");
-      incrementScore();
     } else {
       removeLife();
       setValidationState("missed");
@@ -68,7 +102,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       />
       <Bins onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
-      <Score count={score} />
+      <Score count={scoreState.score} />
     </div>
   );
 };

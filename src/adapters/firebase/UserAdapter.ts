@@ -13,9 +13,12 @@ class FirebaseUserAdapter implements IUserAdapter {
   }
 
   async createUser(userData: UserData): Promise<UserData> {
-    const newUserRef = this.usersRef.push();
-    await newUserRef.set(userData);
-    return { ...userData, id: newUserRef.key! };
+    const newUserRef = this.usersRef.child(userData.id);
+    await newUserRef.set({
+      ...userData,
+      createdAt: userData.createdAt.toISOString(),
+    });
+    return userData;
   }
 
   async getUserById(userId: string): Promise<UserData | null> {

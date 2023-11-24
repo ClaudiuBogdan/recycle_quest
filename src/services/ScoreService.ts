@@ -27,6 +27,8 @@ export function calculateScore(
         // Score calculation for item selection
         if (event.isCorrect) {
           state.score += POINTS_FOR_CORRECT_SELECTION * state.multiplier;
+        } else {
+          state.score -= POINTS_FOR_CORRECT_SELECTION * state.multiplier;
         }
         break;
       case "itemMissed":
@@ -48,6 +50,10 @@ export function calculateScore(
         break;
     }
   });
+
+  if (state.score < 0) {
+    state.score = 0;
+  }
 
   return state;
 }
