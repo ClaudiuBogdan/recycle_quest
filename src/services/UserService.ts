@@ -11,8 +11,6 @@ class UserService implements IUserService {
       id: uuid.v4(),
       nickname,
       token: uuid.v4(),
-      lastPlayed: null,
-      highScore: 0,
       createdAt: new Date(),
     };
     return this.userAdapter.createUser(userData);

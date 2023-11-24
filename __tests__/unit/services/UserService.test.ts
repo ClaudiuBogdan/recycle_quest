@@ -18,8 +18,6 @@ const mockUserData: UserData = {
   id: uuid.v4(),
   nickname: "testuser",
   token: uuid.v4(),
-  lastPlayed: null,
-  highScore: 0,
   createdAt: new Date(),
 };
 
