@@ -36,7 +36,7 @@ describe("User API", () => {
       method: "POST",
       path: "/users",
       body: {
-        username: "testuser",
+        nickname: "testuser",
       },
     });
 
@@ -89,7 +89,7 @@ describe("User API", () => {
       method: "POST",
       path: "/users",
       body: {
-        username: "testuser",
+        nickname: "testuser",
       },
     });
 
@@ -99,9 +99,9 @@ describe("User API", () => {
     expect(res._getStatusCode()).toBe(400);
     expect(res._getJSONData()).toEqual({
       statusCode: 400,
-      message: "Username testuser is already taken. Please choose another one.",
+      message: "Nickname testuser is already taken. Please choose another one.",
       errors: [
-        "Username testuser is already taken. Please choose another one.",
+        "Nickname testuser is already taken. Please choose another one.",
       ],
     });
 

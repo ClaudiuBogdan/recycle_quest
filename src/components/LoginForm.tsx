@@ -6,20 +6,20 @@ import SubmitButton from "./SubmitButton";
 import TextInput from "./TextInput";
 
 interface LoginInputProps {
-  onSuccess: (username: string) => void;
+  onSuccess: (nickname: string) => void;
 }
 
 const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
-  const [username, setUsername] = useState("");
+  const [nickname, setNickname] = useState("");
   const { register, loading, error } = useRegisterUser();
 
   const handleSubmitClick = () => {
-    register({ username })
+    register({ nickname })
       .then((res) => {
         if (!res) {
           throw new Error("Response is undefined");
         }
-        onSuccess(username);
+        onSuccess(nickname);
       })
       .catch((err) => console.error(err));
   };
@@ -31,9 +31,9 @@ const LoginForm: React.FC<LoginInputProps> = ({ onSuccess }) => {
   return (
     <div className={"space-y-4"}>
       <TextInput
-        value={username}
+        value={nickname}
         placeholder={placeholder}
-        onChange={setUsername}
+        onChange={setNickname}
       />
       <SubmitButton
         label={submitText}

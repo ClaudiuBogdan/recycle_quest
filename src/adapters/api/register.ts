@@ -1,21 +1,21 @@
 import useSWRMutation from "swr/mutation";
 
 type ResponseData = {
-  username: string;
+  nickname: string;
   access_token: string;
   errors?: string[];
 };
 
 async function createUser(
   url: string,
-  options: Readonly<{ arg: { username: string } }>,
+  options: Readonly<{ arg: { nickname: string } }>,
 ) {
   return fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username: options.arg.username }),
+    body: JSON.stringify({ nickname: options.arg.nickname }),
   })
     .then((res) => {
       if (res.status > 400) {
