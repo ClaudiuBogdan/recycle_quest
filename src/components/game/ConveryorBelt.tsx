@@ -5,7 +5,7 @@ type ConveyorBeltProps = {
   items: ITrashItem[];
   size: Size;
   speed: number;
-  onOverflow: (itemId: number) => void;
+  onOverflow: (itemId: ITrashItem) => void;
 };
 
 const ConveyorBelt: React.FC<ConveyorBeltProps> = ({

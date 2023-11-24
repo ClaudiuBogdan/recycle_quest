@@ -9,7 +9,7 @@ type TrashItemProps = Size & {
     height: number;
     bottom: number;
   };
-  onOverflow: (id: number) => void;
+  onOverflow: (item: ITrashItem) => void;
 };
 
 const TrashItem: React.FC<TrashItemProps> = ({
@@ -27,7 +27,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
 
   useEffect(() => {
     if (overflowed) {
-      onOverflow(itemRef.current.id);
+      onOverflow(itemRef.current);
     }
   }, [overflowed, onOverflow]);
 

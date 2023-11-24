@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  ITrashItem,
-  ITrashItemApi,
-  ITrashItemBase,
-  RecycleBinType,
-} from "../types";
+import { ITrashItem, ITrashItemBase } from "../types";
 
 const startingPosition = -0.3; // In percentage with respect to the conveyor belt height
 
@@ -12,69 +7,63 @@ export function useItems() {
   const lastIdRef = useRef(0);
   const [items, setItems] = useState<ITrashItem[]>([]);
 
-  const itemsRemovedRef = useRef<Map<number, ITrashItemApi>>(new Map()); // Save removed item to be sent to api and use map to avoid duplication
-
   useEffect(() => {
     const initialItems = getInitialItems(startingPosition, 3);
     lastIdRef.current = initialItems[initialItems.length - 1]?.id ?? 0;
     setItems(initialItems);
   }, []);
 
-  const removeItem = useCallback(
-    (
-      itemId: number,
-      state: "valid" | "invalid" | "missed",
-      selectedBin: RecycleBinType,
-    ) => {
-      const newItem: ITrashItem = {
-        id: lastIdRef.current + 1,
-        positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
-        ...getRandomItem(trashItems),
-      };
-      lastIdRef.current++;
+  const removeItem = useCallback((itemId: number) => {
+    const newItem: ITrashItem = {
+      id: lastIdRef.current + 1,
+      positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
+      ...getRandomItem(trashItems),
+    };
+    lastIdRef.current++;
 
-      setItems((items) => {
-        const removedItem = items.find((item) => item.id === itemId);
-        if (!removedItem) {
-          return items;
-        }
-        itemsRemovedRef.current.set(itemId, {
-          state,
-          selectedBin,
-          ...removedItem,
-        });
+    setItems((items) => {
+      const removedItem = items.find((item) => item.id === itemId);
+      if (!removedItem) {
+        return items;
+      }
 
-        const newItems = items.filter(
-          (item) => item.id !== itemId && item.id !== newItem.id,
-        );
+      const newItems = items.filter(
+        (item) => item.id !== itemId && item.id !== newItem.id,
+      );
 
-        const lastItemPosition =
-          newItems[newItems.length - 1]?.positionProgress ??
-          newItem.positionProgress;
-        newItem.positionProgress = Math.min(
-          lastItemPosition + startingPosition,
-          newItem.positionProgress,
-        );
+      const lastItemPosition =
+        newItems[newItems.length - 1]?.positionProgress ??
+        newItem.positionProgress;
+      newItem.positionProgress = Math.min(
+        lastItemPosition + startingPosition,
+        newItem.positionProgress,
+      );
 
-        newItems.push(newItem);
-        return newItems;
-      });
+      newItems.push(newItem);
+      return newItems;
+    });
+  }, []);
+
+  const getFirstItem = useCallback((): ITrashItem | null => {
+    return items[0];
+  }, [items]);
+
+  const verifyBinSelection = useCallback(
+    (item: ITrashItem, binType: string): ITrashItem | null => {
+      if (!item || item.type !== binType) {
+        return null;
+      }
+      return item;
     },
     [],
   );
 
-  const verifyBinSelection = useCallback(
-    (binType: string): ITrashItem | null => {
-      const firstItem = items[0];
-      if (!firstItem || firstItem.type !== binType) {
-        return null;
-      }
-      return firstItem;
-    },
-    [items],
-  );
-
-  return { items, removeItem, itemsRemovedRef, verifyBinSelection };
+  return {
+    items,
+    removeItem,
+    getFirstItem,
+    verifyBinSelection,
+  };
 }
 
 export function getInitialItems(
