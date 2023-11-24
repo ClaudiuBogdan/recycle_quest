@@ -28,10 +28,10 @@ class UserHandler {
     @Body(ValidationPipe({ whitelist: true })) body: CreateUserInput,
     @Response() res: NextApiResponse,
   ) {
-    const { username } = body;
+    const { username } = body; // FIXME change to nickname
     const user = await this.userService.createUser(username);
     setTokenCookies(res, user.token);
-    return { access_token: user.token, username: user.token };
+    return { nickname: user.nickname };
   }
 }
 
