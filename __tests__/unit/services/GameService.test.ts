@@ -13,8 +13,8 @@ const mockGameAdapter: jest.Mocked<IGameAdapter> = {
 const mockGame: GameData = {
   id: "game-123",
   userId: "user-456",
-  startTime: new Date("2023-01-01T12:00:00Z"),
-  endTime: new Date("2023-01-01T12:30:00Z"),
+  startedAt: new Date("2023-01-01T12:00:00Z"),
+  endedAt: new Date("2023-01-01T12:30:00Z"),
   events: [],
   score: 100,
 };

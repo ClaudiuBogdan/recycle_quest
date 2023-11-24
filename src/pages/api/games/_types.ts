@@ -1,50 +1,26 @@
-import { Type } from "class-transformer";
-import {
-  IsArray,
-  IsEnum,
-  IsNotEmpty,
-  IsUUID,
-  ValidateNested,
-} from "class-validator";
-import type { TTrashItemType } from "@/types";
-import { TTrashItemTypeEnum } from "@/types";
+import { Transform } from "class-transformer";
+import { IsArray, IsNotEmpty, IsPositive, IsUUID } from "class-validator";
+import { GameEvent } from "@/models/Game";
 
 // Use this data structure after migration
 export class EndGameInput {
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ItemsData)
-  items!: ItemsData[];
-}
-
-class ItemsData {
   @IsNotEmpty()
-  image!: string;
+  @Transform(({ value }) => new Date(value))
+  startedAt!: Date;
 
-  @IsEnum(TTrashItemTypeEnum)
-  type!: TTrashItemType;
+  @IsNotEmpty()
+  @Transform(({ value }) => new Date(value))
+  endedAt!: Date;
+
+  @IsArray()
+  events!: GameEvent[];
+
+  @IsPositive()
+  score!: number;
 }
 
 export class GameQueryDto {
   @IsNotEmpty()
   @IsUUID()
   id!: string;
-}
-
-/**
- * @deprecated
- */
-export class OldEndGameInput {
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => OldItemsData)
-  result!: OldItemsData[];
-}
-
-class OldItemsData {
-  @IsNotEmpty()
-  asset_name!: string;
-
-  @IsEnum(TTrashItemTypeEnum)
-  container!: TTrashItemType;
 }

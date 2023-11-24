@@ -1,15 +1,18 @@
 import { useRouter } from "next/router";
 import useSWRMutation from "swr/mutation";
+import { GameEvent } from "@/models/Game";
+
+export type RequestGameData = {
+  startedAt: Date;
+  endedAt: Date;
+  events: GameEvent[];
+  score: number;
+};
 
 type ResponseData = {
   id: string;
   errors?: string[];
 };
-
-type ResultsData = Array<{
-  asset_name: string;
-  container: string;
-}>;
 
 type ScoreData = {
   errors?: string[];
@@ -20,14 +23,14 @@ type ScoreData = {
 
 async function endGameRequest(
   url: string,
-  options: Readonly<{ arg: { result: ResultsData } }>,
+  options: Readonly<{ arg: { gameData: RequestGameData } }>,
 ) {
   return fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ result: options.arg.result }),
+    body: JSON.stringify(options.arg.gameData),
   })
     .then((res) => {
       if (res.status === 401) {
@@ -80,7 +83,7 @@ export const useEndGame = () => {
     isMutating: loading,
     error,
     data,
-  } = useSWRMutation("/api/gameplay", endGameRequest, {
+  } = useSWRMutation("/api/games", endGameRequest, {
     throwOnError: false,
   });
 
@@ -102,7 +105,7 @@ export const useGetScore = (id: string) => {
     isMutating: loading,
     error,
     data,
-  } = useSWRMutation(`/api/gameplay?id=${id}`, getScoreData, {
+  } = useSWRMutation(`/api/games?id=${id}`, getScoreData, {
     throwOnError: false,
   });
 
