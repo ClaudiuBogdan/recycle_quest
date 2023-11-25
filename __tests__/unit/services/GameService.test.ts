@@ -56,21 +56,21 @@ describe("GameService", () => {
         {
           type: "itemSelected",
           itemId: "item1",
-          binId: "bin1",
+          binId: "green",
           isCorrect: true,
           timestamp: new Date(),
         },
         {
           type: "itemSelected",
           itemId: "item1",
-          binId: "bin2",
+          binId: "yellow",
           isCorrect: true,
           timestamp: new Date(),
         },
         {
           type: "itemSelected",
           itemId: "item2",
-          binId: "bin3",
+          binId: "blue",
           isCorrect: false,
           timestamp: new Date(),
         },
@@ -99,12 +99,12 @@ describe("GameService", () => {
     expect(result).not.toBeNull();
     expect(result).toHaveProperty("stats");
     expect(result!.stats!.correct).toEqual([
-      { type: "bin_selection", binId: "bin1", count: 1 },
-      { type: "bin_selection", binId: "bin2", count: 1 },
+      { type: "bin_selection", binId: "green", count: 1 },
+      { type: "bin_selection", binId: "yellow", count: 1 },
       { type: "quiz_answer", count: 1 },
     ]);
     expect(result!.stats!.incorrect).toEqual([
-      { type: "bin_selection", binId: "bin3", count: 1 },
+      { type: "bin_selection", binId: "blue", count: 1 },
       { type: "quiz_answer", count: 1 },
     ]);
   });

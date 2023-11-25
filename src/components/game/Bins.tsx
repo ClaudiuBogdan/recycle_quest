@@ -1,5 +1,6 @@
+import { RecycleBinType } from "@/models/Game";
 import RecyclingBin from "./RecyclingBin";
-import { RecycleBinType, Size } from "./types";
+import { Size } from "./types";
 interface BinsProps {
   size: Size;
   onBinClick: (type: RecycleBinType) => void;

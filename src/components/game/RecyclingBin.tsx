@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import { RecycleBinType } from "@/models/Game";
 import RecyclingBinImage from "./RecyclingBinImage";
-import { RecycleBinType } from "./types";
 
 type RecyclingBinProps = {
   type: RecycleBinType;

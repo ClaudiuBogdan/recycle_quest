@@ -19,7 +19,7 @@ export type GameEvent =
 export interface ItemSelectedEvent {
   type: "itemSelected";
   itemId: string; // ID of the item selected
-  binId: string; // ID of the bin selected
+  binId: RecycleBinType; // ID of the bin selected
   isCorrect: boolean; // Whether the selection was correct
   timestamp: Date;
 }
@@ -53,7 +53,7 @@ export interface GameStats {
 export type StatsItem = BinSelectionStats | QuizAnswerStats;
 
 export interface BinSelectionStats {
-  binId: string;
+  binId: RecycleBinType;
   count: number;
   type: "bin_selection";
 }
@@ -62,3 +62,11 @@ export interface QuizAnswerStats {
   count: number;
   type: "quiz_answer";
 }
+
+export type RecycleBinType =
+  | "green"
+  | "yellow"
+  | "blue"
+  | "brown"
+  | "black"
+  | "none";

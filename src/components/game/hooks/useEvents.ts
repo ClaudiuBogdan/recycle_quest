@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { GameEvent, ItemMissedEvent, ItemSelectedEvent } from "@/models/Game";
-import { RecycleBinType } from "./../types";
+import {
+  GameEvent,
+  ItemMissedEvent,
+  ItemSelectedEvent,
+  RecycleBinType,
+} from "@/models/Game";
 
 export function useEvents() {
   const [events, setEvents] = useState<GameEvent[]>([]);
