@@ -3,8 +3,8 @@ import useSWRMutation from "swr/mutation";
 import { GameEvent } from "@/models/Game";
 
 export type RequestGameData = {
-  startedAt: Date;
-  endedAt: Date;
+  startedAt: string;
+  endedAt: string;
   events: GameEvent[];
   score: number;
 };

@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { NextApiRequest } from "next";
-import { User } from "@/dsl/users/types";
+import { UserData } from "@/models/User";
 
 declare module "next" {
   interface NextApiRequest {
@@ -9,5 +9,5 @@ declare module "next" {
 }
 
 declare type RequestContext = {
-  user?: User;
+  user?: UserData;
 };

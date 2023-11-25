@@ -1,41 +1,55 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
-import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
-import { useEffect } from "react";
-import { useGetScore } from "@/adapters/api/game";
+import { DbGameAdapter, DbUserAdapter } from "@/adapters/firebase";
+import ErrorMessage from "@/components/ErrorMessage";
 import NavigationButton from "@/components/NavigationButton";
+import GameStatsComponent from "@/components/stats/GameStatsComponent";
+import { GameStats } from "@/models/Game";
+import GameService from "@/services/GameService";
+import UserService from "@/services/UserService";
 
 const inter = Inter({ subsets: ["latin"] });
+type EndGamePageProps = {
+  nickname: string;
+  score: number;
+  stats: GameStats;
+  error?: string;
+};
 
-export default function EndGamePage() {
-  const router = useRouter();
-  const { id: gameId } = router.query;
-  console.log("Game id: ", gameId);
-
-  const { getScore, data } = useGetScore(gameId?.toString() ?? "");
-
-  useEffect(() => {
-    if (!gameId) {
-      return;
-    }
-    getScore()
-      .then(() => {})
-      .catch(() => {});
-  }, [getScore, gameId]);
-
+export default function EndGamePage({
+  nickname,
+  score,
+  stats,
+  error,
+}: EndGamePageProps) {
   return (
     <main
       className={`flex flex-col min-h-screen items-center justify-center space-y-6 bg-white p-8 ${inter.className}`}
     >
-      <h1 className="text-4xl font-bold text-green-600">Game ended</h1>
-
-      <p>Game ID: {gameId}</p>
-      <p> {data?.id}</p>
-      <p> {data?.score}</p>
+      <h1 className="text-4xl font-bold text-green-600">
+        Congratulations, {nickname}!
+      </h1>
+      {error ? (
+        <ErrorMessage message={error} />
+      ) : (
+        <GameStatsComponent gameStats={stats} score={score} />
+      )}
       <NavigationButton path={"/home"} buttonName={"Home"} />
     </main>
   );
+}
+
+async function fetchGameData(gameId: string) {
+  const gameDbAdapter = new DbGameAdapter();
+  const gameService = new GameService(gameDbAdapter);
+  return gameService.getGameById(gameId);
+}
+
+async function fetchUser(token: string) {
+  const userAdapter = new DbUserAdapter();
+  const userService = new UserService(userAdapter);
+  return userService.getUserByToken(token);
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -50,21 +64,40 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-  const gameId: string | undefined = Array.isArray(context.params?.id)
+
+  const errorData = { props: { error: "Failed to load game data" } };
+
+  const gameId = Array.isArray(context.params?.id)
     ? context.params?.id[0]
     : context.params?.id;
 
   if (!gameId) {
-    return { props: { gamePlayData: null } };
+    return errorData;
   }
 
-  // const gamePlayData = await getGamePlayData(gameId); // FIXME
-  const gamePlayData: unknown = {}; //await getGamePlayData(gameId);
-  console.log("gamePlayData: ", gamePlayData);
   try {
-    return { props: { gamePlayData } };
+    const user = await fetchUser(userToken);
+    const gameData = await fetchGameData(gameId);
+
+    console.log({ gameData });
+
+    if (!gameData || !user) {
+      return errorData;
+    }
+
+    if (gameData.userId !== user.id) {
+      return { props: { error: "Failed to load game data" } };
+    }
+
+    return {
+      props: {
+        ...gameData,
+        nickname: user.nickname,
+      },
+    };
   } catch (error) {
     console.error(error);
-    return { props: { gamePlayData: null } };
+    // Handle the error appropriately
+    return errorData;
   }
 };

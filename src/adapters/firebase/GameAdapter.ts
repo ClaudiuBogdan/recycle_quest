@@ -14,11 +14,7 @@ class FirebaseGameAdapter implements IGameAdapter {
 
   async createGame(gameData: GameData): Promise<GameData> {
     const newGameRef = this.gamesRef.child(gameData.id);
-    await newGameRef.set({
-      ...gameData,
-      startTime: gameData.startedAt.toISOString(),
-      endTime: gameData.endedAt.toISOString(),
-    });
+    await newGameRef.set(gameData);
     return gameData;
   }
 
@@ -27,11 +23,7 @@ class FirebaseGameAdapter implements IGameAdapter {
     const gameSnap = await gameRef.once("value");
     if (gameSnap.exists()) {
       const data = gameSnap.val();
-      return {
-        ...(data as GameData),
-        startedAt: new Date(data.startTime),
-        endedAt: new Date(data.endTime),
-      };
+      return data;
     } else {
       return null;
     }

@@ -1,8 +1,8 @@
 export interface GameData {
   id: string; // Unique identifier for the game session
   userId: string; // Reference to User
-  startedAt: Date; // Start time of the game
-  endedAt: Date; // End time of the game
+  startedAt: string; // Start time of the game
+  endedAt: string; // End time of the game
   events: Array<GameEvent>; // Array of game events
   stats?: GameStats;
   score: number; // Total score of the game

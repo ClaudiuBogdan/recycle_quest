@@ -84,7 +84,6 @@ class GamesHandler {
       stats: gameData.stats,
       score: gameData.score,
       nickname: user.nickname,
-      highscore: user.highscore,
     };
   }
 }
