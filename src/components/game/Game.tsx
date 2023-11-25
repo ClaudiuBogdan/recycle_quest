@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { GameEvent } from "@/models/Game";
+import { GameEvent, RecycleBinType } from "@/models/Game";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
@@ -16,7 +16,7 @@ import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
-import { ITrashItem, RecycleBinType } from "./types";
+import { ITrashItem } from "./types";
 
 interface GameProps {
   onGameEnded: (args: {

@@ -7,7 +7,7 @@ describe("calculateScore", () => {
     const event: GameEvent = {
       type: "itemSelected",
       itemId: "1",
-      binId: "2",
+      binId: "green",
       isCorrect: true,
       timestamp: new Date(),
     };
@@ -50,7 +50,7 @@ describe("calculateScore", () => {
     const itemEvent: GameEvent = {
       type: "itemSelected",
       itemId: "1",
-      binId: "2",
+      binId: "green",
       isCorrect: true,
       timestamp: new Date(),
     };
@@ -64,7 +64,7 @@ describe("calculateScore", () => {
       {
         type: "itemSelected",
         itemId: "1",
-        binId: "2",
+        binId: "green",
         isCorrect: true,
         timestamp: new Date(),
       },
@@ -86,7 +86,7 @@ describe("calculateScore", () => {
     const event: GameEvent = {
       type: "itemSelected",
       itemId: "1",
-      binId: "2",
+      binId: "green",
       isCorrect: true,
       timestamp: new Date(),
     };
@@ -99,7 +99,7 @@ describe("calculateScore", () => {
     const event: GameEvent = {
       type: "itemSelected",
       itemId: "1",
-      binId: "2",
+      binId: "green",
       isCorrect: true,
       timestamp: new Date(),
     };
@@ -123,7 +123,7 @@ describe("calculateScore", () => {
     const event: GameEvent = {
       type: "itemSelected",
       itemId: "1",
-      binId: "2",
+      binId: "green",
       isCorrect: true,
       timestamp: new Date(),
     };
@@ -149,7 +149,7 @@ describe("calculateScore", () => {
       {
         type: "itemSelected",
         itemId: "1",
-        binId: "2",
+        binId: "green",
         isCorrect: true,
         timestamp: new Date(),
       },
@@ -170,7 +170,7 @@ describe("calculateScore", () => {
       {
         type: "itemSelected",
         itemId: "3",
-        binId: "1",
+        binId: "green",
         isCorrect: true,
         timestamp: new Date(),
       },

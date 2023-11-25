@@ -1,3 +1,5 @@
+import { RecycleBinType } from "@/models/Game";
+
 export type ITrashItem = ITrashItemBase & {
   id: number;
   positionProgress: number; // can have negative value, as the items are generated before entering the belt.
@@ -13,14 +15,6 @@ export type ITrashItemBase = {
   type: RecycleBinType;
   label: string;
 };
-
-export type RecycleBinType =
-  | "green"
-  | "yellow"
-  | "blue"
-  | "brown"
-  | "black"
-  | "none";
 
 export type Position = {
   height: number;
