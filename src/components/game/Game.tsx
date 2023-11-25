@@ -20,15 +20,15 @@ import { ITrashItem } from "./types";
 
 interface GameProps {
   onGameEnded: (args: {
-    startedAt: Date;
-    endedAt: Date;
+    startedAt: string;
+    endedAt: string;
     events: GameEvent[];
     score: number;
   }) => void;
 }
 
 const Game: React.FC<GameProps> = ({ onGameEnded }) => {
-  const [startedAt] = useState(new Date());
+  const [startedAt] = useState(new Date().toISOString());
   const [gameEnded, setGameEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } = useItems();
@@ -43,7 +43,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       setGameEnded(true);
       onGameEnded({
         startedAt,
-        endedAt: new Date(),
+        endedAt: new Date().toISOString(),
         events,
         score: scoreState.score,
       });
