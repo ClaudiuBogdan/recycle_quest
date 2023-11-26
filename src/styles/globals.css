@@ -73,5 +73,5 @@
 }
 
 .bin-clicked {
-  animation: scaleUpDown 0.3s ease;
+  animation: scaleUpDown 300ms ease;
 }
