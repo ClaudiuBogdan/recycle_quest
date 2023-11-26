@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
-import { parseCookies } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
 import { DbGameAdapter, DbUserAdapter } from "@/adapters/firebase";
 import ErrorMessage from "@/components/ErrorMessage";
 import NavigationButton from "@/components/NavigationButton";
@@ -55,14 +55,15 @@ async function fetchUser(token: string) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
   const userToken = cookies.token;
+  const redirectData = {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    },
+  };
 
   if (!userToken) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
+    return redirectData;
   }
 
   const errorData = { props: { error: "Failed to load game data" } };
@@ -77,11 +78,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const user = await fetchUser(userToken);
+    if (!user) {
+      destroyCookie(context, "token", {
+        httpOnly: true, // Secure cookie, not accessible via JavaScript
+        secure: process.env.NODE_ENV !== "development", // Use secure in production
+        sameSite: "strict", // CSRF protection
+        path: "/",
+      });
+      return redirectData;
+    }
+
     const gameData = await fetchGameData(gameId);
 
-    console.log({ gameData });
-
-    if (!gameData || !user) {
+    if (!gameData) {
       return errorData;
     }
 
