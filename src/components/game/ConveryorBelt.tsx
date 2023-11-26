@@ -1,11 +1,11 @@
 import TrashItem from "./TrashItem";
-import { ITrashItem, Size } from "./types";
+import { ITrashItemUI, Size } from "./types";
 
 type ConveyorBeltProps = {
-  items: ITrashItem[];
+  items: ITrashItemUI[];
   size: Size;
   speed: number;
-  onOverflow: (itemId: ITrashItem) => void;
+  onOverflow: (itemId: ITrashItemUI) => void;
 };
 
 const ConveyorBelt: React.FC<ConveyorBeltProps> = ({

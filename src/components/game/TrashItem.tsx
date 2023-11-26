@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import TrashItemImage from "./TrashItemImage";
-import { ITrashItem, Size } from "./types";
+import { ITrashItemUI, Size } from "./types";
 
 type TrashItemProps = Size & {
-  item: ITrashItem;
+  item: ITrashItemUI;
   speed: number;
   containerPosition: {
     height: number;
     bottom: number;
   };
-  onOverflow: (item: ITrashItem) => void;
+  onOverflow: (item: ITrashItemUI) => void;
 };
 
 const TrashItem: React.FC<TrashItemProps> = ({
@@ -86,7 +86,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
       }}
     >
       <TrashItemImage
-        imageId={item.image}
+        imageId={item.imageId}
         label={item.label}
         width={width}
         height={height}
