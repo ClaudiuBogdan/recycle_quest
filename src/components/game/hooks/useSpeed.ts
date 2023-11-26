@@ -1,24 +1,39 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const useSpeed = (gameEnded: boolean) => {
-  const [speed, setSpeed] = useState(0);
-  const [factor, setFactor] = useState(0.15);
+type UseSpeedProps = {
+  paused: boolean;
+  initialSpeed?: number;
+  constantSpeed?: boolean;
+  speedIncrement?: number;
+};
+
+const useSpeed = ({
+  paused,
+  initialSpeed = 0.15,
+  constantSpeed = false,
+  speedIncrement = 0.015,
+}: UseSpeedProps) => {
+  const [speed, setSpeed] = useState(initialSpeed);
+  const lastSpeedRef = useRef(speed);
+  lastSpeedRef.current = speed > 0 ? speed : lastSpeedRef.current; // Update last speed value when speed changes but is not paused
 
   useEffect(() => {
-    if (gameEnded) {
+    if (paused) {
       setSpeed(0);
-      return;
+    } else {
+      setSpeed(lastSpeedRef.current);
     }
-    const devicePixelDensity =
-      typeof window !== "undefined" ? window.devicePixelRatio || 1 : 1;
-    const newSpeed = factor / devicePixelDensity;
-    setSpeed(newSpeed);
-    const timeoutId = setTimeout(
-      () => setFactor((factor) => (factor += 0.01)),
-      10000,
-    );
-    return () => clearTimeout(timeoutId);
-  }, [factor, gameEnded]);
+  }, [paused]);
+
+  useEffect(() => {
+    if (!constantSpeed) {
+      const timeoutId = setTimeout(
+        () => setSpeed((speed) => speed + speedIncrement),
+        10000,
+      );
+      return () => clearTimeout(timeoutId);
+    }
+  }, [speedIncrement, constantSpeed, paused]);
   return speed;
 };
 export default useSpeed;

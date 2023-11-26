@@ -39,7 +39,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { events, addEvent } = useEvents();
   const { lives, removeLife } = useLives();
   const { scoreState, updateScore } = useScore();
-  const speed = useSpeed(gameEnded);
+  const speed = useSpeed({ paused: gameEnded });
   const { conveyorBeltSize, binsSize } = useSize();
 
   useEffect(() => {

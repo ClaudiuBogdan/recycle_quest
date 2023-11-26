@@ -6,6 +6,7 @@ import NavigationButton from "@/components/NavigationButton";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const tutorialText = "Tutorial";
   const newGameText = "New Game";
   const leaderboardText = "Leaderboard";
   const infoText = "Info";
@@ -18,6 +19,7 @@ export default function Home() {
         Welcome to RecycleQuest
       </h1>
       <div className={"max-w-2xl"}>
+        <NavigationButton path={"/tutorial"} buttonName={tutorialText} />
         <NavigationButton path={"/game"} buttonName={newGameText} />
         <NavigationButton path={"/leaderboard"} buttonName={leaderboardText} />
         <NavigationButton path={"/information"} buttonName={infoText} />

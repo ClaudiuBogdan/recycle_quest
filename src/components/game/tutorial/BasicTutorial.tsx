@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { BinData, RecycleBinType } from "@/models/Bin";
 import { GameEvent } from "@/models/Game";
 import { TrashItemData } from "@/models/TrashItem";
+import InformationOverlay from "./InformationOverlay";
+import { LevelMetadata } from "./types";
 import Bins from "../Bins";
 import ConveyorBelt from "../ConveryorBelt";
 import {
@@ -11,52 +13,77 @@ import {
   useEvents,
 } from "../hooks/useEvents";
 import { useItems } from "../hooks/useItems";
+import { useScore } from "../hooks/useScore";
 import useSize from "../hooks/useSize";
 import useSpeed from "../hooks/useSpeed";
 import { useValidationAnimation } from "../hooks/useValidationAnimation";
 import { ITrashItemUI } from "../types";
 
+type InformationOverlayProps = {
+  title: string;
+  message: string;
+  buttonText: string;
+};
+
 interface BasicTutorialProps {
+  id: string;
+  level: number;
   bins: BinData[];
   trashItems: TrashItemData[];
-  onTutorialEnded: (args: {
-    startedAt: string;
-    endedAt: string;
-    events: GameEvent[];
-  }) => void;
+  scoreThreshold: number;
+  info: InformationOverlayProps;
+  onTutorialEnded: (args: LevelMetadata) => void;
 }
 
 const BasicTutorial: React.FC<BasicTutorialProps> = ({
+  id,
+  level,
   bins,
   trashItems,
+  scoreThreshold,
+  info,
   onTutorialEnded,
 }) => {
+  const [paused, setPaused] = useState(true);
+  const [showOverlay, setShowOverlay] = useState(true);
   const [startedAt] = useState(new Date().toISOString());
   const [tutorialEnded, setTutorialEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
   const { events, addEvent } = useEvents();
-  const speed = useSpeed(tutorialEnded);
+  const speed = useSpeed({
+    paused: tutorialEnded || paused,
+    constantSpeed: true,
+  });
+  const { scoreState, updateScore } = useScore();
   const { conveyorBeltSize, binsSize } = useSize();
+
+  useEffect(() => {
+    if (scoreState.score >= scoreThreshold) {
+      setTutorialEnded(true);
+    }
+  }, [scoreState, scoreThreshold]);
 
   useEffect(() => {
     if (!tutorialEnded) {
       return;
     }
-    setTutorialEnded(true); // FIXME
     onTutorialEnded({
+      id,
+      level,
       startedAt,
       endedAt: new Date().toISOString(),
       events,
     });
-  }, [tutorialEnded, onTutorialEnded, startedAt, events]);
+  }, [id, level, tutorialEnded, onTutorialEnded, startedAt, events]);
 
   const handleGameEvent = useCallback(
     (event: GameEvent) => {
       addEvent(event);
+      updateScore(event);
     },
-    [addEvent],
+    [addEvent, updateScore],
   );
 
   const handleOverflow = useCallback(
@@ -89,6 +116,11 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
     }
   };
 
+  const handleCloseInfo = () => {
+    setShowOverlay(false);
+    setPaused(false);
+  };
+
   return (
     <div
       className={`h-screen ${color} transition duration-300 relative overflow-hidden flex justify-center`}
@@ -100,6 +132,9 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
         size={conveyorBeltSize}
       />
       <Bins bins={bins} onBinClick={handleBinClick} size={binsSize} />
+      {showOverlay && (
+        <InformationOverlay {...info} onClose={handleCloseInfo} />
+      )}
     </div>
   );
 };
