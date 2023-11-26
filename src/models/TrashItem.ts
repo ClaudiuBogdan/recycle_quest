@@ -1,4 +1,4 @@
-import { RecycleBinType } from "./Game";
+import { RecycleBinType } from "./Bin";
 
 export type TrashItemData = {
   imageId: string;

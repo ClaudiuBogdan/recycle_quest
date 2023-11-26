@@ -12,41 +12,48 @@ export function useItems(trashItems: TrashItemData[]) {
     const initialItems = getInitialItems(trashItems, startingPosition, 3);
     lastIdRef.current = initialItems[initialItems.length - 1]?.id ?? 0;
     setItems(initialItems);
-  }, []);
+  }, [trashItems]);
 
-  const removeItem = useCallback((itemId: number) => {
-    const newItem: ITrashItemUI = {
-      id: lastIdRef.current + 1,
-      positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
-      ...getRandomItem(trashItems),
-    };
-    lastIdRef.current++;
+  const removeItem = useCallback(
+    (itemId: number) => {
+      const newItem: ITrashItemUI = {
+        id: lastIdRef.current + 1,
+        positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
+        ...getRandomItem(trashItems),
+      };
+      lastIdRef.current++;
 
-    setItems((items) => {
-      const removedItem = items.find((item) => item.id === itemId);
-      if (!removedItem) {
-        return items;
-      }
+      setItems((items) => {
+        const removedItem = items.find((item) => item.id === itemId);
+        if (!removedItem) {
+          return items;
+        }
 
-      const newItems = items.filter(
-        (item) => item.id !== itemId && item.id !== newItem.id,
-      );
+        const newItems = items.filter(
+          (item) => item.id !== itemId && item.id !== newItem.id,
+        );
 
-      const lastItemPosition =
-        newItems[newItems.length - 1]?.positionProgress ??
-        newItem.positionProgress;
-      newItem.positionProgress = Math.min(
-        lastItemPosition + startingPosition,
-        newItem.positionProgress,
-      );
+        const lastItemPosition =
+          newItems[newItems.length - 1]?.positionProgress ??
+          newItem.positionProgress;
+        newItem.positionProgress = Math.min(
+          lastItemPosition + startingPosition,
+          newItem.positionProgress,
+        );
 
-      newItems.push(newItem);
-      return newItems;
-    });
-  }, []);
+        newItems.push(newItem);
+        return newItems;
+      });
+    },
+    [trashItems],
+  );
 
   const getFirstItem = useCallback((): ITrashItemUI | null => {
-    return items[0];
+    const item = items[0];
+    if (!item || item.positionProgress < startingPosition / 2) {
+      return null;
+    }
+    return item;
   }, [items]);
 
   const verifyBinSelection = useCallback(

@@ -1,4 +1,4 @@
-import { RecycleBinType } from "@/models/Game";
+import { RecycleBinType } from "@/models/Bin";
 import { TrashItemData } from "@/models/TrashItem";
 
 export type ITrashItemUI = TrashItemData & {

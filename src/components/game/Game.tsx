@@ -1,7 +1,9 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { trashBins } from "@/data/trashBins";
 import { trashItems } from "@/data/trashItems";
-import { GameEvent, RecycleBinType } from "@/models/Game";
+import { RecycleBinType } from "@/models/Bin";
+import { GameEvent } from "@/models/Game";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
 import Lives from "./Lives";
@@ -102,7 +104,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
         items={items}
         size={conveyorBeltSize}
       />
-      <Bins onBinClick={handleBinClick} size={binsSize} />
+      <Bins bins={trashBins} onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
       <Score count={scoreState.score} />
     </div>

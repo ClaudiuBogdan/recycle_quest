@@ -1,28 +1,32 @@
-import { RecycleBinType } from "@/models/Game";
+import { BinData, RecycleBinType } from "@/models/Bin";
 import RecyclingBin from "./RecyclingBin";
 import { Size } from "./types";
 interface BinsProps {
+  bins: BinData[];
   size: Size;
   onBinClick: (type: RecycleBinType) => void;
 }
 
-const Bins: React.FC<BinsProps> = ({ size, onBinClick }) => {
+const Bins: React.FC<BinsProps> = ({ bins, size, onBinClick }) => {
   const handleClick = (type: RecycleBinType) => {
     onBinClick(type);
   };
   return (
     <div
-      className="w-full gap-3 justify-between cursor-pointer flex absolute bottom-10 outline-none"
+      className="w-full gap-3 flex justify-center text-center cursor-pointer absolute bottom-10 outline-none"
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
       }}
     >
-      <RecyclingBin type={"green"} onClick={handleClick} label={"sticla"} />
-      <RecyclingBin type={"yellow"} onClick={handleClick} label={"plastic"} />
-      <RecyclingBin type={"blue"} onClick={handleClick} label={"hartie"} />
-      <RecyclingBin type={"brown"} onClick={handleClick} label={"organic"} />
-      <RecyclingBin type={"black"} onClick={handleClick} label={"rezidual"} />
+      {bins.map((bin) => (
+        <RecyclingBin
+          key={bin.type}
+          type={bin.type}
+          onClick={handleClick}
+          label={bin.label}
+        />
+      ))}
     </div>
   );
 };
