@@ -1,20 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ITrashItem, ITrashItemBase } from "../types";
+import { TrashItemData } from "@/models/TrashItem";
+import { ITrashItemUI } from "../types";
 
 const startingPosition = -0.3; // In percentage with respect to the conveyor belt height
 
-export function useItems() {
+export function useItems(trashItems: TrashItemData[]) {
   const lastIdRef = useRef(0);
-  const [items, setItems] = useState<ITrashItem[]>([]);
+  const [items, setItems] = useState<ITrashItemUI[]>([]);
 
   useEffect(() => {
-    const initialItems = getInitialItems(startingPosition, 3);
+    const initialItems = getInitialItems(trashItems, startingPosition, 3);
     lastIdRef.current = initialItems[initialItems.length - 1]?.id ?? 0;
     setItems(initialItems);
   }, []);
 
   const removeItem = useCallback((itemId: number) => {
-    const newItem: ITrashItem = {
+    const newItem: ITrashItemUI = {
       id: lastIdRef.current + 1,
       positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
       ...getRandomItem(trashItems),
@@ -44,12 +45,12 @@ export function useItems() {
     });
   }, []);
 
-  const getFirstItem = useCallback((): ITrashItem | null => {
+  const getFirstItem = useCallback((): ITrashItemUI | null => {
     return items[0];
   }, [items]);
 
   const verifyBinSelection = useCallback(
-    (item: ITrashItem, binType: string): ITrashItem | null => {
+    (item: ITrashItemUI, binType: string): ITrashItemUI | null => {
       if (!item || item.type !== binType) {
         return null;
       }
@@ -67,13 +68,14 @@ export function useItems() {
 }
 
 export function getInitialItems(
+  trashItems: TrashItemData[],
   initialPosition: number,
   count = 3,
-): ITrashItem[] {
-  const items: ITrashItem[] = [];
+): ITrashItemUI[] {
+  const items: ITrashItemUI[] = [];
   for (let i = 0; i < count; i++) {
     const baseItem = getRandomItem(trashItems);
-    const item: ITrashItem = {
+    const item: ITrashItemUI = {
       id: i + 1,
       positionProgress: initialPosition * i,
       ...baseItem,
@@ -87,96 +89,3 @@ export function getRandomItem<T>(arr: T[]): T {
   const randomIndex = Math.floor(Math.random() * arr.length);
   return arr[randomIndex];
 }
-
-export const trashItems: ITrashItemBase[] = [
-  {
-    image: "black1",
-    type: "black",
-    label: "rezidual",
-  },
-  {
-    image: "black2",
-    type: "black",
-    label: "rezidual",
-  },
-  {
-    image: "black3",
-    type: "black",
-    label: "rezidual",
-  },
-  {
-    image: "blue1",
-    type: "blue",
-    label: "hartie",
-  },
-  {
-    image: "blue2",
-    type: "blue",
-    label: "hartie",
-  },
-  {
-    image: "blue3",
-    type: "blue",
-    label: "hartie",
-  },
-  {
-    image: "blue4",
-    type: "blue",
-    label: "hartie",
-  },
-  {
-    image: "brown1",
-    type: "brown",
-    label: "organic",
-  },
-  {
-    image: "brown2",
-    type: "brown",
-    label: "organic",
-  },
-  {
-    image: "green1",
-    type: "green",
-    label: "sticla",
-  },
-  {
-    image: "green2",
-    type: "green",
-    label: "sticla",
-  },
-  {
-    image: "green3",
-    type: "green",
-    label: "sticla",
-  },
-  {
-    image: "yellow1",
-    type: "yellow",
-    label: "metal",
-  },
-  {
-    image: "yellow2",
-    type: "yellow",
-    label: "metal",
-  },
-  {
-    image: "yellow3",
-    type: "yellow",
-    label: "metal",
-  },
-  {
-    image: "yellow4",
-    type: "yellow",
-    label: "plastic",
-  },
-  {
-    image: "yellow5",
-    type: "yellow",
-    label: "plastic",
-  },
-  {
-    image: "yellow6",
-    type: "yellow",
-    label: "plastic",
-  },
-];

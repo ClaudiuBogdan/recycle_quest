@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { trashItems } from "@/data/trashItems";
 import { GameEvent, RecycleBinType } from "@/models/Game";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
@@ -16,7 +17,7 @@ import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
-import { ITrashItem } from "./types";
+import { ITrashItemUI } from "./types";
 
 interface GameProps {
   onGameEnded: (args: {
@@ -31,7 +32,8 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const [startedAt] = useState(new Date().toISOString());
   const [gameEnded, setGameEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
-  const { items, removeItem, getFirstItem, verifyBinSelection } = useItems();
+  const { items, removeItem, getFirstItem, verifyBinSelection } =
+    useItems(trashItems);
   const { events, addEvent } = useEvents();
   const { lives, removeLife } = useLives();
   const { scoreState, updateScore } = useScore();
@@ -59,8 +61,8 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   );
 
   const handleOverflow = useCallback(
-    (item: ITrashItem) => {
-      const event = createMissItemEvent(item.image);
+    (item: ITrashItemUI) => {
+      const event = createMissItemEvent(item.imageId);
       removeItem(item.id);
       removeLife();
       setValidationState("missed");
@@ -77,7 +79,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
     if (!item) {
       return;
     }
-    const event = createItemSelectedEvent(item.image, item.type, binType);
+    const event = createItemSelectedEvent(item.imageId, item.type, binType);
     handleGameEvent(event);
     const isValid = verifyBinSelection(item, binType);
 

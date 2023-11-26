@@ -1,19 +1,14 @@
 import { RecycleBinType } from "@/models/Game";
+import { TrashItemData } from "@/models/TrashItem";
 
-export type ITrashItem = ITrashItemBase & {
+export type ITrashItemUI = TrashItemData & {
   id: number;
   positionProgress: number; // can have negative value, as the items are generated before entering the belt.
 };
 
-export type ITrashItemApi = ITrashItem & {
+export type ITrashItemApi = ITrashItemUI & {
   state: "valid" | "invalid" | "missed";
   selectedBin: RecycleBinType;
-};
-
-export type ITrashItemBase = {
-  image: string;
-  type: RecycleBinType;
-  label: string;
 };
 
 export type Position = {
