@@ -5,7 +5,7 @@ import brown from "@/assets/brown_bin.png";
 import green from "@/assets/green_bin.png";
 import placeholderImage from "@/assets/placeholder64x64.png";
 import yellow from "@/assets/yellow_bin.png";
-import { RecycleBinType } from "@/models/Game";
+import { RecycleBinType } from "@/models/Bin";
 
 export function mapBinIdToImage(binId: RecycleBinType): StaticImageData {
   const imageMap: Record<RecycleBinType, StaticImageData> = {

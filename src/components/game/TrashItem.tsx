@@ -91,7 +91,9 @@ const TrashItem: React.FC<TrashItemProps> = ({
         width={width}
         height={height}
       />
-      <span className="text-white">{item.label}</span>
+      <span className="text-white relative" style={{ top: "-1rem" }}>
+        {item.label}
+      </span>
     </div>
   );
 };

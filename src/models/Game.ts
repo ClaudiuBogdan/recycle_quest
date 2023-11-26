@@ -1,3 +1,5 @@
+import { RecycleBinType } from "@/models/Bin";
+
 export interface GameData {
   id: string; // Unique identifier for the game session
   userId: string; // Reference to User
@@ -62,11 +64,3 @@ export interface QuizAnswerStats {
   count: number;
   type: "quiz_answer";
 }
-
-export type RecycleBinType =
-  | "green"
-  | "yellow"
-  | "blue"
-  | "brown"
-  | "black"
-  | "none";

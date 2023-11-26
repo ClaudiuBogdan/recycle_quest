@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RecycleBinType } from "@/models/Game";
+import { RecycleBinType } from "@/models/Bin";
 import RecyclingBinImage from "./RecyclingBinImage";
 
 type RecyclingBinProps = {
@@ -26,10 +26,7 @@ const RecyclingBin: React.FC<RecyclingBinProps> = ({
   };
 
   return (
-    <button
-      className={`w-full ${clicked ? "bin-clicked" : ""}`}
-      onClick={handleClick}
-    >
+    <button className={`${clicked ? "bin-clicked" : ""}`} onClick={handleClick}>
       <RecyclingBinImage type={type} label={type} width={100} height={100} />
       <span className="absolute -bottom-5 text-gray-800 invisible">
         {label}
