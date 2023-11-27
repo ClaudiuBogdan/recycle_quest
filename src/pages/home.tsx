@@ -10,6 +10,7 @@ export default function Home() {
   const newGameText = "New Game";
   const leaderboardText = "Leaderboard";
   const infoText = "Info";
+  const feedbackText = "Feedback";
 
   return (
     <main
@@ -23,6 +24,7 @@ export default function Home() {
         <NavigationButton path={"/game"} buttonName={newGameText} />
         <NavigationButton path={"/leaderboard"} buttonName={leaderboardText} />
         <NavigationButton path={"/information"} buttonName={infoText} />
+        <NavigationButton path={"/feedback"} buttonName={feedbackText} />
       </div>
     </main>
   );
