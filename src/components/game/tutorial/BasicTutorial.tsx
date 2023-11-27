@@ -56,14 +56,14 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
     paused: tutorialEnded || paused,
     constantSpeed: true,
   });
-  const { scoreState, updateScore } = useScore();
+  const { score, updateScore } = useScore();
   const { conveyorBeltSize, binsSize } = useSize();
 
   useEffect(() => {
-    if (scoreState.score >= scoreThreshold) {
+    if (score >= scoreThreshold) {
       setTutorialEnded(true);
     }
-  }, [scoreState, scoreThreshold]);
+  }, [score, scoreThreshold]);
 
   useEffect(() => {
     if (!tutorialEnded) {

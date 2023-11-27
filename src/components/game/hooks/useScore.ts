@@ -12,5 +12,5 @@ export function useScore() {
     setScoreState((state) => calculateScore(event, state));
   }, []);
 
-  return { scoreState, updateScore };
+  return { ...scoreState, updateScore };
 }

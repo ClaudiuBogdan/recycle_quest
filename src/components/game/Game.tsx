@@ -15,6 +15,7 @@ import {
 } from "./hooks/useEvents";
 import { useItems } from "./hooks/useItems";
 import { useLives } from "./hooks/useLives";
+import { useQuiz } from "./hooks/useQuiz";
 import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
@@ -32,27 +33,31 @@ interface GameProps {
 
 const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const [startedAt] = useState(new Date().toISOString());
-  const [gameEnded, setGameEnded] = useState(false);
+  const [paused, setPaused] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
   const { events, addEvent } = useEvents();
   const { lives, removeLife } = useLives();
-  const { scoreState, updateScore } = useScore();
-  const speed = useSpeed({ paused: gameEnded });
+  const { score, updateScore } = useScore();
+  const speed = useSpeed({ paused: paused });
   const { conveyorBeltSize, binsSize } = useSize();
-
+  const { active: quizActive } = useQuiz(score);
   useEffect(() => {
     if (lives <= 0) {
-      setGameEnded(true);
+      setPaused(true);
       onGameEnded({
         startedAt,
         endedAt: new Date().toISOString(),
         events,
-        score: scoreState.score,
+        score,
       });
     }
-  }, [lives, onGameEnded, startedAt, events, scoreState]);
+  }, [lives, onGameEnded, startedAt, events, score]);
+
+  useEffect(() => {
+    setPaused(quizActive);
+  }, [quizActive]);
 
   const handleGameEvent = useCallback(
     (event: GameEvent) => {
@@ -74,7 +79,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   );
 
   const handleBinClick = (binType: RecycleBinType) => {
-    if (gameEnded) {
+    if (paused) {
       return;
     }
     const item = getFirstItem();
@@ -106,7 +111,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       />
       <Bins bins={trashBins} onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
-      <Score count={scoreState.score} />
+      <Score count={score} />
     </div>
   );
 };
