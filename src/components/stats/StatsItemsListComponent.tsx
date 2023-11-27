@@ -33,6 +33,8 @@ const StatsItemsListComponent: React.FC<StatsItemsListComponentProps> = ({
   const getBinLabel = (item: StatsItem): string => {
     if (item.type === "bin_selection") {
       return mapBinIdToLabel(item.binId);
+    } else if (item.type === "quiz_answer") {
+      return "quiz questions";
     }
     return "";
   };

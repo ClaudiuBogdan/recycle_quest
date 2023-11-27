@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { trashBins } from "@/data/trashBins";
 import { trashItems } from "@/data/trashItems";
 import { RecycleBinType } from "@/models/Bin";
@@ -20,6 +20,7 @@ import { useScore } from "./hooks/useScore";
 import useSize from "./hooks/useSize";
 import useSpeed from "./hooks/useSpeed";
 import { useValidationAnimation } from "./hooks/useValidationAnimation";
+import Quiz from "./quiz/Quiz";
 import { ITrashItemUI } from "./types";
 
 interface GameProps {
@@ -42,7 +43,9 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { score, updateScore } = useScore();
   const speed = useSpeed({ paused: paused });
   const { conveyorBeltSize, binsSize } = useSize();
-  const { active: quizActive } = useQuiz(score);
+  const { questions, generateQuestions, hasQuestions } = useQuiz();
+  const lastQuizScoreRef = useRef(0);
+
   useEffect(() => {
     if (lives <= 0) {
       setPaused(true);
@@ -56,8 +59,14 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   }, [lives, onGameEnded, startedAt, events, score]);
 
   useEffect(() => {
-    setPaused(quizActive);
-  }, [quizActive]);
+    const scoreInterval = 5;
+    const scoreThreshold = lastQuizScoreRef.current + scoreInterval;
+    if (score > scoreThreshold && hasQuestions) {
+      lastQuizScoreRef.current = score;
+      generateQuestions();
+      setPaused(true);
+    }
+  }, [score, hasQuestions, generateQuestions]);
 
   const handleGameEvent = useCallback(
     (event: GameEvent) => {
@@ -99,6 +108,15 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
     }
   };
 
+  const handleQuizAnswer = (event: GameEvent) => {
+    handleGameEvent(event);
+    lastQuizScoreRef.current = score;
+  };
+
+  const handleQuizFinish = () => {
+    setPaused(false);
+  };
+
   return (
     <div
       className={`h-screen ${color} transition duration-300 relative overflow-hidden flex justify-center`}
@@ -112,6 +130,11 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       <Bins bins={trashBins} onBinClick={handleBinClick} size={binsSize} />
       <Lives count={lives} />
       <Score count={score} />
+      <Quiz
+        questions={questions}
+        onAnswer={handleQuizAnswer}
+        onQuizFinish={handleQuizFinish}
+      />
     </div>
   );
 };

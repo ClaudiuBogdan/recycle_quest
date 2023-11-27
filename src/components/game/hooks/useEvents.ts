@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { RecycleBinType } from "@/models/Bin";
-import { GameEvent, ItemMissedEvent, ItemSelectedEvent } from "@/models/Game";
+import {
+  GameEvent,
+  ItemMissedEvent,
+  ItemSelectedEvent,
+  QuizItemEvent,
+} from "@/models/Game";
 
 export function useEvents() {
   const [events, setEvents] = useState<GameEvent[]>([]);
@@ -30,6 +35,20 @@ export function createMissItemEvent(itemId: string): ItemMissedEvent {
   return {
     type: "itemMissed",
     itemId,
+    timestamp: new Date(),
+  };
+}
+
+export function createQuizAnswerEvent(
+  questionId: string,
+  answerId: string,
+  isCorrect: boolean,
+): QuizItemEvent {
+  return {
+    type: "quizItem",
+    questionId,
+    answerId,
+    isCorrect,
     timestamp: new Date(),
   };
 }
