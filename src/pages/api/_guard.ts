@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextFunction, createMiddlewareDecorator } from "next-api-decorators";
+import {
+  NextFunction,
+  UnauthorizedException,
+  createMiddlewareDecorator,
+} from "next-api-decorators";
 import { destroyCookie, parseCookies } from "nookies";
 import { DbUserAdapter } from "@/adapters/firebase";
 import UserService from "@/services/UserService";
@@ -24,7 +28,7 @@ const UserTokenGuard = createMiddlewareDecorator(
         sameSite: "strict", // CSRF protection
         path: "/",
       });
-      return res.status(401).json({ errors: [`Unauthorized user`] });
+      return next(new UnauthorizedException("Unauthorized user"));
     }
 
     updateContext(req, { user });
