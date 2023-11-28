@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { parseCookies } from "nookies";
 import { useCallback } from "react";
-import { RequestGameData, useEndGame } from "@/adapters/api/game";
+import { RequestGameData, useEndGame } from "@/adapters/api";
 import ErrorMessage from "@/components/ErrorMessage";
 import Game from "@/components/game/Game";
 
@@ -12,21 +12,14 @@ export default function GamePage() {
 
   const handleGameEnded = useCallback(
     (gameData: RequestGameData) => {
+      if (data && !loading && !error) {
+        void router.push(`/game/${data.id}`);
+      }
       if (data || loading || error) {
         return;
       }
 
-      endGame({ gameData })
-        .then((res) => {
-          if (!res) {
-            return;
-          }
-          router
-            .push(`/game/${res.id}`)
-            .then(() => void 0)
-            .catch((err) => console.error(err));
-        })
-        .catch((err) => console.log(err));
+      void endGame({ gameData });
     },
     [endGame, data, loading, error, router],
   );
