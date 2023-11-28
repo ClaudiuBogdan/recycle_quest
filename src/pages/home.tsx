@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
-import { parseCookies } from "nookies";
+import { destroyCookie, parseCookies } from "nookies";
+import { fetchUser } from "@/adapters/api/fetchData";
 import NavigationButton from "@/components/NavigationButton";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -33,13 +34,24 @@ export default function Home() {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
   const userToken = cookies.token;
+  const redirectData = {
+    redirect: {
+      destination: "/login",
+      permanent: false,
+    },
+  };
   if (!userToken) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
+    return redirectData;
+  }
+  const user = await fetchUser(userToken);
+  if (!user) {
+    destroyCookie(context, "token", {
+      httpOnly: true, // Secure cookie, not accessible via JavaScript
+      secure: process.env.NODE_ENV !== "development", // Use secure in production
+      sameSite: "strict", // CSRF protection
+      path: "/",
+    });
+    return redirectData;
   }
   return { props: {} };
 };

@@ -1,13 +1,11 @@
 import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import { destroyCookie, parseCookies } from "nookies";
-import { DbGameAdapter, DbUserAdapter } from "@/adapters/firebase";
+import { fetchGameData, fetchUser } from "@/adapters/api/fetchData";
 import ErrorMessage from "@/components/ErrorMessage";
 import NavigationButton from "@/components/NavigationButton";
 import GameStatsComponent from "@/components/stats/GameStatsComponent";
 import { GameStats } from "@/models/Game";
-import GameService from "@/services/GameService";
-import UserService from "@/services/UserService";
 
 const inter = Inter({ subsets: ["latin"] });
 type EndGamePageProps = {
@@ -38,18 +36,6 @@ export default function EndGamePage({
       <NavigationButton path={"/home"} buttonName={"Home"} />
     </main>
   );
-}
-
-async function fetchGameData(gameId: string) {
-  const gameDbAdapter = new DbGameAdapter();
-  const gameService = new GameService(gameDbAdapter);
-  return gameService.getGameById(gameId);
-}
-
-async function fetchUser(token: string) {
-  const userAdapter = new DbUserAdapter();
-  const userService = new UserService(userAdapter);
-  return userService.getUserByToken(token);
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
