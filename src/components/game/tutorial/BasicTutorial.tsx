@@ -131,7 +131,12 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
         items={items}
         size={conveyorBeltSize}
       />
-      <Bins bins={bins} onBinClick={handleBinClick} size={binsSize} />
+      <Bins
+        bins={bins}
+        top={conveyorBeltSize.height}
+        onBinClick={handleBinClick}
+        size={binsSize}
+      />
       {showOverlay && (
         <InformationOverlay {...info} onClose={handleCloseInfo} />
       )}

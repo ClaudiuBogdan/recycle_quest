@@ -28,9 +28,7 @@ const RecyclingBin: React.FC<RecyclingBinProps> = ({
   return (
     <button className={`${clicked ? "bin-clicked" : ""}`} onClick={handleClick}>
       <RecyclingBinImage type={type} label={type} width={100} height={100} />
-      <span className="absolute -bottom-5 text-gray-800 invisible">
-        {label}
-      </span>
+      <span className="absolute text-gray-800 invisible">{label}</span>
     </button>
   );
 };

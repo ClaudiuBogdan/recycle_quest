@@ -1,9 +1,10 @@
 import { useCallback, useState } from "react";
 
 export function useLives() {
-  const [lives, setLives] = useState(3);
+  const totalLives = 3;
+  const [lives, setLives] = useState(totalLives);
 
   const removeLife = useCallback(() => setLives((lives) => lives - 1), []);
 
-  return { lives, removeLife };
+  return { lives, totalLives, removeLife };
 }
