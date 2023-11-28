@@ -15,7 +15,7 @@ export default function useSize() {
 
   useEffect(() => {
     const resize = () => {
-      const conveyorBeltHeight = window.innerHeight * 0.8;
+      const conveyorBeltHeight = window.innerHeight * 0.85;
       const binsContainerWidth = Math.min(
         conveyorBeltHeight * 0.8,
         window.innerWidth,

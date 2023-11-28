@@ -39,7 +39,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
   const { events, addEvent } = useEvents();
-  const { lives, removeLife } = useLives();
+  const { lives, totalLives, removeLife } = useLives();
   const { score, updateScore } = useScore();
   const speed = useSpeed({ paused: paused });
   const { conveyorBeltSize, binsSize } = useSize();
@@ -119,7 +119,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
 
   return (
     <div
-      className={`h-screen ${color} transition duration-300 relative overflow-hidden flex justify-center`}
+      className={`relative h-screen ${color} transition duration-300 overflow-hidden flex justify-center`}
     >
       <ConveyorBelt
         speed={speed}
@@ -127,8 +127,13 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
         items={items}
         size={conveyorBeltSize}
       />
-      <Bins bins={trashBins} onBinClick={handleBinClick} size={binsSize} />
-      <Lives count={lives} />
+      <Bins
+        top={conveyorBeltSize.height}
+        bins={trashBins}
+        onBinClick={handleBinClick}
+        size={binsSize}
+      />
+      <Lives current={lives} total={totalLives} />
       <Score count={score} />
       <Quiz
         questions={questions}

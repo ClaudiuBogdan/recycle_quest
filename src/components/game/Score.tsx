@@ -5,8 +5,8 @@ interface ScoreProps {
 const Score: React.FC<ScoreProps> = ({ count }) => {
   return (
     <div
-      className="absolute top-0 left-5 text-gray-800 font-extrabold shadow-lg p-5"
-      style={{ fontSize: "1rem" }}
+      className="absolute top-1/2 left-1/2 translate-y-[-50%] translate-x-[-170%] bg-black text-white text-center font-extrabold shadow-lg rounded-lg p-5"
+      style={{ fontSize: "min(4vw, 2vh)", width: "min(30vw, 20vh)" }}
     >
       Score: {count}
     </div>

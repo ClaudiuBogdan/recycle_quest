@@ -4,10 +4,11 @@ import { Size } from "./types";
 interface BinsProps {
   bins: BinData[];
   size: Size;
+  top: number;
   onBinClick: (type: RecycleBinType) => void;
 }
 
-const Bins: React.FC<BinsProps> = ({ bins, size, onBinClick }) => {
+const Bins: React.FC<BinsProps> = ({ bins, top, size, onBinClick }) => {
   const handleClick = (type: RecycleBinType) => {
     onBinClick(type);
   };
@@ -17,6 +18,7 @@ const Bins: React.FC<BinsProps> = ({ bins, size, onBinClick }) => {
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
+        top: `${top + 8}px`,
       }}
     >
       {bins.map((bin) => (
