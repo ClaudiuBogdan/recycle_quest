@@ -9,6 +9,7 @@ type TrashItemProps = Size & {
     height: number;
     bottom: number;
   };
+  hideLabel?: boolean;
   onOverflow: (item: ITrashItemUI) => void;
 };
 
@@ -17,6 +18,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
   item,
   width,
   height,
+  hideLabel,
   containerPosition,
   onOverflow,
 }) => {
@@ -91,9 +93,11 @@ const TrashItem: React.FC<TrashItemProps> = ({
         width={width}
         height={height}
       />
-      <span className="text-white relative" style={{ top: "-1rem" }}>
-        {item.label}
-      </span>
+      {!hideLabel && (
+        <span className="text-white relative" style={{ top: "-1rem" }}>
+          {item.label}
+        </span>
+      )}
     </div>
   );
 };

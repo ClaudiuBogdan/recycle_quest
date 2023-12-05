@@ -4,6 +4,7 @@ import { ITrashItemUI, Size } from "./types";
 type ConveyorBeltProps = {
   items: ITrashItemUI[];
   size: Size;
+  hideItemLabel?: boolean;
   speed: number;
   onOverflow: (itemId: ITrashItemUI) => void;
 };
@@ -12,6 +13,7 @@ const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   items,
   speed,
   size,
+  hideItemLabel = false,
   onOverflow,
 }) => {
   return (
@@ -27,6 +29,7 @@ const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
         <TrashItem
           key={item.id}
           item={item}
+          hideLabel={hideItemLabel}
           speed={speed}
           width={size.width}
           height={size.width}

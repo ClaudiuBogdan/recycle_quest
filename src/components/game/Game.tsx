@@ -132,6 +132,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
         speed={speed}
         onOverflow={handleOverflow}
         items={items}
+        hideItemLabel={speed > 0.2}
         size={conveyorBeltSize}
       />
       <Bins
