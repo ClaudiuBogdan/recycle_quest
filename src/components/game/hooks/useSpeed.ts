@@ -26,7 +26,6 @@ const useSpeed = ({
   }, [paused]);
 
   useEffect(() => {
-    console.log({ constantSpeed, paused });
     if (!constantSpeed && !paused) {
       const timeoutId = setInterval(
         () => setSpeed((speed) => speed + speedIncrement),
