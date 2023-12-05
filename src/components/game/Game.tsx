@@ -64,6 +64,8 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
     setPaused(true);
     if (hasQuestions) {
       generateQuestions();
+    } else {
+      setGameEnded(true);
     }
   }, [gameEnded, lives, hasQuestions, generateQuestions]);
 
