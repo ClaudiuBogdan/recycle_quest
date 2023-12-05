@@ -1,7 +1,6 @@
 import { GameEvent } from "@/models/Game";
 
 const POINTS_FOR_CORRECT_SELECTION = 1;
-const POINTS_FOR_MISSED_ITEM = 1;
 const POINTS_FOR_QUIZ_CORRECT = 1;
 
 export type GameState = {
@@ -28,12 +27,11 @@ export function calculateScore(
         if (event.isCorrect) {
           state.score += POINTS_FOR_CORRECT_SELECTION * state.multiplier;
         } else {
-          state.score -= POINTS_FOR_CORRECT_SELECTION * state.multiplier;
+          state.multiplier = 1;
         }
         break;
       case "itemMissed":
-        // Deduct points or other logic for a missed item
-        state.score -= POINTS_FOR_MISSED_ITEM;
+        state.multiplier = 1;
         break;
       case "quizItem":
         // Score for quiz item
