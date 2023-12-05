@@ -29,7 +29,9 @@ const TutorialComponent: React.FC<TutorialProps> = ({ onComplete }) => {
           id={levelData.id}
           level={level}
           bins={levelData.bins}
-          scoreThreshold={levelData.scoreThreshold}
+          scoreThreshold={
+            levelData.scoreThreshold ?? levelData.trashItems.length - 1
+          }
           trashItems={levelData.trashItems}
           info={levelData.info}
           onTutorialEnded={handleLevelEnded}

@@ -49,8 +49,10 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
   const [startedAt] = useState(new Date().toISOString());
   const [tutorialEnded, setTutorialEnded] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
-  const { items, removeItem, getFirstItem, verifyBinSelection } =
-    useItems(trashItems);
+  const { items, removeItem, getFirstItem, verifyBinSelection } = useItems(
+    trashItems,
+    trashItems.length,
+  );
   const { events, addEvent } = useEvents();
   const { speed } = useSpeed({
     paused: tutorialEnded || paused,

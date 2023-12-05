@@ -1,18 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TrashItemData } from "@/models/TrashItem";
+import shuffleArray from "@/utils/shuffle";
 import { ITrashItemUI } from "../types";
 
 const startingPosition = -0.3; // In percentage with respect to the conveyor belt height
 
-export function useItems(trashItems: TrashItemData[]) {
+export function useItems(trashItems: TrashItemData[], initialItemsCount = 3) {
   const lastIdRef = useRef(0);
   const [items, setItems] = useState<ITrashItemUI[]>([]);
 
   useEffect(() => {
-    const initialItems = getInitialItems(trashItems, startingPosition, 3);
+    const initialItems = getInitialItems(
+      trashItems,
+      startingPosition,
+      initialItemsCount,
+    );
     lastIdRef.current = initialItems[initialItems.length - 1]?.id ?? 0;
     setItems(initialItems);
-  }, [trashItems]);
+  }, [trashItems, initialItemsCount]);
 
   const removeItem = useCallback(
     (itemId: number) => {
@@ -77,11 +82,13 @@ export function useItems(trashItems: TrashItemData[]) {
 export function getInitialItems(
   trashItems: TrashItemData[],
   initialPosition: number,
-  count = 3,
+  count: number,
 ): ITrashItemUI[] {
+  const randomItems = shuffleArray(trashItems);
   const items: ITrashItemUI[] = [];
+
   for (let i = 0; i < count; i++) {
-    const baseItem = getRandomItem(trashItems);
+    const baseItem = randomItems[i % trashItems.length];
     const item: ITrashItemUI = {
       id: i + 1,
       positionProgress: initialPosition * i,

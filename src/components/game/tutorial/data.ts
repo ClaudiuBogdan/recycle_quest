@@ -18,7 +18,6 @@ export const levels = [
   {
     id: "yellow-bins",
     bins: [YellowBin],
-    scoreThreshold: 4,
     trashItems: yellowTrashItems,
     info: {
       title: "Container galben",
@@ -30,7 +29,6 @@ export const levels = [
   {
     id: "blue-bins",
     bins: [BlueBin],
-    scoreThreshold: 4,
     info: {
       title: "Container albastru",
       message:
@@ -42,7 +40,6 @@ export const levels = [
   {
     id: "green-bins",
     bins: [GreenBin],
-    scoreThreshold: 4,
     info: {
       title: "Container verde",
       message:
@@ -54,7 +51,6 @@ export const levels = [
   {
     id: "brown-bins",
     bins: [BrownBin],
-    scoreThreshold: 4,
     info: {
       title: "Container maron",
       message:
@@ -66,7 +62,6 @@ export const levels = [
   {
     id: "black-bins",
     bins: [BlackBin],
-    scoreThreshold: 4,
     info: {
       title: "Container negru",
       message:
@@ -78,7 +73,7 @@ export const levels = [
   {
     id: "all-bins",
     bins: trashBins,
-    scoreThreshold: 20,
+    scoreThreshold: 4,
     info: {
       title: "Toate recipientele",
       message:
