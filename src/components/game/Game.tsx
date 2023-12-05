@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { trashBins } from "@/data/trashBins";
 import { trashItems } from "@/data/trashItems";
 import { RecycleBinType } from "@/models/Bin";
@@ -34,21 +34,20 @@ interface GameProps {
 
 const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const [startedAt] = useState(new Date().toISOString());
+  const [gameEnded, setGameEnded] = useState(false);
   const [paused, setPaused] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
   const { events, addEvent } = useEvents();
-  const { lives, totalLives, removeLife } = useLives();
+  const { lives, totalLives, removeLife, addLife } = useLives();
   const { score, updateScore } = useScore();
   const speed = useSpeed({ paused: paused });
   const { conveyorBeltSize, binsSize } = useSize();
   const { questions, generateQuestions, hasQuestions } = useQuiz();
-  const lastQuizScoreRef = useRef(0);
 
   useEffect(() => {
-    if (lives <= 0) {
-      setPaused(true);
+    if (gameEnded) {
       onGameEnded({
         startedAt,
         endedAt: new Date().toISOString(),
@@ -56,17 +55,17 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
         score,
       });
     }
-  }, [lives, onGameEnded, startedAt, events, score]);
+  }, [lives, gameEnded, onGameEnded, startedAt, events, score]);
 
   useEffect(() => {
-    const scoreInterval = 5;
-    const scoreThreshold = lastQuizScoreRef.current + scoreInterval;
-    if (score > scoreThreshold && hasQuestions) {
-      lastQuizScoreRef.current = score;
-      generateQuestions();
-      setPaused(true);
+    if (lives > 0 || gameEnded) {
+      return;
     }
-  }, [score, hasQuestions, generateQuestions]);
+    setPaused(true);
+    if (hasQuestions) {
+      generateQuestions();
+    }
+  }, [gameEnded, lives, hasQuestions, generateQuestions]);
 
   const handleGameEvent = useCallback(
     (event: GameEvent) => {
@@ -110,11 +109,15 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
 
   const handleQuizAnswer = (event: GameEvent) => {
     handleGameEvent(event);
-    lastQuizScoreRef.current = score;
   };
 
-  const handleQuizFinish = () => {
-    setPaused(false);
+  const handleQuizFinish = (succeeded: boolean) => {
+    if (succeeded) {
+      addLife();
+      setPaused(false);
+    } else {
+      setGameEnded(true);
+    }
   };
 
   return (

@@ -5,6 +5,7 @@ export function useLives() {
   const [lives, setLives] = useState(totalLives);
 
   const removeLife = useCallback(() => setLives((lives) => lives - 1), []);
+  const addLife = useCallback(() => setLives((lives) => lives + 1), []);
 
-  return { lives, totalLives, removeLife };
+  return { lives, totalLives, removeLife, addLife };
 }

@@ -8,7 +8,7 @@ import { createQuizAnswerEvent } from "../hooks/useEvents";
 type QuizProps = {
   questions: QuizData[];
   onAnswer: (event: QuizItemEvent) => void;
-  onQuizFinish: () => void;
+  onQuizFinish: (succeeded: boolean) => void;
 };
 
 const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
@@ -35,7 +35,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
       setAnswerState(undefined);
       if (!nextQuestion) {
         lastQuestionIdxRef.current = -1;
-        onQuizFinish();
+        onQuizFinish(true);
       }
     }, delay);
     return () => clearTimeout(timeoutId);
@@ -57,6 +57,9 @@ const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
     lastQuestionIdxRef.current++;
     onAnswer(event);
     updateAnswerState(answerId);
+    if (!isCorrect) {
+      onQuizFinish(false);
+    }
   };
 
   return (
