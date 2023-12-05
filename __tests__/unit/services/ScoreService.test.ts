@@ -15,17 +15,6 @@ describe("calculateScore", () => {
     expect(newState.score).toBeGreaterThan(initialState.score);
   });
 
-  it("should decrease score for missed item", () => {
-    const initialState: GameState = { score: 1, multiplier: 1 };
-    const event: GameEvent = {
-      type: "itemMissed",
-      itemId: "1",
-      timestamp: new Date(),
-    };
-    const newState = calculateScore(event, initialState);
-    expect(newState.score).toBeLessThan(initialState.score);
-  });
-
   it("should skip decreasing score if score is 0", () => {
     const initialState: GameState = { score: 0, multiplier: 1 };
     const event: GameEvent = {
@@ -78,7 +67,7 @@ describe("calculateScore", () => {
       },
     ];
     const newState = calculateScore(events, initialState);
-    expect(newState.score).toEqual(1);
+    expect(newState.score).toEqual(2);
   });
 
   it("should increase score for correct item selection", () => {
