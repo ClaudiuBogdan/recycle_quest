@@ -1,0 +1,7 @@
+{
+  "short_name": "Recycle Quest",
+  "name": "Learn to recycle with Recycle Quest",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "landscape"
+}

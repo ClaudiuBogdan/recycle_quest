@@ -2,11 +2,17 @@ import { GetServerSideProps } from "next";
 import { Inter } from "next/font/google";
 import { destroyCookie, parseCookies } from "nookies";
 import { fetchUser } from "@/adapters/api/fetchData";
+import FullScreenButton from "@/components/FullScreenButton";
 import NavigationButton from "@/components/NavigationButton";
+import { UserData } from "@/models/User";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+interface HomeProps {
+  user: UserData;
+}
+
+export default function Home({ user }: HomeProps) {
   const tutorialText = "Tutorial";
   const newGameText = "New Game";
   const leaderboardText = "Leaderboard";
@@ -17,8 +23,9 @@ export default function Home() {
     <main
       className={`flex flex-col min-h-screen items-center justify-center space-y-6 bg-white p-8 ${inter.className}`}
     >
-      <h1 className="text-4xl font-bold text-green-600">
-        Welcome to RecycleQuest
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-green-600">
+        Welcome to RecycleQuest,{" "}
+        <span className="text-green-800">{user.nickname}!</span>
       </h1>
       <div className={"max-w-2xl"}>
         <NavigationButton path={"/tutorial"} buttonName={tutorialText} />
@@ -26,6 +33,7 @@ export default function Home() {
         <NavigationButton path={"/leaderboard"} buttonName={leaderboardText} />
         <NavigationButton path={"/information"} buttonName={infoText} />
         <NavigationButton path={"/feedback"} buttonName={feedbackText} />
+        <FullScreenButton />
       </div>
     </main>
   );
@@ -53,5 +61,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     });
     return redirectData;
   }
-  return { props: {} };
+  return {
+    props: {
+      user,
+    },
+  };
 };
