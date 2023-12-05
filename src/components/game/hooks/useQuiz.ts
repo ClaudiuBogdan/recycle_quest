@@ -3,7 +3,7 @@ import { quizQuestions } from "@/data/quizQuestions";
 import { QuizData } from "@/models/Quiz";
 import shuffleArray from "@/utils/shuffle";
 
-const questionsCount = 5;
+const questionsCount = 3;
 
 export function useQuiz() {
   const [questions, setQuestions] = useState<QuizData[]>([]);
