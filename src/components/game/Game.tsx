@@ -42,7 +42,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { events, addEvent } = useEvents();
   const { lives, totalLives, removeLife, addLife } = useLives();
   const { score, updateScore } = useScore();
-  const speed = useSpeed({ paused: paused });
+  const { speed, resetSpeed } = useSpeed({ paused: paused });
   const { conveyorBeltSize, binsSize } = useSize();
   const { questions, generateQuestions, hasQuestions } = useQuiz();
 
@@ -82,10 +82,11 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       const event = createMissItemEvent(item.imageId);
       removeItem(item.id);
       removeLife();
+      resetSpeed();
       setValidationState("missed");
       handleGameEvent(event);
     },
-    [removeItem, removeLife, setValidationState, handleGameEvent],
+    [removeItem, resetSpeed, removeLife, setValidationState, handleGameEvent],
   );
 
   const handleBinClick = (binType: RecycleBinType) => {
@@ -105,6 +106,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       setValidationState("valid");
     } else {
       removeLife();
+      resetSpeed();
       setValidationState("missed");
     }
   };

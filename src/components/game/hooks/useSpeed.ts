@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type UseSpeedProps = {
   paused: boolean;
@@ -11,7 +11,7 @@ const useSpeed = ({
   paused,
   initialSpeed = 0.15,
   constantSpeed = false,
-  speedIncrement = 0.015,
+  speedIncrement = 0.005,
 }: UseSpeedProps) => {
   const [speed, setSpeed] = useState(initialSpeed);
   const lastSpeedRef = useRef(speed);
@@ -26,14 +26,17 @@ const useSpeed = ({
   }, [paused]);
 
   useEffect(() => {
+    console.log({ constantSpeed, paused });
     if (!constantSpeed && !paused) {
-      const timeoutId = setTimeout(
+      const timeoutId = setInterval(
         () => setSpeed((speed) => speed + speedIncrement),
-        10000,
+        1000,
       );
       return () => clearTimeout(timeoutId);
     }
   }, [speedIncrement, constantSpeed, paused]);
-  return speed;
+
+  const resetSpeed = useCallback(() => setSpeed(initialSpeed), [initialSpeed]);
+  return { speed, resetSpeed };
 };
 export default useSpeed;
