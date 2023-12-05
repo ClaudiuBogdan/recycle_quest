@@ -52,7 +52,7 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
   const { events, addEvent } = useEvents();
-  const speed = useSpeed({
+  const { speed } = useSpeed({
     paused: tutorialEnded || paused,
     constantSpeed: true,
   });
