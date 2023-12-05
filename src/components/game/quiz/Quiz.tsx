@@ -15,6 +15,10 @@ const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
   const [question, setQuestion] = useState<QuizData | undefined>(questions[0]);
   const [answerState, setAnswerState] = useState<AnswerState | undefined>();
   const lastQuestionIdxRef = useRef(questions.length > 0 ? 0 : -1);
+  const quizProgress = createProgressText(
+    lastQuestionIdxRef.current,
+    questions.length,
+  );
 
   useEffect(() => {
     if (questions.length > 0 && lastQuestionIdxRef.current === -1) {
@@ -68,6 +72,7 @@ const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
         <QuizItem
           key={question.id}
           title={question.title}
+          header={quizProgress}
           question={question.question}
           options={question.answers}
           answerState={answerState}
@@ -77,5 +82,18 @@ const Quiz: React.FC<QuizProps> = ({ questions, onAnswer, onQuizFinish }) => {
     </>
   );
 };
+
+function createProgressText(
+  answeredCount: number,
+  questionsCount: number,
+): string | undefined {
+  if (answeredCount < 0) {
+    return undefined;
+  }
+  return [
+    ...new Array(answeredCount).fill("⭐️"),
+    ...new Array(questionsCount - answeredCount).fill("★"),
+  ].join("");
+}
 
 export default Quiz;

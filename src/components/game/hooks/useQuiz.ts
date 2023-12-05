@@ -9,8 +9,7 @@ export function useQuiz() {
   const [questions, setQuestions] = useState<QuizData[]>([]);
   const initialQuestionsRef = useRef(shuffleArray(quizQuestions));
   const lastQuestionIdRef = useRef(0);
-  const hasQuestions =
-    lastQuestionIdRef.current + questionsCount <= quizQuestions.length;
+  const hasQuestions = lastQuestionIdRef.current <= quizQuestions.length;
 
   const generateQuestions = useCallback(() => {
     const newQuestions = initialQuestionsRef.current.slice(
