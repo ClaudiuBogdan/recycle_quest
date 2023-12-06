@@ -1,10 +1,10 @@
 import { StaticImageData } from "next/image";
-import black from "@/assets/black_bin.png";
-import blue from "@/assets/blue_bin.png";
-import brown from "@/assets/brown_bin.png";
-import green from "@/assets/green_bin.png";
+import black from "@/assets/bins/black_bin.png";
+import blue from "@/assets/bins/blue_bin.png";
+import brown from "@/assets/bins/brown_bin.png";
+import green from "@/assets/bins/green_bin.png";
+import yellow from "@/assets/bins/yellow_bin.png";
 import placeholderImage from "@/assets/placeholder64x64.png";
-import yellow from "@/assets/yellow_bin.png";
 import { RecycleBinType } from "@/models/Bin";
 
 export function mapBinIdToImage(binId: RecycleBinType): StaticImageData {
