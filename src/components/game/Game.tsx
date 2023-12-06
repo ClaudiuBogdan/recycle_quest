@@ -6,6 +6,7 @@ import { RecycleBinType } from "@/models/Bin";
 import { GameEvent } from "@/models/Game";
 import Bins from "./Bins";
 import ConveyorBelt from "./ConveryorBelt";
+import EndGameDialog from "./EndGameDialog";
 import Lives from "./Lives";
 import Score from "./Score";
 import {
@@ -35,6 +36,7 @@ interface GameProps {
 const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const [startedAt] = useState(new Date().toISOString());
   const [gameEnded, setGameEnded] = useState(false);
+  const [isEndGameDialogVisible, setEndGameDialogVisible] = useState(false);
   const [paused, setPaused] = useState(false);
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
@@ -63,7 +65,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
     }
     setPaused(true);
     if (hasQuestions) {
-      generateQuestions();
+      setEndGameDialogVisible(true);
     } else {
       setGameEnded(true);
     }
@@ -148,6 +150,18 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
         onAnswer={handleQuizAnswer}
         onQuizFinish={handleQuizFinish}
       />
+      {isEndGameDialogVisible && (
+        <EndGameDialog
+          onEndGame={() => {
+            setEndGameDialogVisible(false);
+            setGameEnded(true);
+          }}
+          onStartQuiz={() => {
+            setEndGameDialogVisible(false);
+            generateQuestions();
+          }}
+        />
+      )}
     </div>
   );
 };
