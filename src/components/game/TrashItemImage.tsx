@@ -1,24 +1,24 @@
 import Image, { StaticImageData } from "next/image";
 
-import black1 from "@/assets/black1.png";
-import black2 from "@/assets/black2.png";
-import black3 from "@/assets/black3.png";
-import blue1 from "@/assets/blue1.png";
-import blue2 from "@/assets/blue2.png";
-import blue3 from "@/assets/blue3.png";
-import blue4 from "@/assets/blue3.png";
-import brown1 from "@/assets/brown1.png";
-import brown2 from "@/assets/brown2.png";
-import green1 from "@/assets/green1.png";
-import green2 from "@/assets/green2.png";
-import green3 from "@/assets/green3.png";
 import placeholderImage from "@/assets/placeholder64x64.png";
-import yellow1 from "@/assets/yellow1.png";
-import yellow2 from "@/assets/yellow2.png";
-import yellow3 from "@/assets/yellow3.png";
-import yellow4 from "@/assets/yellow4.png";
-import yellow5 from "@/assets/yellow5.png";
-import yellow6 from "@/assets/yellow6.png";
+import black1 from "@/assets/trashItems/black/black1.png";
+import black2 from "@/assets/trashItems/black/black2.png";
+import black3 from "@/assets/trashItems/black/black3.png";
+import blue1 from "@/assets/trashItems/blue/blue1.png";
+import blue2 from "@/assets/trashItems/blue/blue2.png";
+import blue4 from "@/assets/trashItems/blue/blue3.png";
+import blue3 from "@/assets/trashItems/blue/blue3.png";
+import brown1 from "@/assets/trashItems/brown/brown1.png";
+import brown2 from "@/assets/trashItems/brown/brown2.png";
+import green1 from "@/assets/trashItems/green/green1.png";
+import green2 from "@/assets/trashItems/green/green2.png";
+import green3 from "@/assets/trashItems/green/green3.png";
+import yellow1 from "@/assets/trashItems/yellow/yellow1.png";
+import yellow2 from "@/assets/trashItems/yellow/yellow2.png";
+import yellow3 from "@/assets/trashItems/yellow/yellow3.png";
+import yellow4 from "@/assets/trashItems/yellow/yellow4.png";
+import yellow5 from "@/assets/trashItems/yellow/yellow5.png";
+import yellow6 from "@/assets/trashItems/yellow/yellow6.png";
 
 export interface TrashItemImageProps {
   imageId: string;
