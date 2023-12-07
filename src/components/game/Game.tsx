@@ -5,7 +5,7 @@ import { trashItems } from "@/data/trashItems";
 import { RecycleBinType } from "@/models/Bin";
 import { GameEvent } from "@/models/Game";
 import Bins from "./Bins";
-import ConveyorBelt from "./ConveryorBelt";
+import ConveyorBelt from "./ConveyorBelt";
 import EndGameDialog from "./EndGameDialog";
 import Lives from "./Lives";
 import Score from "./Score";

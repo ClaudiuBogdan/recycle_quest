@@ -6,7 +6,7 @@ import { TrashItemData } from "@/models/TrashItem";
 import InformationOverlay from "./InformationOverlay";
 import { LevelMetadata } from "./types";
 import Bins from "../Bins";
-import ConveyorBelt from "../ConveryorBelt";
+import ConveyorBelt from "../ConveyorBelt/ConveyorBelt";
 import {
   createItemSelectedEvent,
   createMissItemEvent,

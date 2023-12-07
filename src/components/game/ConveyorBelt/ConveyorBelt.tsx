@@ -1,5 +1,8 @@
-import TrashItem from "./TrashItem";
-import { ITrashItemUI, Size } from "./types";
+import { useRef } from "react";
+import styles from "./ConveyorBelt.module.css";
+import { useAnimation } from "./useAnimaton";
+import TrashItem from "../TrashItem";
+import { ITrashItemUI, Size } from "../types";
 
 type ConveyorBeltProps = {
   items: ITrashItemUI[];
@@ -16,13 +19,16 @@ const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   hideItemLabel = false,
   onOverflow,
 }) => {
+  const beltRef = useRef<HTMLDivElement>(null);
+  useAnimation(beltRef, speed, size.height);
+
   return (
     <div
-      className="bg-gray-600 conveyor-belt"
+      ref={beltRef}
+      className={`rounded-b-md ${styles["conveyor-belt"]}`}
       style={{
         width: `${size.width}px`,
         height: `${size.height}px`,
-        animationDuration: `${speed ? Math.floor(850 / speed) : 0}ms`, // lag due to speed change
       }}
     >
       {items.map((item) => (
