@@ -128,7 +128,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
 
   return (
     <div
-      className={`relative h-screen ${color} transition duration-300 overflow-hidden flex justify-center`}
+      className={`relative h-screen ${color} overflow-hidden flex justify-center`}
     >
       <ConveyorBelt
         speed={speed}
