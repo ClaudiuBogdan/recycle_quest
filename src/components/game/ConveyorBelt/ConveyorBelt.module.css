@@ -1,0 +1,9 @@
+.conveyor-belt {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  background-image: url("/images/conveyor.jpeg");
+  background-size: 100% auto;
+  background-repeat: repeat-y;
+  box-shadow: 0 2.5vh 10vh -1vh black;
+}
