@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import TrashItemImage from "./TrashItemImage";
-import { ITrashItemUI, Size } from "./types";
-
+import { ITrashItemUI, Size } from "../types";
 type TrashItemProps = Size & {
   item: ITrashItemUI;
   speed: number;
@@ -80,7 +79,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
   }, [speed, height, containerPosition]);
   return (
     <div
-      className="absolute top-0 invisible text-center"
+      className={`absolute top-0 invisible text-center`}
       ref={divRef}
       style={{
         width: `${width}px`,
@@ -94,7 +93,7 @@ const TrashItem: React.FC<TrashItemProps> = ({
         height={height}
       />
       {!hideLabel && (
-        <span className="text-white relative" style={{ top: "-1rem" }}>
+        <span className="text-white relative" style={{ top: "-0.75vh" }}>
           {item.label}
         </span>
       )}

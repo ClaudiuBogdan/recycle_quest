@@ -56,6 +56,7 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
   const { events, addEvent } = useEvents();
   const { speed } = useSpeed({
     paused: tutorialEnded || paused,
+    initialSpeed: 0.1,
     constantSpeed: true,
   });
   const { score, updateScore } = useScore();

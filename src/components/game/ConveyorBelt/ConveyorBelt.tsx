@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import styles from "./ConveyorBelt.module.css";
 import { useAnimation } from "./useAnimaton";
-import TrashItem from "../TrashItem";
+import { TrashItem } from "../TrashItem";
 import { ITrashItemUI, Size } from "../types";
 
 type ConveyorBeltProps = {
