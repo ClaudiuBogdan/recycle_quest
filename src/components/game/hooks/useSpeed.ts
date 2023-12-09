@@ -9,9 +9,9 @@ type UseSpeedProps = {
 
 const useSpeed = ({
   paused,
-  initialSpeed = 0.15,
+  initialSpeed = 0.08,
   constantSpeed = false,
-  speedIncrement = 0.005,
+  speedIncrement = 0.002,
 }: UseSpeedProps) => {
   const [speed, setSpeed] = useState(initialSpeed);
   const lastSpeedRef = useRef(speed);
