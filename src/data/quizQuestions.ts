@@ -470,4 +470,564 @@ export const quizQuestions: QuizData[] = [
       { id: "b", text: "Nu, nu pot fi reciclate", correct: false },
     ],
   },
+  {
+    id: "yellow-bin-plastic-metal",
+    title: "Reciclarea plasticului și metalului",
+    question: "Ce tipuri de deșeuri sunt colectate în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Doar sticlă și carton", correct: false },
+      { id: "b", text: "Plastic și metal", correct: true },
+      { id: "c", text: "Deșeuri biodegradabile", correct: false },
+      { id: "d", text: "Hârtie și carton", correct: false },
+    ],
+  },
+  {
+    id: "blue-bin-paper-cardboard",
+    title: "Reciclarea hârtiei și cartonului",
+    question: "Ce se întâmplă cu hârtia reciclată?",
+    answers: [
+      { id: "a", text: "Salvează 17 arbori maturi pe tonă", correct: true },
+      { id: "b", text: "Reduce poluarea aerului cu 50%", correct: false },
+      { id: "c", text: "Economisește 20% energie", correct: false },
+      { id: "d", text: "Scade consumul de apă cu 40%", correct: false },
+    ],
+  },
+  {
+    id: "green-bin-glass",
+    title: "Reciclarea sticlei",
+    question:
+      "Ce tip de sticlă nu este acceptat pentru reciclare în pubela verde?",
+    answers: [
+      { id: "a", text: "Sticle de băuturi", correct: false },
+      { id: "b", text: "Borcane", correct: false },
+      { id: "c", text: "Sticla de la geamuri și parbrize", correct: true },
+      {
+        id: "d",
+        text: "Ambalaje din sticlă de la produse cosmetice",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "brown-bin-biodegradable",
+    title: "Deșeurile biodegradabile",
+    question:
+      "Ce nu trebuie aruncat în pubela maro pentru deșeurile biodegradabile?",
+    answers: [
+      { id: "a", text: "Resturi de fructe și legume", correct: false },
+      { id: "b", text: "Coji de ouă", correct: false },
+      { id: "c", text: "Lemn tratat chimic", correct: true },
+      { id: "d", text: "Rumeguș", correct: false },
+    ],
+  },
+  {
+    id: "black-bin-residual-waste",
+    title: "Deșeurile reziduale",
+    question: "Ce tip de deșeuri se colectează în pubela neagră?",
+    answers: [
+      { id: "a", text: "Deșeuri reciclabile", correct: false },
+      { id: "b", text: "Deșeuri biodegradabile", correct: false },
+      { id: "c", text: "Deșeuri reziduale", correct: true },
+      { id: "d", text: "Electronice și electrice", correct: false },
+    ],
+  },
+  {
+    id: "aluminum-can-recycling",
+    title: "Reciclarea dozelor de aluminiu",
+    question: "Ce beneficiu aduce reciclarea unei doze de aluminiu?",
+    answers: [
+      {
+        id: "a",
+        text: "Economisește energie pentru 3 ore de televizor",
+        correct: true,
+      },
+      { id: "b", text: "Reduce consumul de apă cu 30%", correct: false },
+      { id: "c", text: "Salvează un arbore", correct: false },
+      { id: "d", text: "Diminuează emisiile de CO2 cu 20%", correct: false },
+    ],
+  },
+  {
+    id: "plastic-bottle-preparation",
+    title: "Pregătirea sticlelor din plastic pentru reciclare",
+    question:
+      "Ce trebuie făcut înainte de a arunca o sticlă din plastic în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Îndepărtați eticheta", correct: false },
+      { id: "b", text: "Scoateți dopul și clătiți-o", correct: true },
+      { id: "c", text: "Spărgeți sticla", correct: false },
+      { id: "d", text: "Lăsați lichidul în ea", correct: false },
+    ],
+  },
+  {
+    id: "non-recyclable-materials",
+    title: "Materiale nereciclabile",
+    question: "Ce nu se aruncă în pubela pentru reciclare?",
+    answers: [
+      { id: "a", text: "Sticle de plastic", correct: false },
+      {
+        id: "b",
+        text: "Cutii de vopsele și bidoane cu diluanți",
+        correct: true,
+      },
+      { id: "c", text: "Hârtie și carton", correct: false },
+      { id: "d", text: "Borcane de sticlă", correct: false },
+    ],
+  },
+  {
+    id: "recycling-process-effectiveness",
+    title: "Eficiența procesului de reciclare",
+    question:
+      "Care este procentul de reciclare în România comparativ cu media europeană?",
+    answers: [
+      { id: "a", text: "13% față de 45%", correct: true },
+      { id: "b", text: "25% față de 50%", correct: false },
+      { id: "c", text: "30% față de 60%", correct: false },
+      { id: "d", text: "20% față de 40%", correct: false },
+    ],
+  },
+  {
+    id: "glass-recycling-features",
+    title: "Caracteristicile reciclării sticlei",
+    question: "Care este o caracteristică unică a sticlei reciclate?",
+    answers: [
+      { id: "a", text: "Nu își pierde calitățile", correct: true },
+      { id: "b", text: "Se degradează după 5 cicluri", correct: false },
+      { id: "c", text: "Schimbă culoarea la reciclare", correct: false },
+      { id: "d", text: "Devine mai fragilă", correct: false },
+    ],
+  },
+  {
+    id: "plastic-recycling",
+    title: "Reciclarea plasticului",
+    question: "Ce tipuri de plastic pot fi aruncate în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Doar PET-uri și pungi din plastic", correct: false },
+      { id: "b", text: "Orice tip de plastic", correct: false },
+      {
+        id: "c",
+        text: "Sticle, caserole și alte ambalaje din plastic",
+        correct: true,
+      },
+      { id: "d", text: "Doar jucării din plastic", correct: false },
+    ],
+  },
+  {
+    id: "metal-recycling",
+    title: "Reciclarea metalelor",
+    question: "Ce tipuri de metale pot fi aruncate în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Doar aluminiu", correct: false },
+      { id: "b", text: "Doze de aluminiu și cutii de conservă", correct: true },
+      { id: "c", text: "Fier și oțel", correct: false },
+      { id: "d", text: "Doar cupru", correct: false },
+    ],
+  },
+  {
+    id: "paper-recycling",
+    title: "Reciclarea hârtiei",
+    question: "Ce tip de hârtie nu este potrivit pentru reciclare?",
+    answers: [
+      { id: "a", text: "Ziare și reviste", correct: false },
+      {
+        id: "b",
+        text: "Cartonul de la cutii de pizza îmbibate cu ulei",
+        correct: true,
+      },
+      { id: "c", text: "Cărți și caiete", correct: false },
+      { id: "d", text: "Ambalaje din hârtie și carton", correct: false },
+    ],
+  },
+  {
+    id: "glass-recycling-color",
+    title: "Culoarea sticlei la reciclare",
+    question: "Influențează culoarea sticlei procesul de reciclare?",
+    answers: [
+      {
+        id: "a",
+        text: "Da, numai sticla transparentă poate fi reciclată",
+        correct: false,
+      },
+      {
+        id: "b",
+        text: "Nu, sticla de orice culoare poate fi reciclată",
+        correct: true,
+      },
+      { id: "c", text: "Doar sticla verde poate fi reciclată", correct: false },
+      { id: "d", text: "Sticla colorată nu este reciclabilă", correct: false },
+    ],
+  },
+  {
+    id: "biodegradable-waste",
+    title: "Deșeurile biodegradabile",
+    question: "Ce tip de resturi alimentare sunt permise în pubela maro?",
+    answers: [
+      { id: "a", text: "Resturi de carne și pește", correct: false },
+      { id: "b", text: "Orez, paste și cereale", correct: true },
+      { id: "c", text: "Uleiuri și grăsimi", correct: false },
+      { id: "d", text: "Produse lactate", correct: false },
+    ],
+  },
+  {
+    id: "non-recyclable-glass",
+    title: "Sticla nereciclabila",
+    question: "Ce tipuri de sticlă nu se pot recicla?",
+    answers: [
+      { id: "a", text: "Sticle de băuturi", correct: false },
+      { id: "b", text: "Damigene", correct: false },
+      { id: "c", text: "Sticla de la geamuri și parbrize", correct: true },
+      { id: "d", text: "Borcane fără capac", correct: false },
+    ],
+  },
+  {
+    id: "preparing-plastic-for-recycling",
+    title: "Pregătirea plasticului pentru reciclare",
+    question: "Cum trebuie pregătite ambalajele din plastic pentru reciclare?",
+    answers: [
+      { id: "a", text: "Spălate și uscate", correct: true },
+      { id: "b", text: "Colorate pentru identificare", correct: false },
+      { id: "c", text: "Desfăcute în bucăți mici", correct: false },
+      { id: "d", text: "Încălzite pentru a reduce volumul", correct: false },
+    ],
+  },
+  {
+    id: "contaminated-paper-recycling",
+    title: "Reciclarea hârtiei contaminate",
+    question: "Se pot recicla ambalajele de hârtie și carton contaminate?",
+    answers: [
+      { id: "a", text: "Da, dacă sunt curățate înainte", correct: false },
+      {
+        id: "b",
+        text: "Nu, dacă sunt contaminate cu ulei sau resturi alimentare",
+        correct: true,
+      },
+      { id: "c", text: "Da, dar numai în centre specializate", correct: false },
+      { id: "d", text: "Nu, dacă sunt colorate sau vopsite", correct: false },
+    ],
+  },
+  {
+    id: "recycling-benefits",
+    title: "Beneficiile reciclării",
+    question: "Care este unul dintre principalele beneficii ale reciclării?",
+    answers: [
+      {
+        id: "a",
+        text: "Creșterea emisiilor de gaze cu efect de seră",
+        correct: false,
+      },
+      {
+        id: "b",
+        text: "Reducerea consumului de resurse naturale",
+        correct: true,
+      },
+      { id: "c", text: "Creșterea costurilor de producție", correct: false },
+      {
+        id: "d",
+        text: "Scăderea calității produselor reciclate",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "residual-waste-fate",
+    title: "Soarta deșeurilor reziduale",
+    question: "Unde sunt direcționate deșeurile reziduale?",
+    answers: [
+      { id: "a", text: "La centre de reciclare", correct: false },
+      { id: "b", text: "La groapa de gunoi", correct: true },
+      { id: "c", text: "La incineratoare", correct: false },
+      { id: "d", text: "Reutilizate în producție", correct: false },
+    ],
+  },
+  {
+    id: "recycling-bottle-caps",
+    title: "Reciclarea capacelor de sticle",
+    question:
+      "Ce se întâmplă cu capacele sticlelor din plastic înainte de reciclare?",
+    answers: [
+      { id: "a", text: "Trebuie să fie atașate la sticlă", correct: false },
+      { id: "b", text: "Se aruncă separat", correct: false },
+      { id: "c", text: "Trebuie să fie îndepărtate", correct: true },
+      {
+        id: "d",
+        text: "Trebuie să fie curățate și apoi atașate",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-medicine-bottles",
+    title: "Reciclarea sticlelor de medicamente",
+    question: "Pot fi reciclate sticlele de plastic de la medicamente?",
+    answers: [
+      { id: "a", text: "Da, fără restricții", correct: false },
+      { id: "b", text: "Nu, niciodată", correct: false },
+      { id: "c", text: "Doar dacă sunt curățate și goale", correct: true },
+      { id: "d", text: "Da, dar numai în centre specializate", correct: false },
+    ],
+  },
+  {
+    id: "recycling-tetra-pack",
+    title: "Reciclarea ambalajelor Tetra Pak",
+    question: "Sunt ambalajele de tip Tetra Pak reciclabile în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Da, fără condiții", correct: true },
+      { id: "b", text: "Nu, acestea nu sunt reciclabile", correct: false },
+      { id: "c", text: "Doar dacă sunt spălate și uscate", correct: false },
+      { id: "d", text: "Doar în anumite zone geografice", correct: false },
+    ],
+  },
+  {
+    id: "recycling-food-contaminated",
+    title: "Reciclarea ambalajelor contaminate cu alimente",
+    question: "Pot fi reciclate ambalajele murdare cu resturi de alimente?",
+    answers: [
+      { id: "a", text: "Da, fără probleme", correct: false },
+      { id: "b", text: "Nu, acestea trebuie să fie curate", correct: true },
+      { id: "c", text: "Da, dar numai în centre specializate", correct: false },
+      {
+        id: "d",
+        text: "Doar dacă resturile de alimente sunt uscate",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-electronic-waste",
+    title: "Reciclarea deșeurilor electronice",
+    question: "Unde trebuie să fie aruncate deșeurile electronice?",
+    answers: [
+      { id: "a", text: "În pubela neagră", correct: false },
+      { id: "b", text: "În pubela galbenă", correct: false },
+      { id: "c", text: "În centrele specializate de colectare", correct: true },
+      { id: "d", text: "La marginea drumului", correct: false },
+    ],
+  },
+  {
+    id: "recycling-battery-disposal",
+    title: "Aruncarea bateriilor",
+    question: "Cum trebuie eliminate bateriile uzate?",
+    answers: [
+      {
+        id: "a",
+        text: "În pubela neagră pentru deșeuri reziduale",
+        correct: false,
+      },
+      {
+        id: "b",
+        text: "În pubela galbenă pentru plastic și metal",
+        correct: false,
+      },
+      { id: "c", text: "În punctele de colectare specializate", correct: true },
+      {
+        id: "d",
+        text: "În pubela albastră pentru hârtie și carton",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-plastic-film",
+    title: "Reciclarea foliei de plastic",
+    question: "Este folia de plastic reciclabilă?",
+    answers: [
+      { id: "a", text: "Da, în toate cazurile", correct: false },
+      { id: "b", text: "Nu, este nereciclabilă", correct: false },
+      { id: "c", text: "Da, dar numai în anumite condiții", correct: true },
+      { id: "d", text: "Numai în centre specializate", correct: false },
+    ],
+  },
+  {
+    id: "recycling-compost",
+    title: "Compostarea",
+    question: "Ce tip de deșeuri este potrivit pentru compostare?",
+    answers: [
+      { id: "a", text: "Orice tip de deșeu organic", correct: false },
+      { id: "b", text: "Doar resturi de fructe și legume", correct: false },
+      {
+        id: "c",
+        text: "Resturi de mâncare, zaț de cafea și coji de ouă",
+        correct: true,
+      },
+      { id: "d", text: "Plastic biodegradabil", correct: false },
+    ],
+  },
+  {
+    id: "recycling-paint-containers",
+    title: "Reciclarea containerelor de vopsea",
+    question: "Pot fi reciclate containerele de vopsea?",
+    answers: [
+      { id: "a", text: "Da, fără condiții", correct: false },
+      { id: "b", text: "Nu, niciodată", correct: true },
+      { id: "c", text: "Doar dacă sunt goale și curate", correct: false },
+      { id: "d", text: "Da, dar numai în centre specializate", correct: false },
+    ],
+  },
+  {
+    id: "recycling-oil-contaminated",
+    title: "Reciclarea materialelor contaminate cu ulei",
+    question: "Pot fi reciclate materialele contaminate cu ulei?",
+    answers: [
+      { id: "a", text: "Da, fără restricții", correct: false },
+      { id: "b", text: "Nu, nu se pot recicla", correct: true },
+      { id: "c", text: "Doar dacă uleiul este vegetal", correct: false },
+      {
+        id: "d",
+        text: "Numai în centre specializate de reciclare",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-plastic-toys",
+    title: "Reciclarea jucăriilor din plastic",
+    question: "Sunt jucăriile din plastic reciclabile în pubela galbenă?",
+    answers: [
+      { id: "a", text: "Da, fără restricții", correct: false },
+      {
+        id: "b",
+        text: "Nu, nu sunt reciclabile în pubela galbenă",
+        correct: true,
+      },
+      {
+        id: "c",
+        text: "Doar dacă sunt demontate în bucăți mici",
+        correct: false,
+      },
+      { id: "d", text: "Da, dar numai dacă sunt curățate", correct: false },
+    ],
+  },
+  {
+    id: "recycling-polystyrene",
+    title: "Reciclarea polistirenului",
+    question:
+      "Este polistirenul, cum ar fi cel folosit pentru izolarea clădirilor, reciclabil?",
+    answers: [
+      { id: "a", text: "Da, în toate cazurile", correct: false },
+      { id: "b", text: "Nu, nu este reciclabil", correct: true },
+      { id: "c", text: "Doar în anumite centre specializate", correct: false },
+      { id: "d", text: "Da, dar trebuie spălat întâi", correct: false },
+    ],
+  },
+  {
+    id: "recycling-ceramics",
+    title: "Reciclarea ceramicii și porțelanului",
+    question: "Pot fi reciclate obiectele din ceramică și porțelan?",
+    answers: [
+      { id: "a", text: "Da, în pubela galbenă", correct: false },
+      { id: "b", text: "Da, dar numai în centre specializate", correct: false },
+      {
+        id: "c",
+        text: "Nu, aceste materiale nu sunt reciclabile",
+        correct: true,
+      },
+      {
+        id: "d",
+        text: "Doar dacă sunt curățate și fără defecte",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-foil-preparation",
+    title: "Pregătirea foliei de aluminiu pentru reciclare",
+    question: "Cum trebuie pregătită folia de aluminiu pentru reciclare?",
+    answers: [
+      { id: "a", text: "Trebuie îndoită și rulată în bile", correct: false },
+      { id: "b", text: "Curățată și aplatizată", correct: true },
+      { id: "c", text: "Aruncată așa cum este", correct: false },
+      { id: "d", text: "Tăiată în bucăți mici", correct: false },
+    ],
+  },
+  {
+    id: "recycling-light-bulbs",
+    title: "Reciclarea becurilor",
+    question: "Cum trebuie reciclate becurile uzate?",
+    answers: [
+      { id: "a", text: "În pubela galbenă", correct: false },
+      { id: "b", text: "În punctele de colectare specializate", correct: true },
+      { id: "c", text: "În pubela neagră", correct: false },
+      { id: "d", text: "La marginea drumului", correct: false },
+    ],
+  },
+  {
+    id: "recycling-glass-jars-preparation",
+    title: "Pregătirea borcanelor de sticlă pentru reciclare",
+    question:
+      "Ce trebuie făcut cu borcanele de sticlă înainte de a le recicla?",
+    answers: [
+      { id: "a", text: "Spălate și etichetele îndepărtate", correct: true },
+      { id: "b", text: "Zdrobite pentru a economisi spațiu", correct: false },
+      { id: "c", text: "Capacele lăsate atașate", correct: false },
+      { id: "d", text: "Colorate pentru identificare", correct: false },
+    ],
+  },
+  {
+    id: "recycling-paint-contaminated",
+    title: "Reciclarea ambalajelor contaminate cu vopsea",
+    question: "Pot fi reciclate ambalajele contaminate cu vopsea?",
+    answers: [
+      { id: "a", text: "Da, în orice condiții", correct: false },
+      {
+        id: "b",
+        text: "Nu, acestea sunt considerate deșeuri periculoase",
+        correct: true,
+      },
+      { id: "c", text: "Doar dacă sunt goale și uscate", correct: false },
+      { id: "d", text: "În centre specializate de reciclare", correct: false },
+    ],
+  },
+  {
+    id: "recycling-plastic-bags",
+    title: "Reciclarea pungilor de plastic",
+    question: "Sunt pungile de plastic reciclabile?",
+    answers: [
+      { id: "a", text: "Da, în toate cazurile", correct: false },
+      {
+        id: "b",
+        text: "Da, dar numai dacă sunt curate și uscate",
+        correct: true,
+      },
+      { id: "c", text: "Nu, sunt nereciclabile", correct: false },
+      { id: "d", text: "Doar în anumite zone geografice", correct: false },
+    ],
+  },
+  {
+    id: "recycling-guidelines-importance",
+    title: "Importanța respectării ghidurilor de reciclare",
+    question:
+      "De ce este important să respectăm ghidurile locale de reciclare?",
+    answers: [
+      {
+        id: "a",
+        text: "Pentru a crește eficiența procesului de reciclare",
+        correct: true,
+      },
+      { id: "b", text: "Doar pentru a evita amenzi", correct: false },
+      {
+        id: "c",
+        text: "Pentru a ocupa mai puțin spațiu în containere",
+        correct: false,
+      },
+      {
+        id: "d",
+        text: "Nu este important, toate deșeurile sunt tratate la fel",
+        correct: false,
+      },
+    ],
+  },
+  {
+    id: "recycling-flammable-materials",
+    title: "Reciclarea materialelor inflamabile",
+    question: "Cum trebuie eliminate materialele inflamabile?",
+    answers: [
+      { id: "a", text: "În pubela galbenă", correct: false },
+      {
+        id: "b",
+        text: "În punctele de colectare specializate pentru deșeuri periculoase",
+        correct: true,
+      },
+      { id: "c", text: "În pubela neagră", correct: false },
+      { id: "d", text: "La marginea drumului", correct: false },
+    ],
+  },
 ];
