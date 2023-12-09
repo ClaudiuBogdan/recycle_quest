@@ -147,13 +147,13 @@ export const TrashItemOrganicFruitsVegetables: TrashItemData = Object.freeze({
 export const TrashItemRezidualUsedNapkin: TrashItemData = Object.freeze({
   imageId: "rezidual_used_napkin",
   type: "black",
-  label: "scutece",
+  label: "șervețele folosite",
 });
 
 export const TrashItemRezidualUsedDiaper: TrashItemData = Object.freeze({
   imageId: "rezidual_diaper",
   type: "black",
-  label: "șervețele folosite",
+  label: "scutece",
 });
 
 export const TrashItemRezidualCheese: TrashItemData = Object.freeze({
@@ -171,7 +171,7 @@ export const TrashItemRezidualDirtyPizzaBox: TrashItemData = Object.freeze({
 export const TrashItemRezidualEggs: TrashItemData = Object.freeze({
   imageId: "rezidual_eggs",
   type: "black",
-  label: "oua",
+  label: "ouă",
 });
 
 export const TrashItemRezidualFishBones: TrashItemData = Object.freeze({
