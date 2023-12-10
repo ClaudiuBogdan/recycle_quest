@@ -43,7 +43,7 @@ const TutorialComponent: React.FC<TutorialProps> = ({ onComplete }) => {
           message={
             "Felicitări, ai completat tutorialul! Acum ești pregătit să devii un super-erou al reciclării. Folosește cunoștințele dobândite pentru a face alegeri mai bune în reciclare și pentru a proteja mediul. E timpul să îți aplici abilitățile în joc și în viața de zi cu zi. Haide să începem!"
           }
-          buttonText={"Menu principal"}
+          buttonText={"Începe jocul"}
           onClose={handleEndScreenClose}
         />
       )}
