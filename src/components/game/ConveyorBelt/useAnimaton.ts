@@ -16,7 +16,8 @@ export function useAnimation(
         frameId = requestAnimationFrame(step);
         return;
       }
-      posRef.current = (speed * timestamp * conveyorHight) / 1000; // this could overflow and stop the band. A modulo could be used
+      posRef.current =
+        ((speed * timestamp * conveyorHight) / 1000) % conveyorHight;
       belt.style.backgroundPositionY = `${posRef.current}px`;
       frameId = requestAnimationFrame(step);
     };
