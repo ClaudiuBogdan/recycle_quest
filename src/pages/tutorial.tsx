@@ -9,7 +9,7 @@ export default function TutorialPage() {
     (metadata: LevelMetadata[]) => {
       // TODO: save data in api
       console.log(metadata);
-      void router.push("/home");
+      void router.push("/game");
     },
     [router],
   );
