@@ -3,7 +3,7 @@ import { TrashItemData } from "@/models/TrashItem";
 import shuffleArray from "@/utils/shuffle";
 import { ITrashItemUI } from "../types";
 
-const startingPosition = -0.3; // In percentage with respect to the conveyor belt height
+const startingPosition = -0.25; // In percentage with respect to the conveyor belt height
 
 export function useItems(trashItems: TrashItemData[], initialItemsCount = 3) {
   const lastIdRef = useRef(0);
