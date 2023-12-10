@@ -1,0 +1,25 @@
+.bin-click-indicator {
+  position: absolute;
+  font-size: 8vh;
+  cursor: pointer;
+  animation: click-animation 1s ease-in-out infinite;
+  display: inline-block; /* To enable transform */
+  transition: transform 0.1s ease-in-out;
+}
+
+
+/* Keyframes for the click animation */
+@keyframes click-animation {
+  0% { transform: scale(1) translate(-25%, -50%); }
+  50% { transform: scale(0.9) translate(-25%, -50%); }
+  100% { transform: scale(1) translate(-25%, -50%); }
+}
+
+@keyframes click-animation {
+  0%, 100% {
+    transform: translate(-25%, -40%) scale(1);
+  }
+  50% {
+    transform: translate(-25%, calc(-40% - 2vh)) scale(0.8); /* Slightly move up and scale down */
+  }
+}

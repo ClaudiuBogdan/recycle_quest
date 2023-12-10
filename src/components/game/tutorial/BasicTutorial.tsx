@@ -7,6 +7,7 @@ import InformationOverlay from "./InformationOverlay";
 import { LevelMetadata } from "./types";
 import Bins from "../Bins";
 import ConveyorBelt from "../ConveyorBelt/ConveyorBelt";
+import useBinIndicator from "../hooks/useBinIndicator";
 import {
   createItemSelectedEvent,
   createMissItemEvent,
@@ -53,6 +54,7 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
     trashItems,
     trashItems.length,
   );
+  const { binIndicator } = useBinIndicator(items, Infinity);
   const { events, addEvent } = useEvents();
   const { speed } = useSpeed({
     paused: tutorialEnded || paused,
@@ -138,6 +140,7 @@ const BasicTutorial: React.FC<BasicTutorialProps> = ({
         bins={bins}
         top={conveyorBeltSize.height}
         onBinClick={handleBinClick}
+        binIndicator={binIndicator}
         size={binsSize}
       />
       {showOverlay && (

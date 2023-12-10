@@ -1,14 +1,21 @@
 import { BinData, RecycleBinType } from "@/models/Bin";
-import RecyclingBin from "./RecyclingBin";
+import { RecyclingBin } from "./RecyclingBin";
 import { Size } from "./types";
 interface BinsProps {
   bins: BinData[];
   size: Size;
+  binIndicator?: RecycleBinType;
   top: number;
   onBinClick: (type: RecycleBinType) => void;
 }
 
-const Bins: React.FC<BinsProps> = ({ bins, top, size, onBinClick }) => {
+const Bins: React.FC<BinsProps> = ({
+  bins,
+  top,
+  size,
+  binIndicator,
+  onBinClick,
+}) => {
   const handleClick = (type: RecycleBinType) => {
     onBinClick(type);
   };
@@ -25,6 +32,7 @@ const Bins: React.FC<BinsProps> = ({ bins, top, size, onBinClick }) => {
         <RecyclingBin
           key={bin.type}
           type={bin.type}
+          showIndicator={binIndicator === bin.type}
           onClick={handleClick}
           label={bin.label}
         />
