@@ -36,6 +36,11 @@ const useSpeed = ({
   }, [speedIncrement, constantSpeed, paused]);
 
   const resetSpeed = useCallback(() => setSpeed(initialSpeed), [initialSpeed]);
-  return { speed, resetSpeed };
+  const decreaseSpeed = useCallback(
+    () => setSpeed((speed) => Math.max(speed - initialSpeed, initialSpeed)),
+    [initialSpeed],
+  );
+
+  return { speed, resetSpeed, decreaseSpeed };
 };
 export default useSpeed;
