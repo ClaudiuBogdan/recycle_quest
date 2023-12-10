@@ -9,6 +9,7 @@ import ConveyorBelt from "./ConveyorBelt";
 import EndGameDialog from "./EndGameDialog";
 import Lives from "./Lives";
 import Score from "./Score";
+import useBinIndicator from "./hooks/useBinIndicator";
 import {
   createItemSelectedEvent,
   createMissItemEvent,
@@ -41,6 +42,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
+  const { binIndicator } = useBinIndicator(items, 4);
   const { events, addEvent } = useEvents();
   const { lives, totalLives, removeLife, addLife } = useLives();
   const { score, updateScore } = useScore();
@@ -146,6 +148,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
       <Bins
         top={conveyorBeltSize.height}
         bins={trashBins}
+        binIndicator={binIndicator}
         onBinClick={handleBinClick}
         size={binsSize}
       />
