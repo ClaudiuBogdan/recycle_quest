@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { TrashItemData } from "@/models/TrashItem";
-import shuffleArray from "@/utils/shuffle";
+import { getInitialItems, nextItemBuilder } from "./utils/items";
 import { ITrashItemUI } from "../types";
 
 const startingPosition = -0.25; // In percentage with respect to the conveyor belt height
@@ -8,6 +8,7 @@ const startingPosition = -0.25; // In percentage with respect to the conveyor be
 export function useItems(trashItems: TrashItemData[], initialItemsCount = 3) {
   const lastIdRef = useRef(0);
   const [items, setItems] = useState<ITrashItemUI[]>([]);
+  const getNextItemRef = useRef(nextItemBuilder(trashItems));
 
   useEffect(() => {
     const initialItems = getInitialItems(
@@ -24,7 +25,7 @@ export function useItems(trashItems: TrashItemData[], initialItemsCount = 3) {
       const newItem: ITrashItemUI = {
         id: lastIdRef.current + 1,
         positionProgress: startingPosition, // No access to last item without introducing items as dependencies, so will be updated later.
-        ...getRandomItem(trashItems),
+        ...getNextItemRef.current(),
       };
       lastIdRef.current++;
 
@@ -77,29 +78,4 @@ export function useItems(trashItems: TrashItemData[], initialItemsCount = 3) {
     getFirstItem,
     verifyBinSelection,
   };
-}
-
-export function getInitialItems(
-  trashItems: TrashItemData[],
-  initialPosition: number,
-  count: number,
-): ITrashItemUI[] {
-  const randomItems = shuffleArray(trashItems);
-  const items: ITrashItemUI[] = [];
-
-  for (let i = 0; i < count; i++) {
-    const baseItem = randomItems[i % trashItems.length];
-    const item: ITrashItemUI = {
-      id: i + 1,
-      positionProgress: initialPosition * i,
-      ...baseItem,
-    };
-    items.push(item);
-  }
-  return items;
-}
-
-export function getRandomItem<T>(arr: T[]): T {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  return arr[randomIndex];
 }
