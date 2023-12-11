@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { RecycleBinType } from "@/models/Bin";
 import { ITrashItemUI } from "../types";
 
@@ -11,7 +11,8 @@ export default function useBinIndicator(
   );
   const lastItemRef = useRef<ITrashItemUI | undefined>();
   const itemCountRef = useRef<number>(0);
-  useEffect(() => {
+
+  const updateBinIndicator = useCallback(() => {
     const item = trashItems[0];
     if (lastItemRef.current !== item) {
       lastItemRef.current = item;
@@ -24,5 +25,12 @@ export default function useBinIndicator(
     }
   }, [trashItems, displayIndicatorLimit]);
 
-  return { binIndicator };
+  useEffect(updateBinIndicator, [updateBinIndicator]);
+
+  const resetIndicatorCount = useCallback(() => {
+    itemCountRef.current = 1;
+    updateBinIndicator();
+  }, [updateBinIndicator]);
+
+  return { binIndicator, resetIndicatorCount };
 }

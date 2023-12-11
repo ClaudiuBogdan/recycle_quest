@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import handClickSrc from "@/assets/hand_click.png";
 import { RecycleBinType } from "@/models/Bin";
 import styles from "./RecyclingBin.module.css";
 import RecyclingBinImage from "../RecyclingBinImage";
@@ -33,7 +35,13 @@ const RecyclingBin: React.FC<RecyclingBinProps> = ({
       <RecyclingBinImage type={type} label={type} width={100} height={100} />
       <span className="absolute text-gray-800 invisible">{label}</span>
       {showIndicator && (
-        <span className={styles["bin-click-indicator"]}>👆🏻</span>
+        <Image
+          className={styles["bin-click-indicator"]}
+          src={handClickSrc}
+          width={50}
+          height={50}
+          alt={"hand clicking bin"}
+        />
       )}
     </button>
   );

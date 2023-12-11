@@ -42,7 +42,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
   const { setState: setValidationState, color } = useValidationAnimation();
   const { items, removeItem, getFirstItem, verifyBinSelection } =
     useItems(trashItems);
-  const { binIndicator } = useBinIndicator(items, 4);
+  const { binIndicator, resetIndicatorCount } = useBinIndicator(items, 4);
   const { events, addEvent } = useEvents();
   const { lives, totalLives, removeLife, addLife } = useLives();
   const { score, updateScore } = useScore();
@@ -117,6 +117,7 @@ const Game: React.FC<GameProps> = ({ onGameEnded }) => {
     } else {
       removeLife();
       decreaseSpeed();
+      resetIndicatorCount();
       setValidationState("missed");
     }
   };
