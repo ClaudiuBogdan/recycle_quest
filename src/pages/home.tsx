@@ -15,6 +15,7 @@ interface HomeProps {
 export default function Home({ user }: HomeProps) {
   const tutorialText = "Tutorial";
   const newGameText = "New Game";
+  const chatText = "Chat with Reciclescu";
   const leaderboardText = "Leaderboard";
   const infoText = "Info";
   const feedbackText = "Feedback";
@@ -30,6 +31,12 @@ export default function Home({ user }: HomeProps) {
       <div className={"max-w-2xl"}>
         <NavigationButton path={"/tutorial"} buttonName={tutorialText} />
         <NavigationButton path={"/game"} buttonName={newGameText} />
+        <NavigationButton
+          path={
+            "https://flowise.devostack.com/chatbot/bd5cb636-dd65-4fa5-ab5e-ca07b21e2f62"
+          }
+          buttonName={chatText}
+        />
         <NavigationButton path={"/leaderboard"} buttonName={leaderboardText} />
         <NavigationButton path={"/information"} buttonName={infoText} />
         <NavigationButton path={"/feedback"} buttonName={feedbackText} />
